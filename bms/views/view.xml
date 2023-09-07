@@ -7,22 +7,27 @@
     <field name="arch" type="xml">
       <tree>
         <field name="name"/>
-        <!-- <field name="lantis_unique_id"/>
+        <field name="lantis_unique_id"/>
         <field name="is_active"/>
-        <field name="is_asset"/> -->
+        <field name="is_asset"/>
       </tree>
     </field>
   </record>
 
 
- <record id="bms_maintainance_object_view_form" model="ir.ui.view">
-        <field name="name">bms.maintainance_object.form</field>
-        <field name="model">bms.maintainance_object</field>
-        <field name="arch" type="xml">
-            <form string="Maintainance object">
-              <field name="name"/>
-            </form>
-        </field>
+  <record id="bms_maintainance_object_view_form" model="ir.ui.view">
+    <field name="name">bms.maintainance_object.form</field>
+    <field name="model">bms.maintainance_object</field>
+    <field name="arch" type="xml">
+      <form string="Maintainance object">
+        <group>
+          <field name="name"/>
+          <field name="lantis_unique_id"/>
+          <field name="is_active"/>
+          <field name="is_asset"/>
+        </group>
+      </form>
+    </field>
   </record>
 
   <!-- actions -->
