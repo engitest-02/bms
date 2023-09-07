@@ -10,6 +10,7 @@
         <field name="lantis_unique_id"/>
         <field name="is_active"/>
         <field name="is_asset"/>
+        <field name="maintainance_object_type_ids"/>
       </tree>
     </field>
   </record>
@@ -25,6 +26,7 @@
           <field name="lantis_unique_id"/>
           <field name="is_active"/>
           <field name="is_asset"/>
+          <field name="maintainance_object_type_ids"/>
         </group>
       </form>
     </field>
