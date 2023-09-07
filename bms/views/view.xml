@@ -25,7 +25,5 @@
   <menuitem id="bms_root" name="BMS"/>
   <menuitem id="bms_asset" parent="bms_root" name="Asset" groups="base.group_user"  sequence ="10" action="bms_asset_action"/>
 
-  <!-- groups="base.group_user" -->
-
 
 </odoo>
