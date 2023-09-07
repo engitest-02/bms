@@ -14,11 +14,22 @@
     </field>
   </record>
 
+
+ <record id="bms_maintainance_object_view_form" model="ir.ui.view">
+        <field name="name">bms.maintainance_object.form</field>
+        <field name="model">bms.maintainance_object</field>
+        <field name="arch" type="xml">
+            <form string="Maintainance object">
+              <field name="name"/>
+            </form>
+        </field>
+  </record>
+
   <!-- actions -->
   <record id="bms_asset_action" model="ir.actions.act_window">
     <field name="name">BMS asset</field>
     <field name="res_model">bms.maintainance_object</field>
-    <field name="view_mode">tree</field>
+    <field name="view_mode">tree,form</field>
   </record>
 
   <!-- menuitems -->
