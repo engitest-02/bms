@@ -13,10 +13,16 @@ class MaintainanceObject(models.Model):
     lantis_unique_id = fields.Char("Lantis ID", required=True)
     is_active = fields.Boolean("Is active")
     is_asset = fields.Boolean("IS asset")
-    
-    
-    # object_attribute_ids = fields.Many2many(
-    #     comodel_name="bms.object_type",
-    #     relation="objects_to_types",
-    #     column1="maintainance_object_id",
-    #     column2="object_type_id")
+
+    object_type_ids = fields.Many2many(
+        comodel_name="bms.object_type",
+        relation="bms_objects_to_types",
+        column1="object_id",
+        column2="object_type_id",
+    )
+    attr_value_ids = fields.Many2many(
+        comodel_name="bms.attribute_value",
+        relation="bms_objects_to_attr_values",
+        column1="object_id",
+        column2="attr_value_id",
+    )

@@ -3,3 +3,4 @@ bms.access_bms_maintainance_object,access_bms_maintainance_object,bms.model_bms_
 bms.access_bms_object_type_library,access_bms_object_type_library,bms.model_bms_object_type_library,base.group_user,1,1,1,1
 bms.access_bms_object_type,access_bms_object_type,bms.model_bms_object_type,base.group_user,1,1,1,1
 bms.access_bms_attribute_definition,access_bms_attribute_definition,bms.model_bms_attribute_definition,base.group_user,1,1,1,1
+bms.access_bms_attribute_value,access_bms_attribute_value,bms.model_bms_attribute_value,base.group_user,1,1,1,1

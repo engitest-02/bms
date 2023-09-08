@@ -10,7 +10,7 @@
         <field name="lantis_unique_id"/>
         <field name="is_active"/>
         <field name="is_asset"/>
-        <!-- <field name="otl_ids"/> -->
+
       </tree>
     </field>
   </record>
@@ -25,7 +25,26 @@
           <field name="lantis_unique_id"/>
           <field name="is_active"/>
           <field name="is_asset"/>
-          <!-- <field name="otl_ids" widget="many2many_tags"/> -->
+        </group>
+        <group>
+          <field name="object_type_ids" nolabel="1" widget="many2many">
+            <tree>
+              <field name="type_name"/>
+              <field name="description"/>
+            </tree>
+          </field>
+        </group>
+        <group>
+          <field name="attr_value_ids" nolabel="1" widget="many2many">
+            <tree>
+              <field name="value_string" />
+              <field name="value_boolean"/>
+              <field name="value_date" />
+              <field name="value_float"/>
+              <field name="value_binary"/>
+              <field name="value_integer"/>
+            </tree>
+          </field>
         </group>
       </form>
     </field>
@@ -83,12 +102,22 @@
         <notebook>
           <page string="Attributes">
             <field name="attribute_ids" nolabel="1" widget="many2many">
-            <tree>
-              <field name="name"/>
-              <field name="description"/>
-              <field name="value_type"/>
-            </tree>
+              <tree>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="value_type"/>
+              </tree>
             </field>
+            <!-- <field name="attr_value_ids" nolabel="1" widget="many2many">
+            <tree>
+            <field name="value_string" />
+            <field name="value_boolean" />
+            <field name="value_date" />
+            <field name="value_float" />
+            <field name="value_binary" />
+            <field name="value_integer" />
+            </tree>
+            </field> -->
           </page>
         </notebook>
       </form>
@@ -122,6 +151,42 @@
       </form>
     </field>
   </record>
+
+
+  <record id="bms_attribute_value_view_tree" model="ir.ui.view">
+    <field name="name">bms.attribute_value.tree</field>
+    <field name="model">bms.attribute_value</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="value_string"/>
+        <field name="value_boolean"/>
+        <field name="value_date"/>
+        <field name="value_float"/>
+        <field name="value_binary"/>
+        <field name="value_integer"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="bms_attribute_value_view_form" model="ir.ui.view">
+    <field name="name">bms.attribute_value.form</field>
+    <field name="model">bms.attribute_value</field>
+    <field name="arch" type="xml">
+      <form string="Attribute value">
+        <sheet>
+          <group>
+            <field name="value_string"/>
+            <field name="value_boolean"/>
+            <field name="value_date"/>
+            <field name="value_float"/>
+            <field name="value_binary"/>
+            <field name="value_integer"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
 
   <!-- actions -->
   <record id="bms_object_action" model="ir.actions.act_window">

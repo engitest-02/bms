@@ -17,3 +17,7 @@ class AttributeDefinition(models.Model):
         column1="attribute_id",
         column2="type_id",
     )
+    attr_value_id = fields.One2many(
+        comodel_name="bms.attribute_value", inverse_name="attr_def_id"
+    )
+    
