@@ -10,7 +10,7 @@
         <field name="lantis_unique_id"/>
         <field name="is_active"/>
         <field name="is_asset"/>
-        <!-- <field name="maintainance_object_type_ids"/> -->
+        <!-- <field name="otl_ids"/> -->
       </tree>
     </field>
   </record>
@@ -26,7 +26,7 @@
           <field name="lantis_unique_id"/>
           <field name="is_active"/>
           <field name="is_asset"/>
-          <!-- <field name="maintainance_object_type_ids"/> -->
+          <!-- <field name="otl_ids" widget="many2many_tags"/> -->
         </group>
       </form>
     </field>
@@ -34,7 +34,7 @@
 
    <record id="bms_object_type_library_view_tree" model="ir.ui.view">
     <field name="name">bms.asset.tree</field>
-    <field name="model">bms.maintainance_object_type_library</field>
+    <field name="model">bms.object_type_library</field>
     <field name="arch" type="xml">
       <tree>
         <field name="name"/>
@@ -43,9 +43,9 @@
     </field>
   </record>
 
-  <record id="bms_maintainance_object_type_library_view_form" model="ir.ui.view">
-    <field name="name">bms.maintainance_object_type_library.form</field>
-    <field name="model">bms.maintainance_object_type_library</field>
+  <record id="bms_object_type_library_view_form" model="ir.ui.view">
+    <field name="name">bms.object_type_library.form</field>
+    <field name="model">bms.object_type_library</field>
     <field name="arch" type="xml">
       <form string="Object type library">
         <group>
@@ -56,6 +56,34 @@
     </field>
   </record>
 
+
+   <record id="bms_object_type_view_tree" model="ir.ui.view">
+    <field name="name">bms.object_type.tree</field>
+    <field name="model">bms.object_type</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name"/>
+        <field name="value_type"/>
+      </tree>
+    </field>
+  </record>
+
+   <record id="bms_object_type_view_form" model="ir.ui.view">
+    <field name="name">bms.object_type.form</field>
+    <field name="model">bms.object_type</field>
+    <field name="arch" type="xml">
+      <form string="Object type library">
+        <group>
+        <field name="name"/>
+        <field name="value_type"/>
+        </group>
+      </form>
+    </field>
+  </record>
+
+
+
+
   <!-- actions -->
   <record id="bms_object_action" model="ir.actions.act_window">
     <field name="name">Maintainance Object</field>
@@ -64,16 +92,21 @@
   </record>
 
    <record id="bms_object_type_library_action" model="ir.actions.act_window">
-    <field name="name">Maintainance Object Type</field>
-    <field name="res_model">bms.maintainance_object_type_library</field>
+    <field name="name">Maintainance Object Type Library</field>
+    <field name="res_model">bms.object_type_library</field>
     <field name="view_mode">tree,form</field>
   </record>
 
+ <record id="bms_object_type_action" model="ir.actions.act_window">
+    <field name="name">Maintainance Object Type</field>
+    <field name="res_model">bms.object_type</field>
+    <field name="view_mode">tree,form</field>
+  </record>
 
   <!-- menuitems -->
   <menuitem id="bms_root" name="BMS"/>
   <menuitem id="bms_object" parent="bms_root" name="Mainteance Object" groups="base.group_user"  sequence ="10" action="bms_object_action"/>
   <menuitem id="bms_settings" parent="bms_root" name="Settings" groups="base.group_user" />
   <menuitem id="bms_object_type_library" parent="bms_settings" name="Object Type Library" groups="base.group_user" sequence="10" action="bms_object_type_library_action"/>
-
+  <menuitem id="bms_object_type" parent="bms_settings" name="Object type" groups="base.group_user" sequence="10" action="bms_object_type_action"/>
 </odoo>
