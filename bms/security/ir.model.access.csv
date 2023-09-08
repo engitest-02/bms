@@ -1,4 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 bms.access_bms_maintainance_object,access_bms_maintainance_object,bms.model_bms_maintainance_object,base.group_user,1,1,1,1
 bms.access_bms_object_type_library,access_bms_object_type_library,bms.model_bms_object_type_library,base.group_user,1,1,1,1
-bms.access_bms_object_type,access_bms_object_type,bms.model_bms_object_type,base.group_user,1,1,1,0
+bms.access_bms_object_type,access_bms_object_type,bms.model_bms_object_type,base.group_user,1,1,1,1
+bms.access_bms_attribute_definition,access_bms_attribute_definition,bms.model_bms_attribute_definition,base.group_user,1,1,1,1

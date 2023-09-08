@@ -1,1 +1,4 @@
-from . import maintainance_object, maintainance_object_type_library, object_type
+from . import maintainance_object
+from . import maintainance_object_type_library
+from . import object_type
+from . import attribute_definition

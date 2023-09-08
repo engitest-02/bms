@@ -15,7 +15,6 @@
     </field>
   </record>
 
-
   <record id="bms_maintainance_object_view_form" model="ir.ui.view">
     <field name="name">bms.maintainance_object.form</field>
     <field name="model">bms.maintainance_object</field>
@@ -32,7 +31,7 @@
     </field>
   </record>
 
-   <record id="bms_object_type_library_view_tree" model="ir.ui.view">
+  <record id="bms_object_type_library_view_tree" model="ir.ui.view">
     <field name="name">bms.asset.tree</field>
     <field name="model">bms.object_type_library</field>
     <field name="arch" type="xml">
@@ -49,40 +48,80 @@
     <field name="arch" type="xml">
       <form string="Object type library">
         <group>
-        <field name="name"/>
-        <field name="description"/>
+          <field name="name"/>
+          <field name="description"/>
         </group>
       </form>
     </field>
   </record>
 
 
-   <record id="bms_object_type_view_tree" model="ir.ui.view">
+  <record id="bms_object_type_view_tree" model="ir.ui.view">
     <field name="name">bms.object_type.tree</field>
     <field name="model">bms.object_type</field>
     <field name="arch" type="xml">
       <tree>
+        <field name="type_name"/>
+        <field name="description"/>
+        <field name="otl_id"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="bms_object_type_view_form" model="ir.ui.view">
+    <field name="name">bms.object_type.form</field>
+    <field name="model">bms.object_type</field>
+    <field name="arch" type="xml">
+      <form string="Object type library">
+        <header>
+          <group>
+            <field name="type_name"/>
+            <field name="description"/>
+            <field name="otl_id"/>
+          </group>
+        </header>
+        <notebook>
+          <page string="Attributes">
+            <field name="attribute_ids" nolabel="1" widget="many2many">
+            <tree>
+              <field name="name"/>
+              <field name="description"/>
+              <field name="value_type"/>
+            </tree>
+            </field>
+          </page>
+        </notebook>
+      </form>
+    </field>
+  </record>
+
+  <record id="bms_attribute_definition_view_tree" model="ir.ui.view">
+    <field name="name">bms.attribute_definition.tree</field>
+    <field name="model">bms.attribute_definition</field>
+    <field name="arch" type="xml">
+      <tree>
         <field name="name"/>
+        <field name="description"/>
         <field name="value_type"/>
       </tree>
     </field>
   </record>
 
-   <record id="bms_object_type_view_form" model="ir.ui.view">
-    <field name="name">bms.object_type.form</field>
-    <field name="model">bms.object_type</field>
+  <record id="bms_attribute_definition_view_form" model="ir.ui.view">
+    <field name="name">bms.attribute_definition.form</field>
+    <field name="model">bms.attribute_definition</field>
     <field name="arch" type="xml">
-      <form string="Object type library">
-        <group>
-        <field name="name"/>
-        <field name="value_type"/>
-        </group>
+      <form string="Attribute definition">
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="description"/>
+            <field name="value_type"/>
+          </group>
+        </sheet>
       </form>
     </field>
   </record>
-
-
-
 
   <!-- actions -->
   <record id="bms_object_action" model="ir.actions.act_window">
@@ -91,13 +130,13 @@
     <field name="view_mode">tree,form</field>
   </record>
 
-   <record id="bms_object_type_library_action" model="ir.actions.act_window">
+  <record id="bms_object_type_library_action" model="ir.actions.act_window">
     <field name="name">Maintainance Object Type Library</field>
     <field name="res_model">bms.object_type_library</field>
     <field name="view_mode">tree,form</field>
   </record>
 
- <record id="bms_object_type_action" model="ir.actions.act_window">
+  <record id="bms_object_type_action" model="ir.actions.act_window">
     <field name="name">Maintainance Object Type</field>
     <field name="res_model">bms.object_type</field>
     <field name="view_mode">tree,form</field>
