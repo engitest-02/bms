@@ -20,10 +20,17 @@ class AttributeValue(models.Model):
     value_binary = fields.Binary("binary value")
     value_integer = fields.Integer("integer value")
 
-    attr_def_id = fields.Many2one(comodel_name="bms.attribute_definition")
-    object_ids = fields.Many2many(
-        comodel_name="bms.maintainance_object",
-        relation="bms_objects_to_attr_values",
-        column1="attr_value_id",
-        column2="object_id",
+    attr_def_name = fields.Char(
+        related="attr_def_id.name", readonly=False, string="attribute name"
     )
+    attr_def_value_type = fields.Selection(
+        related="attr_def_id.value_type", readonly=False
+    )
+    object_name = fields.Char(related="object_id.name", string="object name")
+
+    # object_name = fields.Selection(related="object_ids.name")
+    # object_type = fields.Char(related="object_ids.type_name")
+    # object_is_active = fields.Boolean(ralaed)
+
+    attr_def_id = fields.Many2one(comodel_name="bms.attribute_definition")
+    object_id = fields.Many2one(comodel_name="bms.maintainance_object", string="Maintainance Object")

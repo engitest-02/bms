@@ -10,7 +10,6 @@
         <field name="lantis_unique_id"/>
         <field name="is_active"/>
         <field name="is_asset"/>
-
       </tree>
     </field>
   </record>
@@ -26,17 +25,51 @@
           <field name="is_active"/>
           <field name="is_asset"/>
         </group>
-        <group>
+        <field name="object_type_ids" widget="many2many">
+          <tree>
+            <field name="name"/>
+            <field name="description"/>
+            <field name="otl_id"/>
+            <field name="attribute_ids" widget="many2many">
+              <!-- <tree>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="value_type"/>
+              </tree> -->
+            </field>
+          </tree>
+        </field>
+        <!-- <field name="attr_value_ids"/> -->
+        <field name ="attr_value_ids" widget="many2many">
+          <tree>
+            <field name="attr_def_name"/>
+            <field name="attr_def_value_type"/>
+            <field name="value_string"/>
+            <field name="value_boolean"/>
+            <field name="value_float"/>
+
+          </tree>
+        </field>
+
+        <!-- <group>
           <field name="object_type_ids" nolabel="1" widget="many2many">
             <tree>
-              <field name="type_name"/>
+              <field name="name"/>
               <field name="description"/>
+              <field name="attibute_ids" nolabel="1" widget"many2many">
+              <tree>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="value_type"/>
+                </tree>
+              </field>
             </tree>
           </field>
-        </group>
-        <group>
+        </group> -->
+        <!-- <group>   
           <field name="attr_value_ids" nolabel="1" widget="many2many">
             <tree>
+              
               <field name="value_string" />
               <field name="value_boolean"/>
               <field name="value_date" />
@@ -45,7 +78,7 @@
               <field name="value_integer"/>
             </tree>
           </field>
-        </group>
+        </group> -->
       </form>
     </field>
   </record>
@@ -80,7 +113,7 @@
     <field name="model">bms.object_type</field>
     <field name="arch" type="xml">
       <tree>
-        <field name="type_name"/>
+        <field name="name"/>
         <field name="description"/>
         <field name="otl_id"/>
       </tree>
@@ -92,21 +125,19 @@
     <field name="model">bms.object_type</field>
     <field name="arch" type="xml">
       <form string="Object type library">
-        <header>
+
           <group>
-            <field name="type_name"/>
+            <field name="name"/>
             <field name="description"/>
             <field name="otl_id"/>
           </group>
-        </header>
-        <notebook>
-          <page string="Attributes">
+
             <field name="attribute_ids" nolabel="1" widget="many2many">
-              <tree>
+              <!-- <tree>
                 <field name="name"/>
                 <field name="description"/>
                 <field name="value_type"/>
-              </tree>
+              </tree> -->
             </field>
             <!-- <field name="attr_value_ids" nolabel="1" widget="many2many">
             <tree>
@@ -118,8 +149,8 @@
             <field name="value_integer" />
             </tree>
             </field> -->
-          </page>
-        </notebook>
+
+
       </form>
     </field>
   </record>
@@ -158,6 +189,9 @@
     <field name="model">bms.attribute_value</field>
     <field name="arch" type="xml">
       <tree>
+        <field name="object_name" />
+        <field name="attr_def_name"/>
+        <field name="attr_def_value_type"/>
         <field name="value_string"/>
         <field name="value_boolean"/>
         <field name="value_date"/>
@@ -175,6 +209,9 @@
       <form string="Attribute value">
         <sheet>
           <group>
+            <field name="object_id"/>
+            <field name="attr_def_id"/>
+            <field name="attr_def_value_type"/>
             <field name="value_string"/>
             <field name="value_boolean"/>
             <field name="value_date"/>
@@ -207,10 +244,24 @@
     <field name="view_mode">tree,form</field>
   </record>
 
+  <record id="bms_attribute_value_action" model="ir.actions.act_window">
+    <field name="name">Attribute value</field>
+    <field name="res_model">bms.attribute_value</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+    <record id="bms_attribute_definition_action" model="ir.actions.act_window">
+    <field name="name">Attribute definition</field>
+    <field name="res_model">bms.attribute_definition</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
   <!-- menuitems -->
   <menuitem id="bms_root" name="BMS"/>
   <menuitem id="bms_object" parent="bms_root" name="Mainteance Object" groups="base.group_user"  sequence ="10" action="bms_object_action"/>
   <menuitem id="bms_settings" parent="bms_root" name="Settings" groups="base.group_user" />
   <menuitem id="bms_object_type_library" parent="bms_settings" name="Object Type Library" groups="base.group_user" sequence="10" action="bms_object_type_library_action"/>
   <menuitem id="bms_object_type" parent="bms_settings" name="Object type" groups="base.group_user" sequence="10" action="bms_object_type_action"/>
+  <menuitem id="bms_attribute_value" parent="bms_settings" name="Attribute value" groups="base.group_user" sequence="20" action="bms_attribute_value_action"/>
+  <menuitem id="bms_attribute_definition" parent="bms_settings" name="Attribute definition" groups="base.group_user" sequence="30" action="bms_attribute_definition_action"/>
 </odoo>
