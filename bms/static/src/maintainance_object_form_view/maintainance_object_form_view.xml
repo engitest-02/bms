@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="bms.MaintainanceObjectFormView" t-inherit="web.FormView" owl="1">
+
+        <!-- <xpath expr="//t[@t-component='props.Renderer']" position="after"> -->
+            <xpath expr="//t[@archInfo='archInfo']" position="before">
+            <div>
+
+               Hello world object m/aintanance
+                <MaintainanceObject/>
+
+               <p>-------------------------------------------------------------------</p>
+            </div>
+        </xpath>   
+
+        <!-- <xpath expr="//t[@t-component='props.Renderer']" position="attributes">
+            <attribute name="archInfo">archInfo</attribute>
+        </xpath> -->
+
+
+    </t>
+</templates>
+

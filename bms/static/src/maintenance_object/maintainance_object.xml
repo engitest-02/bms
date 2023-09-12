@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="bms.maintainance_object" owl="1">
+            ici données object
+            <t t-log='this.props'>
+    </t>
+</templates>
