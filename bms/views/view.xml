@@ -26,6 +26,12 @@
           <field name="is_asset"/>
         </group>
         <field name="object_type_ids" widget="many2many">
+          <field name="name"/>
+          <field name="description"/>
+          <field name="otl_id"/>
+        </field>
+
+        <field name="object_type_ids" widget="many2many">
           <tree>
             <field name="name"/>
             <field name="description"/>
@@ -51,16 +57,16 @@
           </tree>
         </field>
         <field name="attr_value_ids" widget="ListX2ManyField">
-            <tree>
-              <field name="attr_def_name"/>
-              <field name="attr_def_value_type"/>
-              <field name="value_string"/> 
-              <field name="value_boolean"/>
-              <field name="value_date"/>
-              <field name="value_float"/>
-              <field name="value_binary"/>
-              <field name="value_integer"/>
-            </tree>
+          <tree>
+            <field name="attr_def_name"/>
+            <field name="attr_def_value_type"/>
+            <field name="value_string"/>
+            <field name="value_boolean"/>
+            <field name="value_date"/>
+            <field name="value_float"/>
+            <field name="value_binary"/>
+            <field name="value_integer"/>
+          </tree>
         </field>
       </form>
     </field>
