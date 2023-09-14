@@ -7,15 +7,15 @@
             <div>
 
                Hello world object m/aintanance
-                <MaintainanceObject/>
+               <MaintainanceObject model="model" />
 
                <p>-------------------------------------------------------------------</p>
             </div>
         </xpath>   
 
-        <!-- <xpath expr="//t[@t-component='props.Renderer']" position="attributes">
+        <xpath expr="//t[@t-component='props.Renderer']" position="attributes">
             <attribute name="archInfo">archInfo</attribute>
-        </xpath> -->
+        </xpath>
 
 
     </t>

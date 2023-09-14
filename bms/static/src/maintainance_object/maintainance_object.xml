@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="bms.maintainance_object" owl="1">
+        <p>ici données object</p>
+        <t t-log="props"/>
+        <t t-log="props.model.root.activeFields"/>
+        <t t-foreach="props.model.root.activeFields" t-as="val" t-key="val">
+           <p> <t t-out="val" /></p>
+            
+        </t> 
+
+
+        <!-- </t> -->
+        <p> fin des données </p>
+    </t>
+</templates>

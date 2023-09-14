@@ -21,6 +21,17 @@ class AttributeDefinition(models.Model):
         string="value type",
     )
 
+    value_string = fields.Char("string_value", related="attr_value_id.value_string")
+    value_boolean = fields.Boolean(
+        "boolean value", related="attr_value_id.value_boolean"
+    )
+    value_date = fields.Date("date value", related="attr_value_id.value_date")
+    value_float = fields.Float("float value", related="attr_value_id.value_float")
+    value_binary = fields.Binary("binary value", related="attr_value_id.value_binary")
+    value_integer = fields.Integer(
+        "integer value", related="attr_value_id.value_integer"
+    )
+
     type_id = fields.Many2many(
         comodel_name="bms.object_type",
         relation="bms_attributes_to_types",

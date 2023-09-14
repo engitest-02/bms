@@ -2,12 +2,16 @@
 import { FormController } from "@web/views/form/form_controller";
 import { formView } from "@web/views/form/form_view";
 import { registry } from "@web/core/registry";
-import { MaintainanceObject } from "../maintenance_object/maintainance_object"
+import { MaintainanceObject } from "../maintainance_object/maintainance_object"
+
+const {useState} = owl;
 
 class MaintainanceObjectController extends FormController {
+    
+     // this.props.model.root.data.attr_value_ids;
+
     setup() {
         super.setup();
-        this.archInfo = { ...this.props.archInfo }; // so that the archInfo are available in the component via props
     }
 
 

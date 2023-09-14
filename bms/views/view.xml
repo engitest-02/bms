@@ -31,54 +31,37 @@
             <field name="description"/>
             <field name="otl_id"/>
             <field name="attribute_ids" widget="many2many">
-              <!-- <tree>
-                <field name="name"/>
-                <field name="description"/>
-                <field name="value_type"/>
-              </tree> -->
-            </field>
-          </tree>
-        </field>
-        <!-- <field name="attr_value_ids"/> -->
-        <field name ="attr_value_ids" widget="many2many">
-          <tree>
-            <field name="attr_def_name"/>
-            <field name="attr_def_value_type"/>
-            <field name="value_string"/>
-            <field name="value_boolean"/>
-            <field name="value_float"/>
-
-          </tree>
-        </field>
-
-        <!-- <group>
-          <field name="object_type_ids" nolabel="1" widget="many2many">
-            <tree>
-              <field name="name"/>
-              <field name="description"/>
-              <field name="attibute_ids" nolabel="1" widget"many2many">
               <tree>
                 <field name="name"/>
                 <field name="description"/>
                 <field name="value_type"/>
-                </tree>
-              </field>
-            </tree>
-          </field>
-        </group> -->
-        <!-- <group>   
-          <field name="attr_value_ids" nolabel="1" widget="many2many">
+                <!-- <field name ="attr_value_id" invisible="1">
+                  <tree>
+                    <field name="attr_def_name" invisible="1"/>
+                    <field name="attr_def_value_type" invisible="1"/>
+                    <field name="value_string" invisible="1"/>
+                    <field name="value_boolean" invisible="1"/>
+                    <field name="value_float" invisible="1"/>
+                    <field name="value_binary" invisible="1"/>
+                    <field name="value_integer" invisible="1"/>
+                  </tree>
+                </field> -->
+              </tree>
+            </field>
+          </tree>
+        </field>
+        <field name="attr_value_ids" widget="ListX2ManyField">
             <tree>
-              
-              <field name="value_string" />
+              <field name="attr_def_name"/>
+              <field name="attr_def_value_type"/>
+              <field name="value_string"/> 
               <field name="value_boolean"/>
-              <field name="value_date" />
+              <field name="value_date"/>
               <field name="value_float"/>
               <field name="value_binary"/>
               <field name="value_integer"/>
             </tree>
-          </field>
-        </group> -->
+        </field>
       </form>
     </field>
   </record>
@@ -126,20 +109,20 @@
     <field name="arch" type="xml">
       <form string="Object type library">
 
-          <group>
-            <field name="name"/>
-            <field name="description"/>
-            <field name="otl_id"/>
-          </group>
+        <group>
+          <field name="name"/>
+          <field name="description"/>
+          <field name="otl_id"/>
+        </group>
 
-            <field name="attribute_ids" nolabel="1" widget="many2many">
-              <!-- <tree>
+        <field name="attribute_ids" nolabel="1" widget="many2many">
+          <!-- <tree>
                 <field name="name"/>
                 <field name="description"/>
                 <field name="value_type"/>
               </tree> -->
-            </field>
-            <!-- <field name="attr_value_ids" nolabel="1" widget="many2many">
+        </field>
+        <!-- <field name="attr_value_ids" nolabel="1" widget="many2many">
             <tree>
             <field name="value_string" />
             <field name="value_boolean" />
@@ -250,7 +233,7 @@
     <field name="view_mode">tree,form</field>
   </record>
 
-    <record id="bms_attribute_definition_action" model="ir.actions.act_window">
+  <record id="bms_attribute_definition_action" model="ir.actions.act_window">
     <field name="name">Attribute definition</field>
     <field name="res_model">bms.attribute_definition</field>
     <field name="view_mode">tree,form</field>
@@ -272,5 +255,5 @@
   <menuitem id="bms_attribute_definition" parent="bms_settings" name="Attribute definition" groups="base.group_user" sequence="30" action="bms_attribute_definition_action"/>
 
   <!-- <menuitem id="bms_maintainance_object" parent="bms_root" name="Custom view asset" groups="base.group_user" action="custom_maintenance_object" sequence="1"/> -->
-  
+
 </odoo>

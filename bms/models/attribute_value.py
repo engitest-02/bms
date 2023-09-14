@@ -21,10 +21,10 @@ class AttributeValue(models.Model):
     value_integer = fields.Integer("integer value")
 
     attr_def_name = fields.Char(
-        related="attr_def_id.name", readonly=False, string="attribute name"
+        related="attr_def_id.name", readonly=True, string="attribute name"
     )
     attr_def_value_type = fields.Selection(
-        related="attr_def_id.value_type", readonly=False
+        related="attr_def_id.value_type", readonly=True
     )
     object_name = fields.Char(related="object_id.name", string="object name")
 
