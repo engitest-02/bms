@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
-    <t t-name="bms.MaintainanceObjectFormView" t-inherit="web.FormView" owl="1">
+    <!-- <t t-name="bms.MaintainanceObjectFormView" t-inherit="web.FormView" owl="1"> -->
+    <t t-name="bms.MaintainanceObjectFormView"  owl="1">
 
         <!-- <xpath expr="//t[@t-component='props.Renderer']" position="after"> -->
-            <xpath expr="//t[@archInfo='archInfo']" position="before">
+            <!-- <xpath expr="//t[@archInfo='archInfo']" position="after"> -->
             <div>
 
-               Hello world object m/aintanance
-               <MaintainanceObject model="model" />
-
+               Hello world MaintainanceObjectFormView
+               <MaintainanceObject value="props"/>
+              <div>  <t t-out="props.record.id"/> </div>
                <p>-------------------------------------------------------------------</p>
             </div>
-        </xpath>   
-
+        <!-- </xpath>    -->
+<!-- 
         <xpath expr="//t[@t-component='props.Renderer']" position="attributes">
             <attribute name="archInfo">archInfo</attribute>
-        </xpath>
+        </xpath> -->
 
 
     </t>

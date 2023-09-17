@@ -1,16 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <t t-name="bms.maintainance_object" owl="1">
-        <p>ici données object</p>
-        <t t-log="props"/>
-        <t t-log="props.model.root.activeFields"/>
-        <t t-foreach="props.model.root.activeFields" t-as="val" t-key="val">
-           <p> <t t-out="val" /></p>
-            
-        </t> 
+        <div>
+            +++ maintainance_object ++++++
+        </div>
 
+        <t t-log="fieldsProps"/>
+        <t t-foreach="fieldsProps" t-as="fieldProps" t-key="fieldProps.id">
+           <div>
+            <Field name="fieldProps.fieldName" record="fieldProps.fieldRecord" fieldInfo="fieldProps.fieldInfo" class="fieldProps.fieldClass" setDirty="fieldProps.setDirty" readonly="0"/>
+            </div>
+        </t>
 
-        <!-- </t> -->
-        <p> fin des données </p>
+        <div>
+            ----- end maintainance object ---
+        </div>
     </t>
 </templates>

@@ -1,12 +1,13 @@
 /** @odoo-module */
-import { FormController } from "@web/views/form/form_controller";
+// import { FormController } from "@web/views/form/form_controller";
+import { FormRenderer } from "@web/views/form/form_renderer";
 import { formView } from "@web/views/form/form_view";
 import { registry } from "@web/core/registry";
 import { MaintainanceObject } from "../maintainance_object/maintainance_object"
 
 const {useState} = owl;
 
-class MaintainanceObjectController extends FormController {
+class MaintainanceObjectRenderer extends FormRenderer {
     
      // this.props.model.root.data.attr_value_ids;
 
@@ -17,14 +18,14 @@ class MaintainanceObjectController extends FormController {
 
 }
 
-MaintainanceObjectController.template = "bms.MaintainanceObjectFormView";
-MaintainanceObjectController.components = {
-    ...MaintainanceObjectController.components, MaintainanceObject
+MaintainanceObjectRenderer.template = "bms.MaintainanceObjectFormView";
+MaintainanceObjectRenderer.components = {
+    ...MaintainanceObjectRenderer.components, MaintainanceObject
 };
 
 export const maintainanceObjectView = {
     ...formView,
-    Controller: MaintainanceObjectController,
+    Renderer: MaintainanceObjectRenderer,
 };
 
 registry.category("views").add("maintainance_object_form", maintainanceObjectView);

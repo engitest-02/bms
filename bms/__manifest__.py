@@ -7,12 +7,16 @@
     "summary": "Asset Beheermanagement Systeem",
     "dascription": """POC to evaluate odoo as target tool for the BMS""",
     "demo": [],
-    'depends': ['base', 'web'],
+    "depends": ["base", "web"],
     "data": [
         "views/view.xml",
         "security/ir.model.access.csv",
     ],
     "assets": {
+        # "web.assets_frontend": [
+        #     "web/static/lib/bootstrap/js/*",
+        #     "web/static/lib/bootstrap/scss/*",
+        # ],
         "web.assets_backend": [
             "bms/static/src/**/*",
         ],
