@@ -13,10 +13,6 @@
         "security/ir.model.access.csv",
     ],
     "assets": {
-        # "web.assets_frontend": [
-        #     "web/static/lib/bootstrap/js/*",
-        #     "web/static/lib/bootstrap/scss/*",
-        # ],
         "web.assets_backend": [
             "bms/static/src/**/*",
         ],

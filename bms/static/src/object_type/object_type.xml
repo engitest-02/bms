@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+<t t-name="bms.object_type" owl="1">
+    <div>
+        my object type 
+        <t t-out="props.maintainance_object_id" />
+        <!-- <t t-log="reg" /> -->
+        <t t-log="object_types" />
+        <!-- <Field/> -->
+    </div>
+</t>
+</templates>

@@ -1,33 +1,14 @@
 /** @odoo-module */
 import { Field } from "@web/views/fields/field";
+import {ObjectType} from "../object_type/object_type";
 
 const { Component } = owl;
 
 export class MaintainanceObject extends Component {
     setup() {
 
-        // this.fieldsProps = {};
-        // // for (const [key, value] of Object.entries(obj)) {
-        // //     console.log(key, value);
-        // // }
-        // let counter = 0;
-        // for (const [key, activeField] of Object.entries(this.props.value.record.activeFields))
-        // {
-        //     counter = counter + 1;
-        //     this.fieldsProps[activeField.name] = {};        
-        //     this.fieldsProps[activeField.name]['id'] = counter;
-        //     this.fieldsProps[activeField.name]['fieldName'] = activeField.name;
-        //     this.fieldsProps[activeField.name]['fieldInfo'] = { 'FieldComponent': activeField.FieldComponent };
-        //     this.fieldsProps[activeField.name]['fieldClass'] = activeField.FieldComponent.name;
-        //     this.fieldsProps[activeField.name]['setDirty'] = this.props.value.setFieldAsDirty;
-
-        //     this.fieldsProps[activeField.name]['fieldRecord'] = this.props.value.record;
-        // };
-
         this.fieldsProps = [];
-        // for (const [key, value] of Object.entries(obj)) {
-        //     console.log(key, value);
-        // }
+
         let counter = -1;
         for (const [key, activeField] of Object.entries(this.props.value.record.activeFields)) {
             counter = counter + 1;
@@ -50,7 +31,7 @@ export class MaintainanceObject extends Component {
         this.setDirty = this.propsValue.setFieldAsDirty;
 
 
-        this.object_id = this.propsValue.record.data.id;
+        this.maintainance_object_id = this.propsValue.record.data.id;
 
 
     }
@@ -60,7 +41,7 @@ export class MaintainanceObject extends Component {
     }
 }
 
-MaintainanceObject.components = { Field };
+MaintainanceObject.components = { Field, ObjectType };
 MaintainanceObject.props = ["value"];
 MaintainanceObject.template = "bms.maintainance_object";
 

@@ -9,7 +9,7 @@
 
                Hello world MaintainanceObjectFormView
                <MaintainanceObject value="props"/>
-              <div>  <t t-out="props.record.id"/> </div>
+                
                <p>-------------------------------------------------------------------</p>
             </div>
         <!-- </xpath>    -->

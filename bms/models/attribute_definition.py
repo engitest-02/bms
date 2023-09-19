@@ -11,7 +11,7 @@ class AttributeDefinition(models.Model):
     description = fields.Char("description")
     value_type = fields.Selection(
         [
-            ("string", "string"),
+            ("char", "char"),
             ("boolean", "boolean"),
             ("date", "date"),
             ("float", "float"),

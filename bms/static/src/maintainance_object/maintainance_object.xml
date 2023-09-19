@@ -11,6 +11,9 @@
             <Field name="fieldProps.fieldName" record="fieldProps.fieldRecord" fieldInfo="fieldProps.fieldInfo" class="fieldProps.fieldClass" setDirty="fieldProps.setDirty" readonly="0"/>
             </div>
         </t>
+        
+        <ObjectType maintainance_object_id="maintainance_object_id"/>
+    
 
         <div>
             ----- end maintainance object ---
