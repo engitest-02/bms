@@ -8,8 +8,7 @@ import { MaintainanceObject } from "../maintainance_object/maintainance_object"
 const {useState} = owl;
 
 class MaintainanceObjectRenderer extends FormRenderer {
-    
-     // this.props.model.root.data.attr_value_ids;
+
 
     setup() {
         super.setup();

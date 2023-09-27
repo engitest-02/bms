@@ -17,7 +17,6 @@ class AttributeValue(models.Model):
     value_boolean = fields.Boolean("boolean value")
     value_date = fields.Date("date value")
     value_float = fields.Float("float value")
-    value_binary = fields.Binary("binary value")
     value_integer = fields.Integer("integer value")
 
     attr_def_name = fields.Char(

@@ -14,7 +14,9 @@ class MaintainanceObject(models.Model):
     is_active = fields.Boolean("Is active")
     is_asset = fields.Boolean("IS asset")
 
-    # type_name = fields.Char(related="object_type_ids.name")
+    # otl_name = fields.Selection(related="object_type_ids.otl_name")
+    # type_name = fields.Selection(related="object_type_ids.name")
+
     # attr_def = fields.Char(related="attr_value_ids.attr_def_name")
     # value_type = fields.Char(compute="_get_value_type")
 

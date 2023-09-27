@@ -3,3 +3,4 @@ from . import maintainance_object_type_library
 from . import object_type
 from . import attribute_definition
 from . import attribute_value
+from . import att_def_value_report

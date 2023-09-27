@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
   <!-- views -->
   <record id="bms_object_view_tree" model="ir.ui.view">
     <field name="name">bms.object.tree</field>
@@ -14,54 +15,67 @@
     </field>
   </record>
 
-  <record id="bms_maintainance_object_view_form" model="ir.ui.view">
+  <record id="bms_otl_type_form" model="ir.ui.view">
+        <field name="name">bms.otl_type.form</field>
+        <field name="model">bms.otl_type</field>
+        <field name="arch" type="xml">
+            <form >
+                <group>
+                    <field name="object_ids"  readonly="1"/>
+                    <field name="otl"  readonly="1"/>
+                    <field name="object_type"/>
+                </group>
+            </form>
+        </field>
+    </record>  <record id="bms_maintainance_object_view_form" model="ir.ui.view">
     <field name="name">bms.maintainance_object.form</field>
     <field name="model">bms.maintainance_object</field>
     <field name="arch" type="xml">
-      <!-- <form string="Maintainance object" js_class="maintainance_object_form"> -->
-
-      <form string="Maintainance object" js_class="maintainance_object_form" >
-      
-        <group>
-          <field name="name"/>
-          <field name="lantis_unique_id"/>
-          <field name="is_active"/>
-          <field name="is_asset"/>
-        </group>
-
-
-        <field name="object_type_ids" invisible="1">
-          <tree>
-            <field name="name"/>
-            <field name="description"/>
-            <field name="otl_id"/>
-             <field name="attribute_ids" >
-              <tree>
-                <field name="name"/>
-                <field name="description"/>
-                <field name="value_type"/>
-              </tree>
-            </field> 
-          </tree>
-        </field>
-
-        <field name="attr_value_ids" invisible="1" >
-          <tree>
-            <field name="attr_def_name"/>
-            <field name="attr_def_value_type"/>
-            <field name="value_string"/>
-            <field name="value_boolean"/>
-            <field name="value_date"/>
-            <field name="value_float"/>
-            <field name="value_binary"/>
-            <field name="value_integer"/>
-          </tree>
-        </field> 
+      <form string="Maintainance object">
+        <sheet>
+          <group >
+            <group >
+              <field name="name" />
+              <field name="lantis_unique_id" />
+            </group>
+            <group >
+              <field name="is_active"/>
+              <field name="is_asset" />
+            </group>
+          </group>
+          <notebook>
+            <page string="OTL">
+              <field name="object_type_ids" widget="object_type_notebook">
+                <tree >
+                  <field name="name"/>
+                  <field name="description"/>
+                  <field name="otl_id"/>
+                  <field name="attribute_ids" invisible="1"/>
+                </tree>
+              </field>
+            </page>
+          </notebook>
+        </sheet>
       </form>
     </field>
   </record>
 
-
+  <record id="bms_maintainance_object_view_form_2" model="ir.ui.view">
+    <field name="name">bms.maintainance_object.form_2</field>
+    <field name="model">bms.maintainance_object</field>
+    <field name="arch" type="xml">
+      <form>
+        <field name="name" />
+        <field name="lantis_unique_id" />
+        <field name="object_type_ids">
+          <!-- <form>
+            <field name="otl_name"/>
+            <field name="name"/>
+          </form> -->
+        </field>
+      </form>
+    </field>
+  </record>
 
   <record id="bms_object_type_library_view_tree" model="ir.ui.view">
     <field name="name">bms.asset.tree</field>
@@ -125,7 +139,6 @@
             <field name="value_boolean" />
             <field name="value_date" />
             <field name="value_float" />
-            <field name="value_binary" />
             <field name="value_integer" />
             </tree>
             </field> -->
@@ -176,8 +189,9 @@
         <field name="value_boolean"/>
         <field name="value_date"/>
         <field name="value_float"/>
-        <field name="value_binary"/>
         <field name="value_integer"/>
+        <field name="attr_def_id"/>
+        <field name="object_id"/>
       </tree>
     </field>
   </record>
@@ -196,7 +210,6 @@
             <field name="value_boolean"/>
             <field name="value_date"/>
             <field name="value_float"/>
-            <field name="value_binary"/>
             <field name="value_integer"/>
           </group>
         </sheet>
@@ -204,6 +217,7 @@
     </field>
   </record>
 
+  
 
   <!-- actions -->
   <record id="bms_object_action" model="ir.actions.act_window">
@@ -212,7 +226,7 @@
     <field name="view_mode">tree,form</field>
   </record>
 
-  
+
   <record id="bms_object_type_library_action" model="ir.actions.act_window">
     <field name="name">Maintainance Object Type Library</field>
     <field name="res_model">bms.object_type_library</field>
@@ -238,24 +252,33 @@
   </record>
 
 
+  <record id="bms_m_object_action_2" model="ir.actions.act_window">
+    <field name="name">Modify otl and type</field>
+    <field name="res_model">bms.maintainance_object</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="bms_maintainance_object_view_form_2" />
+  </record>
 
-  <!-- <record model="ir.actions.client" id="custom_maintenance_object">
-      <field name="name">Custom maintainance object</field>
-      <field name="tag">bms.maintainance_object</field>
-    </record>
- -->
+  <record id="bms_m_object_action_3" model="ir.actions.act_window">
+    <field name="name">Modify otl and type</field>
+    <field name="res_model">bms.otl_type</field>
+    <field name="view_mode">form</field>
+  </record>
+
+
 
   <!-- menuitems -->
   <menuitem id="bms_root" name="BMS"/>
   <menuitem id="bms_object" parent="bms_root" name="Maintainance Object" groups="base.group_user"  sequence ="10" action="bms_object_action"/>
 
-  
+
   <menuitem id="bms_settings" parent="bms_root" name="Settings" groups="base.group_user" />
   <menuitem id="bms_object_type_library" parent="bms_settings" name="Object Type Library" groups="base.group_user" sequence="10" action="bms_object_type_library_action"/>
   <menuitem id="bms_object_type" parent="bms_settings" name="Object type" groups="base.group_user" sequence="10" action="bms_object_type_action"/>
   <menuitem id="bms_attribute_value" parent="bms_settings" name="Attribute value" groups="base.group_user" sequence="20" action="bms_attribute_value_action"/>
   <menuitem id="bms_attribute_definition" parent="bms_settings" name="Attribute definition" groups="base.group_user" sequence="30" action="bms_attribute_definition_action"/>
-
+  <menuitem id="bms_otl_and_type_assgination" parent="bms_settings" name="Assign otl and type" groups="base.group_user" sequence="40" action="bms_m_object_action_2"/>
+  <menuitem id="bms_otl_and_type_assgination_2" parent="bms_settings" name="Assign otl and type v2" groups="base.group_user" sequence="50" action="bms_m_object_action_3"/>
 
 
 </odoo>

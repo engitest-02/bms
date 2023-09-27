@@ -12,13 +12,9 @@ class ObjectType(models.Model):
     name = fields.Char("type name")
     description = fields.Char("description")
 
+    otl_name = fields.Char(related="otl_id.name")
+
     otl_id = fields.Many2one(comodel_name="bms.object_type_library")
-    object_ids = fields.Many2many(
-        comodel_name="bms.object_type",
-        relation="bms_objects_to_types",
-        column1="object_type_id",
-        column2="object_id",
-    )
 
     attribute_ids = fields.Many2many(
         comodel_name="bms.attribute_definition",
@@ -27,8 +23,10 @@ class ObjectType(models.Model):
         column2="attribute_id",
     )
 
-    @api.returns('self')
-    def get_object_type(self):
-        
-        return self
+    @api.model
+    def get_object_type(self, ids):
+        print('ids...', ids)
+        result = self.browse(ids)
+        print(type(result))
+        return result
         # return json.dump(self.search([["object_ids", "in", [1]]]))

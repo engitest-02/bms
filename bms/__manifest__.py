@@ -11,6 +11,7 @@
     "data": [
         "views/view.xml",
         "security/ir.model.access.csv",
+        "wizards/otl_type_view.xml"
     ],
     "assets": {
         "web.assets_backend": [

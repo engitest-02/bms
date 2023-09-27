@@ -27,10 +27,11 @@ class AttributeDefinition(models.Model):
     )
     value_date = fields.Date("date value", related="attr_value_id.value_date")
     value_float = fields.Float("float value", related="attr_value_id.value_float")
-    value_binary = fields.Binary("binary value", related="attr_value_id.value_binary")
     value_integer = fields.Integer(
         "integer value", related="attr_value_id.value_integer"
     )
+
+    otl_name = fields.Char(related="type_id.name")
 
     type_id = fields.Many2many(
         comodel_name="bms.object_type",
@@ -39,5 +40,5 @@ class AttributeDefinition(models.Model):
         column2="type_id",
     )
     attr_value_id = fields.One2many(
-        comodel_name="bms.attribute_value", inverse_name="attr_def_id"
+        comodel_name="bms.attribute_value", inverse_name="attr_def_id", store=True
     )
