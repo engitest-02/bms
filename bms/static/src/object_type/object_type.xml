@@ -3,17 +3,16 @@
     <t t-name="bms.object_type_notebook" owl="1">
 
         <t t-log="props"/>
+        <!-- <t t-log="existingOtls" /> -->
         <t t-log="attributes"/>
-        <t t-log="otlTypes"/>
-        <t t-log="attrDefIdsbyType"/>
-
-
 
         <nav>
             <div class="nav nav-tabs" id="nav-tab-otl" role="tablist">
-                <t t-foreach="otlTypes" t-as="otl" t-key="otl.id">
+                <!-- feed each tab with one OTL -->
+
+                <t t-foreach="attributes" t-as="otl" t-key="otl.otlId">
                     <button t-attf-class="nav-link {{(otl_first)? 'active' : ''}}" t-attf-id="nav-otl-{{otl_index}}-tab" data-bs-toggle="tab" t-attf-data-bs-target="#nav-otl-{{otl_index}}" type="button" role="tab" t-attf-aria-controls="nav-otl-{{otl_index}}" t-attf-aria-selected="{{ (otl_first)? 'true' : 'false' }}">
-                        <span t-out="otl.name"/>
+                        <span t-out="otl.otlName"/>
                     </button>
                 </t>
             </div>
@@ -21,73 +20,66 @@
 
 
         <div class="tab-content" id="nav-tabContent-otl">
-            <t t-log="attrDefIdsbyType.length == 0"/>
-            <t t-if="attrDefIdsbyType.length == 0">
-            
-                add a type
-                <i class="fa fa-pencil" aria-hidden="true"></i>
+            <t t-foreach="attributes" t-as="attribute" t-key="attribute.otlId">
+                <!-- no type assigned yet to an OTL-->
+                <!-- <t t-log="attrDefIdsbyType.length == 0"/>
+                <t t-if="attrDefIdsbyType.length == 0">
+                <button class="btn btn-primary" t-on-click="() => this.change_otl_and_type()">
+                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                    <span> add a type</span>
+                </button>
+                </t> -->
+                <!-- feed tab with its type -->
+                <div t-attf-class="tab-pane fade {{(attribute_first) ? 'show active' : ''}}" t-attf-id="nav-otl-{{attribute_index}}" role="tabpanel" t-attf-aria-labelledby="nav-otl-{{attribute_index}}-tab">
+                    <!-- no type assigned yet to an OTL-->
+                    <t t-if="!(attribute.objectTypeId)">
+                        <button class="btn btn-primary" t-on-click="() => this.change_otl_and_type(attribute.otlId)">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i>
+                            <span> add a type</span>
+                        </button>
+                    </t>
+                    <!-- type assigned yet to an OTL-->
+                    <t t-if="(attribute.objectTypeId)">
+                        <div>
+                            <span class="o_form_label">type  </span>
+                            <span t-out="attribute.objectTypeName"/>
+                            <button class="btn btn-primary" t-on-click="() => this.change_otl_and_type(attribute.otlId, attribute.objectTypeId)">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <!-- for each type display attributes definition and if exists the assigned value -->
+                        <t t-foreach="attribute.attrDefRecords" t-as="attrDefRecord" t-key="attrDefRecord.id">
+                            <div>
+                                <span class="o_form_label">
+                                    <t t-out="attrDefRecord.display_name"/>
+                                </span>
 
-            </t>
-            <t t-foreach="attrDefIdsbyType" t-as="attrDef" t-key="attrDef.otlId">
-                <!-- feed each tab with one type -->
-                <div t-attf-class="tab-pane fade {{(attrDef_first) ? 'show active' : ''}}" t-attf-id="nav-otl-{{attrDef_index}}" role="tabpanel" t-attf-aria-labelledby="nav-otl-{{attrDef_index}}-tab">
-                    <div>
-                        <span class="o_form_label">type  </span>
-                        <span t-out="attrDef.objectTypeName"/>
-                        <span></span>
-                        <!-- <t set="otlAndType" t-value="[attrDef.otlId, attrDef.ObjectTypeID]"/> -->
-
-                        <button class="btn btn-primary" t-on-click="() => this.change_otl_and_type(attrDef.otlId, attrDef.objectTypeId)" t-att-otlId="attrDef.otlId" t-att-ObjectTypeId="attrDef.ObjectTypeId"> click  </button>
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </div>
-                    <!-- for each type display attributes definition and if exists the assigned value -->
-                    <t t-foreach="attributes" t-as="attribute" t-key="attribute.id">
-                        <t t-foreach="attrDef.attrDefIds" t-as="attrDefId" t-key="attrDefId">
-                            <!-- <t t-log="'ici'"/>
-                        <t t-log ="attrDef.otlId"/>
-                        <t t-log="attribute.otl_id" />
-                        <t t-log="attrDefId"/>
-                        <t t-log="attribute.att_def_id "/>
-                        <t t-log="attrDef.objectTypeId" />
-                        <t t-log="attribute.type_id" />
-                        <t t-log="attrDef.otlId == attribute.otl_id" />
-                        <t t-log="attrDef.objectTypeId == attribute.type_id" />
-                        <t t-log="attrDefId == attribute.att_def_id" /> -->
-                            <!-- <t t-log="'là'"/> -->
-                            <t t-if="attrDef.otlId == attribute.otl_id   and attrDef.objectTypeId == attribute.type_id and attrDefId == attribute.att_def_id  ">
-                                <div>
-                                    <span class="o_form_label">
-                                        <t t-out="attribute.display_name"/>
+                                <!-- <t t-if="attribute.value_type == 'char'">
+                                    <span>
+                                        <t t-out="attribute.value_string" />
                                     </span>
-
-                                    <t t-if="attribute.value_type == 'char'">
-                                        <span>
-                                            <t t-out="attribute.value_string" />
-                                        </span>
-                                    </t>
-                                    <t t-if="attribute.value_type == 'boolean'">
-                                        <span>
-                                            <t t-out="attribute.value_boolean" />
-                                        </span>
-                                    </t>
-                                    <t t-if="attribute.value_type == 'date'">
-                                        <span>
-                                            <t t-out="attribute.value_date" />
-                                        </span>
-                                    </t>
-                                    <t t-if="attribute.value_type == 'integer'">
-                                        <span>
-                                            <t t-out="attribute.value_integer" />
-                                        </span>
-                                    </t>
-                                </div>
-                            </t>
+                                </t>
+                                <t t-if="attribute.value_type == 'boolean'">
+                                    <span>
+                                        <t t-out="attribute.value_boolean" />
+                                    </span>
+                                </t>
+                                <t t-if="attribute.value_type == 'date'">
+                                    <span>
+                                        <t t-out="attribute.value_date" />
+                                    </span>
+                                </t>
+                                <t t-if="attribute.value_type == 'integer'">
+                                    <span>
+                                        <t t-out="attribute.value_integer" />
+                                    </span>
+                                </t> -->
+                            </div>
                         </t>
                     </t>
-                </dvi>
+                </div>
             </t>
         </div>
-
     </t>
-
+</t>
 </templates>
