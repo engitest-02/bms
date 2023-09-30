@@ -1,1 +1,3 @@
 odoo.conf
+**/__pycache__/
+**/tests/
