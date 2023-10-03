@@ -21,7 +21,7 @@ class AttributeDefinition(models.Model):
         string="value type",
     )
 
-    value_string = fields.Char("string_value", related="attr_value_id.value_string")
+    value_char = fields.Char("string_value", related="attr_value_id.value_char")
     value_boolean = fields.Boolean(
         "boolean value", related="attr_value_id.value_boolean"
     )
@@ -31,14 +31,12 @@ class AttributeDefinition(models.Model):
         "integer value", related="attr_value_id.value_integer"
     )
 
-    otl_name = fields.Char(related="type_id.name")
+    otl_name = fields.Char(related="object_type_id.name")
 
-    type_id = fields.Many2many(
+    object_type_id = fields.Many2many(
         comodel_name="bms.object_type",
         relation="bms_attributes_to_types",
         column1="attribute_id",
-        column2="type_id",
+        column2="object_type_id",
     )
-    attr_value_id = fields.One2many(
-        comodel_name="bms.attribute_value", inverse_name="attr_def_id", store=True
-    )
+    attr_value_id = fields.One2many(comodel_name="bms.attribute_value", inverse_name="attr_def_id")

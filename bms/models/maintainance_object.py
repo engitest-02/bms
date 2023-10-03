@@ -12,13 +12,7 @@ class MaintainanceObject(models.Model):
     name = fields.Char("name", required=True)
     lantis_unique_id = fields.Char("Lantis ID", required=True)
     is_active = fields.Boolean("Is active")
-    is_asset = fields.Boolean("IS asset")
-
-    # otl_name = fields.Selection(related="object_type_ids.otl_name")
-    # type_name = fields.Selection(related="object_type_ids.name")
-
-    # attr_def = fields.Char(related="attr_value_ids.attr_def_name")
-    # value_type = fields.Char(compute="_get_value_type")
+    is_asset = fields.Boolean("Is asset")
 
     # relational fields
     object_type_ids = fields.Many2many(
@@ -31,25 +25,3 @@ class MaintainanceObject(models.Model):
         comodel_name="bms.attribute_value",
         inverse_name="object_id"
     )
-
-    # @api.depends("attr_def")
-    # def _get_value_field(self):
-    #     for record in self:
-    #         value_type = dict(record._fields["selection_field"].selection).get(
-    #             record.selection_field
-    #         )
-    #     return value_type
-
-    #     match value_type:
-    #         case "string":
-    #             return fields.Char("string value")
-    #         case "boolean":
-    #             return fields.Boolean("boolean value")
-    #         case "date":
-    #             return fields.Date("date value")
-    #         case "float":
-    #             return fields.Float("float value")
-    #         case "binary":
-    #             return fields.Binary("binary value")
-    #         case "integer":
-    #             return fields.Integer("integer value")

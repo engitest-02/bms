@@ -11,25 +11,20 @@ class AttributeValue(models.Model):
     """
 
     _name = "bms.attribute_value"
-    _description = "store values of attribute of an object type"
+    _description = "bms.attribute_value: store values of attribute of an object type"
+   
 
-    value_string = fields.Char("string_value")
-    value_boolean = fields.Boolean("boolean value")
-    value_date = fields.Date("date value")
-    value_float = fields.Float("float value")
-    value_integer = fields.Integer("integer value")
+    value_char = fields.Char("value", default=None)
+    value_boolean = fields.Boolean("value", default=False)
+    value_date = fields.Date("value", default=None)
+    value_float = fields.Float("value", default=None)
+    value_integer = fields.Integer("value", default=None)
 
-    attr_def_name = fields.Char(
-        related="attr_def_id.name", readonly=True, string="attribute name"
-    )
-    attr_def_value_type = fields.Selection(
-        related="attr_def_id.value_type", readonly=True
-    )
+    attr_def_name = fields.Char(related="attr_def_id.name", readonly=True, string="attribute name")
+    attr_def_value_type = fields.Selection(related="attr_def_id.value_type", readonly=True)
     object_name = fields.Char(related="object_id.name", string="object name")
 
-    # object_name = fields.Selection(related="object_ids.name")
-    # object_type = fields.Char(related="object_ids.type_name")
-    # object_is_active = fields.Boolean(ralaed)
-
-    attr_def_id = fields.Many2one(comodel_name="bms.attribute_definition")
-    object_id = fields.Many2one(comodel_name="bms.maintainance_object", string="Maintainance Object")
+    object_id = fields.Many2one(comodel_name="bms.maintainance_object", string="Maintainance Object", required=True, ondelete="cascade")
+    object_type_id = fields.Many2one(comodel_name="bms.object_type", required=True, ondelete="cascade")
+    attr_def_id = fields.Many2one(comodel_name="bms.attribute_definition", required=True, ondelete="cascade")
+    

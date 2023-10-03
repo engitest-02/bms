@@ -16,18 +16,19 @@
   </record>
 
   <record id="bms_otl_type_form" model="ir.ui.view">
-        <field name="name">bms.otl_type.form</field>
-        <field name="model">bms.otl_type</field>
-        <field name="arch" type="xml">
-            <form >
-                <group>
-                    <field name="object_ids"  readonly="1"/>
-                    <field name="otl"  readonly="1"/>
-                    <field name="object_type"/>
-                </group>
-            </form>
-        </field>
-    </record>  <record id="bms_maintainance_object_view_form" model="ir.ui.view">
+    <field name="name">bms.otl_type.form</field>
+    <field name="model">bms.otl_type</field>
+    <field name="arch" type="xml">
+      <form >
+        <group>
+          <field name="object_ids" readonly="1"/>
+          <field name="otl" readonly="1"/>
+          <field name="object_type"/>
+        </group>
+      </form>
+    </field>
+  </record>
+  <record id="bms_maintainance_object_view_form" model="ir.ui.view">
     <field name="name">bms.maintainance_object.form</field>
     <field name="model">bms.maintainance_object</field>
     <field name="arch" type="xml">
@@ -135,7 +136,7 @@
         </field>
         <!-- <field name="attr_value_ids" nolabel="1" widget="many2many">
             <tree>
-            <field name="value_string" />
+            <field name="value_char" />
             <field name="value_boolean" />
             <field name="value_date" />
             <field name="value_float" />
@@ -185,7 +186,7 @@
         <field name="object_name" />
         <field name="attr_def_name"/>
         <field name="attr_def_value_type"/>
-        <field name="value_string"/>
+        <field name="value_char"/>
         <field name="value_boolean"/>
         <field name="value_date"/>
         <field name="value_float"/>
@@ -203,21 +204,22 @@
       <form string="Attribute value">
         <sheet>
           <group>
-            <field name="object_id"/>
-            <field name="attr_def_id"/>
-            <field name="attr_def_value_type"/>
-            <field name="value_string"/>
-            <field name="value_boolean"/>
-            <field name="value_date"/>
-            <field name="value_float"/>
-            <field name="value_integer"/>
+            <field name="object_id" readonly="1"/>
+            <field name="attr_def_id" readonly="1"/>
+            <field name="object_type_id" readonly="1"/>
+            <field name="attr_def_value_type" readonly="1"/>
+            <field name="value_char" attrs="{'invisible': [('attr_def_value_type', '!=', 'char')]}"/>
+            <field name="value_boolean" attrs="{'invisible': [('attr_def_value_type', '!=', 'boolean')]}"/>
+            <field name="value_date" attrs="{'invisible': [('attr_def_value_type', '!=', 'date')]}"/>
+            <field name="value_float" attrs= "{'invisible': [('attr_def_value_type', '!=', 'float')]}"/>
+            <field name="value_integer" attrs= "{'invisible': [('attr_def_value_type', '!=', 'integer')]}"/>
           </group>
         </sheet>
       </form>
     </field>
   </record>
 
-  
+
 
   <!-- actions -->
   <record id="bms_object_action" model="ir.actions.act_window">
