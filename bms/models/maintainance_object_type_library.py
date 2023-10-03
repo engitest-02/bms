@@ -13,3 +13,4 @@ class MaintainanceObjectTypeLibrary(models.Model):
 
     object_type_ids = fields.One2many(comodel_name="bms.object_type",
                                       inverse_name="otl_id")
+    

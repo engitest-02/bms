@@ -32,7 +32,7 @@
     <field name="name">bms.maintainance_object.form</field>
     <field name="model">bms.maintainance_object</field>
     <field name="arch" type="xml">
-      <form string="Maintainance object">
+      <form string="Maintainance object" js_class="bms_form_with_decompo">
         <sheet>
           <group >
             <group >
@@ -219,7 +219,20 @@
     </field>
   </record>
 
-
+  <record id="bms_attribute_value_view_form" model="ir.ui.view">
+    <field name="name">bms.decomposition_type.form</field>
+    <field name="model">bms.decomposition_type</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="description"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
 
   <!-- actions -->
   <record id="bms_object_action" model="ir.actions.act_window">
@@ -267,7 +280,11 @@
     <field name="view_mode">form</field>
   </record>
 
-
+  <record id="bms_decomposition_type_action" model="ir.actions.act_window">
+    <field name="name">Modify decomposition type</field>
+    <field name="res_model">bms.decomposition_type</field>
+    <field name="view_mode">tree,form</field>
+  </record>
 
   <!-- menuitems -->
   <menuitem id="bms_root" name="BMS"/>
@@ -281,6 +298,6 @@
   <menuitem id="bms_attribute_definition" parent="bms_settings" name="Attribute definition" groups="base.group_user" sequence="30" action="bms_attribute_definition_action"/>
   <menuitem id="bms_otl_and_type_assgination" parent="bms_settings" name="Assign otl and type" groups="base.group_user" sequence="40" action="bms_m_object_action_2"/>
   <menuitem id="bms_otl_and_type_assgination_2" parent="bms_settings" name="Assign otl and type v2" groups="base.group_user" sequence="50" action="bms_m_object_action_3"/>
-
+  <menuitem id="bms_decomposition_type" parent="bms_settings" name="Decomposition type" groups="base.group_user" sequence="60" action="bms_decomposition_type_action"/>
 
 </odoo>

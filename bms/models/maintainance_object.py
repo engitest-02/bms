@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields
 
 
 class MaintainanceObject(models.Model):
@@ -22,6 +22,10 @@ class MaintainanceObject(models.Model):
         column2="object_type_id",
     )
     attr_value_ids = fields.One2many(
-        comodel_name="bms.attribute_value",
-        inverse_name="object_id"
+        comodel_name="bms.attribute_value", inverse_name="object_id"
+    )
+
+    parent_object_ids = fields.One2many(comodel_name="bms.decomposition_relationship", inverse_name="parent_object_id")
+    decomposition_ids = fields.One2many(
+        comodel_name="bms.decomposition_relationship", inverse_name="object_id"
     )

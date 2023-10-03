@@ -3,7 +3,7 @@
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 const { Component, onWillStart } = owl;
-import { Dialog} from "@web/core/dialog/dialog";
+
 
 
 export class ObjectTypeNotebook extends Component {

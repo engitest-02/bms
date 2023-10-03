@@ -6,3 +6,5 @@ bms.access_bms_attribute_definition,access_bms_attribute_definition,bms.model_bm
 bms.access_bms_attribute_value,access_bms_attribute_value,bms.model_bms_attribute_value,base.group_user,1,1,1,1
 bms.access_bms_attributes,access_bms_attributes,bms.model_bms_attributes,base.group_user,1,1,1,1
 bms.access_bms_otl_type,access_bms_otl_type,bms.model_bms_otl_type,base.group_user,1,1,1,1
+bms.access_bms_decomposition_relationship,access_bms_decomposition_relationship,bms.model_bms_decomposition_relationship,base.group_user,1,1,1,1
+bms.access_bms_decomposition_type,access_bms_decomposition_type,bms.model_bms_decomposition_type,base.group_user,1,1,1,1

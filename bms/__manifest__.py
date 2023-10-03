@@ -16,6 +16,7 @@
     "assets": {
         "web.assets_backend": [
             "bms/static/src/**/*",
+            "bms/static/lib/**/*",
         ],
     },
     "application": True,
