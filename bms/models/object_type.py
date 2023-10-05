@@ -10,7 +10,9 @@ class ObjectType(models.Model):
     _description = "maintenance object type"
 
     name = fields.Char("type name")
-    description = fields.Char("description")
+    definition = fields.Char("definition")
+    otl_type_internal_id = fields.Char("internal id")
+
     otl_name = fields.Char(related="otl_id.name")
 
     otl_id = fields.Many2one(comodel_name="bms.object_type_library")

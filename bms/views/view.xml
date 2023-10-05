@@ -7,10 +7,13 @@
     <field name="model">bms.maintainance_object</field>
     <field name="arch" type="xml">
       <tree>
+        <field name="id"/>
         <field name="name"/>
         <field name="lantis_unique_id"/>
         <field name="is_active"/>
         <field name="is_asset"/>
+        <field name="awv_type_not_found"/>
+        <field name="bo_temporary_type"/>
       </tree>
     </field>
   </record>
@@ -28,6 +31,7 @@
       </form>
     </field>
   </record>
+
   <record id="bms_maintainance_object_view_form" model="ir.ui.view">
     <field name="name">bms.maintainance_object.form</field>
     <field name="model">bms.maintainance_object</field>
@@ -37,7 +41,7 @@
           <group >
             <group >
               <field name="name" />
-              <field name="lantis_unique_id" />
+              <field name="lantis_unique_id" readonly="1" />
             </group>
             <group >
               <field name="is_active"/>
@@ -49,7 +53,7 @@
               <field name="object_type_ids" widget="object_type_notebook">
                 <tree >
                   <field name="name"/>
-                  <field name="description"/>
+                  <field name="definition"/>
                   <field name="otl_id"/>
                   <field name="attribute_ids" invisible="1"/>
                 </tree>
@@ -102,15 +106,15 @@
     </field>
   </record>
 
-
   <record id="bms_object_type_view_tree" model="ir.ui.view">
     <field name="name">bms.object_type.tree</field>
     <field name="model">bms.object_type</field>
     <field name="arch" type="xml">
       <tree>
         <field name="name"/>
-        <field name="description"/>
+        <field name="definition"/>
         <field name="otl_id"/>
+        <field name="otl_type_internal_id" />
       </tree>
     </field>
   </record>
@@ -123,7 +127,7 @@
 
         <group>
           <field name="name"/>
-          <field name="description"/>
+          <field name="definition"/>
           <field name="otl_id"/>
         </group>
 
@@ -234,6 +238,74 @@
     </field>
   </record>
 
+  <record id="bms_msa_object_tree" model="ir.ui.view">
+    <field name="name">bms.msa_object.tree</field>
+    <field name="model">bms.msa_object</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="object_id" />
+        <field name="name" />
+        <field name="parent_id" />
+        <field name="otl_type_id" />
+        <field name="tree_level" />
+        <field name="awv_type_not_found" />
+        <field name="bo_temporary_type" />
+        <field name="tree_node_order" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="bms_msa_object_form" model="ir.ui.view">
+    <field name="name">bms.msa_object.form</field>
+    <field name="model">bms.msa_object</field>
+    <field name="arch" type="xml">
+      <form>
+        <field name="object_id" />
+        <field name="name" />
+        <field name="parent_id" />
+        <field name="otl_type_id" />
+        <field name="tree_level" />
+        <field name="awv_type_not_found" />
+        <field name="bo_temporary_type" />
+        <field name="tree_node_order" />
+      </form>
+    </field>
+  </record>
+
+  <record id="bms_oslo_class_tree" model="ir.ui.view">
+    <field name="name">bms.oslo_class.tree</field>
+    <field name="model">bms.oslo_class</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name ="msa_otl_type_id"/>
+        <field name ="label_nl"/>
+        <field name ="name" />
+        <field name ="uri" />
+        <field name ="definition_nl" />
+        <field name ="usagenote_nl" />
+        <field name ="abstract" />
+        <field name ="deprecated_version" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="bms_decompostion_relationship_tree" model="ir.ui.view">
+    <field name="name">bms.decomposition_relationship.tree</field>
+    <field name="model">bms.decomposition_relationship</field>
+    <field name="arch" type="xml">
+      <tree>
+        <header>
+          <button name="getTree" type="object" string="Generate treeview json"/>
+        </header>
+      <field name="object_id"/>
+      <field name="parent_object_id"/>
+      <field name="decomposition_type"/>
+      <field name="tree_level"/>
+      <field name="sibling_order"/>
+      </tree>
+    </field>
+  </record>
+
   <!-- actions -->
   <record id="bms_object_action" model="ir.actions.act_window">
     <field name="name">Maintainance Object</field>
@@ -286,10 +358,28 @@
     <field name="view_mode">tree,form</field>
   </record>
 
+  <record id="bms_msa_object_action" model="ir.actions.act_window">
+    <field name="name">MSA object</field>
+    <field name="res_model">bms.msa_object</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <record id="bms_oslo_class_action" model="ir.actions.act_window">
+    <field name="name">OSLOCLass</field>
+    <field name="res_model">bms.oslo_class</field>
+    <field name="view_mode">tree</field>
+  </record>
+
+  <record id="bms_decomposition_relationship_action" model="ir.actions.act_window">
+    <field name="name">Decomposition relationship</field>
+    <field name="res_model">bms.decomposition_relationship</field>
+    <field name="view_mode">tree</field>
+  </record>
+
   <!-- menuitems -->
   <menuitem id="bms_root" name="BMS"/>
-  <menuitem id="bms_object" parent="bms_root" name="Maintainance Object" groups="base.group_user"  sequence ="10" action="bms_object_action"/>
 
+  <menuitem id="bms_object" parent="bms_root" name="Maintainance Object" groups="base.group_user"  sequence ="10" action="bms_object_action"/>
 
   <menuitem id="bms_settings" parent="bms_root" name="Settings" groups="base.group_user" />
   <menuitem id="bms_object_type_library" parent="bms_settings" name="Object Type Library" groups="base.group_user" sequence="10" action="bms_object_type_library_action"/>
@@ -299,5 +389,13 @@
   <menuitem id="bms_otl_and_type_assgination" parent="bms_settings" name="Assign otl and type" groups="base.group_user" sequence="40" action="bms_m_object_action_2"/>
   <menuitem id="bms_otl_and_type_assgination_2" parent="bms_settings" name="Assign otl and type v2" groups="base.group_user" sequence="50" action="bms_m_object_action_3"/>
   <menuitem id="bms_decomposition_type" parent="bms_settings" name="Decomposition type" groups="base.group_user" sequence="60" action="bms_decomposition_type_action"/>
+  <menuitem id="bms_decomposition_relationship" parent="bms_settings" name="Decomposition relationship" groups="base.group_user" sequence="70" action="bms_decomposition_relationship_action"/>
+  <menuitem id="bms_maintainance_object" parent="bms_settings" name="Maintainance object" groups="base.group_user" sequence="100" action="bms_object_action"/>
+
+  <menuitem id="bms_imports" parent="bms_root" name="Imports" sequence ="20" groups="base.group_user" />
+  <menuitem id="bms_ms_object" parent="bms_imports" name="MSA object table" groups="base.group_user" sequence="20" action="bms_msa_object_action"/>
+
+  <menuitem id="bms_awv" parent="bms_root" name="AWV OTL" sequence ="30" groups="base.group_user" />
+  <menuitem id="bms_awv_oslo_class" parent="bms_awv" name="OsloClass" groups="base.group_user" sequence="10" action="bms_oslo_class_action"/>
 
 </odoo>

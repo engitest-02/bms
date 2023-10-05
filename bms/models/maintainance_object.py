@@ -14,6 +14,9 @@ class MaintainanceObject(models.Model):
     is_active = fields.Boolean("Is active")
     is_asset = fields.Boolean("Is asset")
 
+    awv_type_not_found = fields.Boolean()
+    bo_temporary_type = fields.Char()
+
     # relational fields
     object_type_ids = fields.Many2many(
         comodel_name="bms.object_type",

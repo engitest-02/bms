@@ -16,8 +16,13 @@
     "assets": {
         "web.assets_backend": [
             "bms/static/src/**/*",
-            "bms/static/lib/**/*",
+            
         ],
+        "web.assets_common":[
+            "bms/static/lib/fancytree/js/jquery.fancytree-all-deps.js",
+            "bms/static/lib/fancytree/css/ui.fancytree.min.css",
+
+        ]
     },
     "application": True,
     "license": "LGPL-3",
