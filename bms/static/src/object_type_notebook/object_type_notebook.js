@@ -1,8 +1,8 @@
 // /** @odoo-module */
 
 import { registry } from "@web/core/registry";
-import { useService } from "@web/core/utils/hooks";
-const { Component, onWillStart } = owl;
+import { useService, useBus } from "@web/core/utils/hooks";
+const { Component, onWillStart, onWillPatch, useComponent, useEnv , useState } = owl;
 
 
 
@@ -10,17 +10,17 @@ export class ObjectTypeNotebook extends Component {
     setup() {
         this.orm = useService("orm");
         this.actionService = useService("action");
-        this.notificatonService = useService("notification");
-
         // get from props
-        this.object_id = this.props.record.data.id;
-
+        this.objectId = this.props.record.data.id;   
         this.objectTypeRecords = this.props.record.data.object_type_ids.records;
+        
+        this.currentObjectId = this.objectId //keep delta in case of change of object_id
+        this.existingOtls;
 
         onWillStart(async () => {
-            const attributeRecords = await this.loadAttributes(); // complex query on view
-            const existingOtls = await this.loadOtls()
-            this.attributes = this._jsonifyAttributes(existingOtls, attributeRecords);
+            const attributeRecords = await this.loadAttributes(this.objectId); // complex query on view
+            this.existingOtls = await this.loadOtls()
+            this.attributes = this._jsonifyAttributes(this.existingOtls, attributeRecords);
             // get all OTL library existing (even if no type is assigned to the object)
             // tehn calculate attributes for to feed the template  
             // {"otlId": ...
@@ -30,10 +30,17 @@ export class ObjectTypeNotebook extends Component {
             //  "attrDefIds" : ...
             //  "attrDefRecords" : ...
             // }        
-        });
+        })   
 
+        onWillPatch(async () => {
+            if (this.currentObjectId != this.props.record.data.id){
+                const attributeRecords = await this.loadAttributes(this.props.record.data.id); // complex query on view
+                this.attributes = this._jsonifyAttributes(this.existingOtls, attributeRecords);
+                this.render();
+                this.currentObjectId = this.props.record.data.id;
+            }
+        })
     }
-
 
     changeOtlAndType(otlId = null, objectTypeId = null) {
         if (this.props.record.data.id == null) { // maintainance object is new => first must be saved
@@ -96,7 +103,6 @@ export class ObjectTypeNotebook extends Component {
     }
 
     changeAttrValue(record) {
-        console.log("value changed", record);
 
         const context = {
             'default_attr_def_id': record.attr_def_id,
@@ -124,8 +130,6 @@ export class ObjectTypeNotebook extends Component {
             }
         );
     }
-
-
 
     _jsonifyAttributes(existingOtls, attributeRecords) {
         const attributes = [];
@@ -190,8 +194,8 @@ export class ObjectTypeNotebook extends Component {
         return attributeDefRecords;
     }
 
-    loadAttributes() {
-        const domain = [["object_id", "=", this.object_id]];
+    loadAttributes(objectId) {
+        const domain = [["object_id", "=", objectId]];
         return this.orm.searchRead("bms.attributes", domain, []);
     }
 
@@ -203,3 +207,5 @@ export class ObjectTypeNotebook extends Component {
 
 ObjectTypeNotebook.template = "bms.object_type_notebook";
 registry.category("fields").add("object_type_notebook", ObjectTypeNotebook)
+
+

@@ -3,7 +3,7 @@ import { FormController } from "@web/views/form/form_controller";
 import { formView } from "@web/views/form/form_view";
 import { registry } from "@web/core/registry";
 import { Decomposition } from "../decomposition/decomposition";
-// const {useState} = owl;
+const {useEnv} = owl;
 
 class FormWithDecompoController extends FormController {
 
@@ -12,7 +12,7 @@ class FormWithDecompoController extends FormController {
         this.archInfo = { ...this.props.archInfo };
         this.archInfo.className += " flex-grow-1";
     }
-
+    
 }
 
 FormWithDecompoController.template = "bms.decompositionRenderer";

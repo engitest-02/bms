@@ -1,38 +1,61 @@
 /** @odoo-module */
 import { useService } from "@web/core/utils/hooks";
-const { Component, onMounted, onWillStart } = owl;
 import { loadCSS, loadJS } from "@web/core/assets";
+var core = require("web.core");
 
+const { Component, onMounted, onWillStart, useRef } = owl;
 
 export class Decomposition extends Component {
+    loadObjectId(objectId){
+        this.model.load({resId: objectId});
+    }
 
     setup() {
         this.ormService = useService("orm");
         this.rpcService = useService("rpc");
+        this.decompositionTree_1_ref = useRef("decompositionTree_1");
         this.decompositionTree;
+        this.model = this.props.model;
+        this.core = core;
 
         onWillStart(async () => {
-            this.decompositionTypeRecords = await this._loadDecompositionTypes();
             loadJS(["/bms/static/lib/fancytree/js/jquery.fancytree-all-deps.js"]);
-            loadCSS(["bms/static/lib/fancytree/css/skin-win8/ui.fancytree.min.css"])
-            //await loadJS("//code.jquery.com/jquery-3.6.0.min.js");
-            //loadCSS("//cdn.jsdelivr.net/npm/jquery.fancytree@2.27/dist/skin-win8/ui.fancytree.min.css");
-            //await loadJS("//cdn.jsdelivr.net/npm/jquery.fancytree@2.27/dist/jquery.fancytree-all-deps.min.js");
+            loadCSS(["bms/static/lib/fancytree/css/skin-odoo-bms/ui.fancytree.css"])
 
+            this.decompositionTypeRecords = await this._loadDecompositionTypes();
             this.treeString = await this._loadJsonTree();
             this.treeJson = JSON.parse(this.treeString);
         })
+        
         onMounted(async () => {
-            
-            this.decompositionTree = $.ui.fancytree.createTree('#tree', {
+            this.decompositionTree = $.ui.fancytree.createTree('#decompositionTree_1', {
                 extensions: ['edit', 'filter'],
-                source: this.treeJson});
-            // $('#tree').fancytree({
-            //     // extensions: ['edit', 'filter'],
-            //     source: this.treeJson,
-            // });
-            // this.decompositionTree = fancytree.getTree('#tree');
+                source: this.treeJson, 
+                click: this.loadClickedObjectId.bind(this),
+            }
+            );
+            console.log("decompostion.js: TODO: review toggleDecomposition which is in demo mode");
         })
+
+    }
+
+    loadClickedObjectId(ev, data){
+        this.model.load({resId:  parseInt(data.node.key)});
+     }
+    toggleDecomposition(event) {
+        this.model.load({resId: this.model.root.data.id + 1});
+        if (event.target.id === "decomposition_1") {
+            document.getElementById("decompositionTree_1").style.visibility = "visible";
+            document.getElementById("decompositionTree_2").style.visibility = "hidden";
+        } else {
+            document.getElementById("decompositionTree_1").style.visibility = "hidden";
+            document.getElementById("decompositionTree_2").style.visibility = "visible";
+        }
+    }
+
+    _loadObjectId(objectId){
+        this.model.load({resId: objectId});
+        this.core.bus.trigger("decomposition_upload");
     }
 
     _loadDecompositionTypes() {
@@ -57,3 +80,4 @@ Decomposition.template = "bms.Decomposition";
 //         type: Function,
 //     },
 // };
+

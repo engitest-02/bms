@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="bms.object_type_notebook" owl="1">
+    <t t-out="value"/>
         <div >
             <nav>
                 <div class="nav nav-tabs" id="nav-tab-otl" role="tablist">

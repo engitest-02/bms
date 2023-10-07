@@ -9,11 +9,11 @@
         <!-- insert Decompostion -->
         <xpath expr="//t[@archInfo='archInfo']" position="before">
             <div class="o_bms_decompo">
-                <Decomposition/>
+                <Decomposition model="this.model"/>
             </div>
         </xpath>
 
-        <!-- overriden archInfo has a flex grow-1 attribute -->
+        <!-- overriden archInfo with a flex grow-1 attribute -->
         <xpath expr="//t[@archInfo='archInfo']" position="attributes">
             <attribute name="archInfo">archInfo</attribute>
         </xpath>

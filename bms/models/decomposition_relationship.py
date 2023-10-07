@@ -51,12 +51,6 @@ class DecompositionRelationship(models.Model):
         pprint.pprint(json.dumps(tree))
         return json.dumps(tree)
 
-    # def _get_tree_level_nbr(self):
-    #     query = """SELECT max(tree_level) FROM bms_decomposition_relationship;"""
-    #     self.env.cr.execute(query)
-    #     record = self.env.cr.fetchall()
-    #     return int(record[0][0])
-
     def _get_records(self, tree_level):
         # domain = [("tree_level", "=", 1)]
         domain = [("tree_level", "=", 4),('object_id.lantis_unique_id','=', 3675)]
