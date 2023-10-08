@@ -13,9 +13,9 @@ export class Decomposition extends Component {
     setup() {
         this.ormService = useService("orm");
         this.rpcService = useService("rpc");
-        this.decompositionTree_1_ref = useRef("decompositionTree_1");
         this.decompositionTree;
         this.model = this.props.model;
+        this.resId = this.props.resId;
         this.core = core;
 
         onWillStart(async () => {
@@ -32,8 +32,11 @@ export class Decomposition extends Component {
                 extensions: ['edit', 'filter'],
                 source: this.treeJson, 
                 click: this.loadClickedObjectId.bind(this),
+                autoScroll: true,
             }
             );
+            this.decompositionTree.activateKey(this.resId);
+
             console.log("decompostion.js: TODO: review toggleDecomposition which is in demo mode");
         })
 
@@ -42,8 +45,9 @@ export class Decomposition extends Component {
     loadClickedObjectId(ev, data){
         this.model.load({resId:  parseInt(data.node.key)});
      }
+
     toggleDecomposition(event) {
-        this.model.load({resId: this.model.root.data.id + 1});
+        // TODO: adapt the logica !!!! not generic. 
         if (event.target.id === "decomposition_1") {
             document.getElementById("decompositionTree_1").style.visibility = "visible";
             document.getElementById("decompositionTree_2").style.visibility = "hidden";

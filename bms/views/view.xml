@@ -37,32 +37,33 @@
     <field name="model">bms.maintainance_object</field>
     <field name="arch" type="xml">
       <form string="Maintainance object" js_class="bms_form_with_decompo">
-        <sheet>
-          <group >
-            <group >
-              <field name="name" />
-              <field name="lantis_unique_id" readonly="1" />
+        <group >
+          <field name="name" />
+          <field name="lantis_unique_id" readonly="1" />
+          <field name="is_active"/>
+          <field name="is_asset" />
+        </group>
+        <notebook>
+          <page string="OTL">
+            <field name="object_type_ids" widget="object_type_notebook">
+              <tree >
+                <field name="name"/>
+                <field name="definition"/>
+                <field name="otl_id"/>
+                <field name="attribute_ids" invisible="1"/>
+              </tree>
+            </field>
+          </page>
+          <page string="Documents..."></page>
+          <page string="Acces Mgt...">
+            <!-- demo agent -->
+            <group>
+              <field name="agent_id"/>
+              <field name="agent_description"/>
             </group>
-            <group >
-              <field name="is_active"/>
-              <field name="is_asset" />
-            </group>
-          </group>
-          <notebook>
-            <page string="OTL">
-              <field name="object_type_ids" widget="object_type_notebook">
-                <tree >
-                  <field name="name"/>
-                  <field name="definition"/>
-                  <field name="otl_id"/>
-                  <field name="attribute_ids" invisible="1"/>
-                </tree>
-              </field>
-            </page>
-          </notebook>
-          
-          
-        </sheet>
+            <!-- end demo agent -->
+          </page>
+        </notebook>
       </form>
     </field>
   </record>
@@ -299,12 +300,39 @@
         <header>
           <button name="getTree" type="object" string="Generate treeview json"/>
         </header>
-      <field name="object_id"/>
-      <field name="parent_object_id"/>
-      <field name="decomposition_type"/>
-      <field name="tree_level"/>
-      <field name="sibling_order"/>
+        <field name="object_id"/>
+        <field name="parent_object_id"/>
+        <field name="decomposition_type"/>
+        <field name="tree_level"/>
+        <field name="sibling_order"/>
       </tree>
+    </field>
+  </record>
+
+  <!-- demo agent -->
+  <record id="bms_my_demo_agent_tree" model="ir.ui.view">
+    <field name="name">bms.my_demo_agent.tree</field>
+    <field name="model">bms.my_demo_agent</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name"/>
+        <field name="description"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="bms_my_demo_agent_form" model="ir.ui.view">
+    <field name="name">bms.my_demo_agent.form</field>
+    <field name="model">bms.my_demo_agent</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="description"/>
+          </group>
+        </sheet>
+      </form>
     </field>
   </record>
 
@@ -378,6 +406,13 @@
     <field name="view_mode">tree</field>
   </record>
 
+  <!-- demo agent -->
+  <record id="bms_demo_agent_action" model="ir.actions.act_window">
+    <field name="name">Demo agent</field>
+    <field name="res_model">bms.my_demo_agent</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
   <!-- menuitems -->
   <menuitem id="bms_root" name="BMS"/>
 
@@ -393,11 +428,14 @@
   <menuitem id="bms_decomposition_type" parent="bms_settings" name="Decomposition type" groups="base.group_user" sequence="60" action="bms_decomposition_type_action"/>
   <menuitem id="bms_decomposition_relationship" parent="bms_settings" name="Decomposition relationship" groups="base.group_user" sequence="70" action="bms_decomposition_relationship_action"/>
   <menuitem id="bms_maintainance_object" parent="bms_settings" name="Maintainance object" groups="base.group_user" sequence="100" action="bms_object_action"/>
+  <!-- demo agent -->
+  <menuitem id="bms_demo_agent" parent="bms_settings" name="Demo agent" groups="base.group_user" sequence="71" action="bms_demo_agent_action"/>
 
   <menuitem id="bms_imports" parent="bms_root" name="Imports" sequence ="20" groups="base.group_user" />
   <menuitem id="bms_ms_object" parent="bms_imports" name="MSA object table" groups="base.group_user" sequence="20" action="bms_msa_object_action"/>
 
   <menuitem id="bms_awv" parent="bms_root" name="AWV OTL" sequence ="30" groups="base.group_user" />
   <menuitem id="bms_awv_oslo_class" parent="bms_awv" name="OsloClass" groups="base.group_user" sequence="10" action="bms_oslo_class_action"/>
+
 
 </odoo>

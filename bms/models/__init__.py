@@ -10,5 +10,7 @@ from . import msa_object
 from . import object_type
 from . import oslo_class
 
+from . import my_demo_agent
+
 
 

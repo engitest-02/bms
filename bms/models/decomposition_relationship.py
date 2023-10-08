@@ -48,12 +48,12 @@ class DecompositionRelationship(models.Model):
             tree.append(node)
         import json
         import pprint
-        pprint.pprint(json.dumps(tree))
+        # pprint.pprint(json.dumps(tree))   
         return json.dumps(tree)
 
     def _get_records(self, tree_level):
-        # domain = [("tree_level", "=", 1)]
-        domain = [("tree_level", "=", 4),('object_id.lantis_unique_id','=', 3675)]
+        domain = [("tree_level", "=", 1)]
+        # domain = [("tree_level", "=", 4),('object_id.lantis_unique_id','=', 3675)]
         return self.env["bms.decomposition_relationship"].search(domain)
 
     def _record2node(self, record):

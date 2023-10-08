@@ -1,6 +1,12 @@
 $o_input_marging: 0.4rem;
+$o_tree_height: 800px;
 
 .o_bms_input_radio{
     margin: $o_input_marging;
 }
+
+.o_bms_decomposition  > ul.fancytree-container {
+        height: $o_tree_height;
+    }
+
 

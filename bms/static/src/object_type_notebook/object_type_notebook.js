@@ -202,7 +202,7 @@ export class ObjectTypeNotebook extends Component {
     loadOtls() {
         return this.orm.searchRead("bms.object_type_library", [], []);
     }
-
+    
 }
 
 ObjectTypeNotebook.template = "bms.object_type_notebook";

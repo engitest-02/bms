@@ -10,3 +10,4 @@ bms.access_bms_decomposition_relationship,access_bms_decomposition_relationship,
 bms.access_bms_decomposition_type,access_bms_decomposition_type,bms.model_bms_decomposition_type,base.group_user,1,1,1,1
 bms.access_bms_msa_object,access_bms_msa_object,bms.model_bms_msa_object,base.group_user,1,1,1,1
 bms.access_bms_oslo_class,access_bms_oslo_class,bms.model_bms_oslo_class,base.group_user,1,1,1,1
+bms.access_bms_my_demo_agent,access_bms_my_demo_agent,bms.model_bms_my_demo_agent,base.group_user,1,1,1,1

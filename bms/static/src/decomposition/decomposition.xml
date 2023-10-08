@@ -15,8 +15,8 @@
         <div id="decompositionTree_2" style="visibility:hidden"> 
                 No decompostion yet...
         </div>
-        <div t-ref="decompositionTree_1" name="yo" id="decompositionTree_1" style="visibility:visible"
-        ></div>
+        <div id="decompositionTree_1" style="visibility:visible" class="o_bms_decomposition">
+        </div>
    
     </div>
     </t>

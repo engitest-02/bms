@@ -32,3 +32,9 @@ class MaintainanceObject(models.Model):
     decomposition_ids = fields.One2many(
         comodel_name="bms.decomposition_relationship", inverse_name="object_id"
     )
+
+    #demo agent
+    agent_name = fields.Char(related="agent_id.name", readonly=True)
+    agent_description = fields.Char(related="agent_id.description", readonly=True)
+    agent_id = fields.Many2one(comodel_name="bms.my_demo_agent", readonly=False)
+

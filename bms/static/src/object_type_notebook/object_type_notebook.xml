@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="bms.object_type_notebook" owl="1">
-    <t t-out="value"/>
         <div >
             <nav>
                 <div class="nav nav-tabs" id="nav-tab-otl" role="tablist">
@@ -34,9 +33,7 @@
                                         <span class="o_form_label"> object type  </span>
                                     </td>
                                     <td>
-                                        <h5>
-                                            <t t-out="attribute.objectTypeName"/>
-                                        </h5>
+                                        <t t-out="attribute.objectTypeName"/>
                                     </td>
                                     <td>
                                         <button class="btn btn-primary" t-on-click="() => this.changeOtlAndType(attribute.otlId, attribute.objectTypeId)">

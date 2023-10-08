@@ -4,6 +4,15 @@ $o-bms-td-width-attrvalue: 70%;
 $o-bms-td-width-editbutton: 10%;
 $o-bms-tab-content-width: 300px;
 
+// override
+$container-max-widths: (
+  sm: 1320px,
+  md: 1320px,
+  lg: 1320px,
+  xl: 1320px,
+  xxl: 1320px
+) !default;
+
 .o_bms_tab_content{
     width:$o-bms-tab-content-width;
 }

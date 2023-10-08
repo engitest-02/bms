@@ -2,24 +2,23 @@
 <templates>
     <t t-name="bms.decompositionRenderer" t-inherit="web.FormView" owl="1">
         <!-- make form bootstap flex -->
-        <xpath expr="//Layout" position="attributes">
-            <attribute name="className">model.useSampleModel ? 'o_view_sample_data' : '' + "d-flex"</attribute>
-        </xpath>
+        <!-- <xpath expr="//Layout" position="attributes">
+            <attribute name="className">model.useSampleModel ? 'o_view_sample_data' : '' + "align-items-stretch"</attribute>
+        </xpath> -->
 
         <!-- insert Decompostion -->
-        <xpath expr="//t[@archInfo='archInfo']" position="before">
-            <div class="o_bms_decompo">
-                <Decomposition model="this.model"/>
+        <xpath expr="//t[@archInfo='archInfo']" position="replace">
+            <div class="row">
+                <div class="col-4">
+                    <div class="o_form_with_decompo">
+                        <Decomposition model="this.model" resId="this.props.resId"/>
+                    </div>
+                </div>
+                <div class="flex-nowrap col-8">
+                    <t t-component="props.Renderer" record="model.root" Compiler="props.Compiler" archInfo="archInfo" setFieldAsDirty.bind="setFieldAsDirty" enableViewButtons.bind="enableButtons" disableViewButtons.bind="disableButtons" onNotebookPageChange.bind="onNotebookPageChange" activeNotebookPages="props.state and props.state.activeNotebookPages"/>
+                </div>
             </div>
         </xpath>
-
-        <!-- overriden archInfo with a flex grow-1 attribute -->
-        <xpath expr="//t[@archInfo='archInfo']" position="attributes">
-            <attribute name="archInfo">archInfo</attribute>
-        </xpath>
-
-
-
 
     </t>
 </templates>
