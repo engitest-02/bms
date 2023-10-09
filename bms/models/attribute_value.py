@@ -28,3 +28,4 @@ class AttributeValue(models.Model):
     object_type_id = fields.Many2one(comodel_name="bms.object_type", required=True, ondelete="cascade")
     attr_def_id = fields.Many2one(comodel_name="bms.attribute_definition", required=True, ondelete="cascade")
     
+    

@@ -1,5 +1,7 @@
-MS Access migration
--------------------
+# MS Access migration #
+
+## Objects ##
+
 
 1. Export object table from MS Access
 ```
@@ -33,4 +35,6 @@ where msa_o.otl_type_id is not null and msa_o.otl_type_id <> 0
 ;
 ```
 
+## Attributen ##
+1. Load attributen table with model oslo_attributen
 

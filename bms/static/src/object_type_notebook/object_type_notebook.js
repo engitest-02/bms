@@ -18,7 +18,7 @@ export class ObjectTypeNotebook extends Component {
         this.existingOtls;
 
         onWillStart(async () => {
-            const attributeRecords = await this.loadAttributes(this.objectId); // complex query on view
+            const attributeRecords = await this.loadAttributes(this.objectId); // complex query on a view
             this.existingOtls = await this.loadOtls()
             this.attributes = this._jsonifyAttributes(this.existingOtls, attributeRecords);
             // get all OTL library existing (even if no type is assigned to the object)
@@ -32,9 +32,9 @@ export class ObjectTypeNotebook extends Component {
             // }        
         })   
 
-        onWillPatch(async () => {
-            if (this.currentObjectId != this.props.record.data.id){
-                const attributeRecords = await this.loadAttributes(this.props.record.data.id); // complex query on view
+        onWillPatch(async () => { 
+            if (this.currentObjectId != this.props.record.data.id){// rerender OTL notebook if parent object has changed
+                const attributeRecords = await this.loadAttributes(this.props.record.data.id); // complex query on a view
                 this.attributes = this._jsonifyAttributes(this.existingOtls, attributeRecords);
                 this.render();
                 this.currentObjectId = this.props.record.data.id;
@@ -195,6 +195,7 @@ export class ObjectTypeNotebook extends Component {
     }
 
     loadAttributes(objectId) {
+        // complex query on a vie
         const domain = [["object_id", "=", objectId]];
         return this.orm.searchRead("bms.attributes", domain, []);
     }

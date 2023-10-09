@@ -1,6 +1,7 @@
 /** @odoo-module */
 import { useService } from "@web/core/utils/hooks";
 import { loadCSS, loadJS } from "@web/core/assets";
+import { memoize } from "@web/core/utils/functions";
 var core = require("web.core");
 
 const { Component, onMounted, onWillStart, useRef } = owl;
@@ -23,7 +24,7 @@ export class Decomposition extends Component {
             loadCSS(["bms/static/lib/fancytree/css/skin-odoo-bms/ui.fancytree.css"])
 
             this.decompositionTypeRecords = await this._loadDecompositionTypes();
-            this.treeString = await this._loadJsonTree();
+            this.treeString = await this._loadJsonTree()();
             this.treeJson = JSON.parse(this.treeString);
         })
         
@@ -68,13 +69,27 @@ export class Decomposition extends Component {
 
     _loadJsonTree() {
         var rpc = require('web.rpc');
-        return rpc.query({
-            model: 'bms.decomposition_relationship',
-            method: 'getTree',
-            args: [],
-        });
+        
+        console.log("memoize");
+        return  memoize(() => rpc.query({
+                        model: 'bms.decomposition_relationship',
+                        method: 'getTree',
+                        args: [],
+                        }   
+                    )
+        )
+            
     }
 
+    // _loadJsonTree() {
+    //     var rpc = require('web.rpc');
+    //     return  rpc.query({
+    //             model: 'bms.decomposition_relationship',
+    //             method: 'getTree',
+    //             args: [],
+    //         }   
+    //         )
+    // }
 }
 
 Decomposition.template = "bms.Decomposition";

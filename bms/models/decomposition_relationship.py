@@ -71,9 +71,7 @@ class DecompositionRelationship(models.Model):
             # import pdb; pdb.set_trace()
             little_children_nodes = self._get_children(child_node)
             
-            if not little_children_nodes:
-                children_nodes.append(child_node)
-            else:
+            if little_children_nodes:
                 child_node["folder"] = True
                 child_node["children"] = little_children_nodes
             
