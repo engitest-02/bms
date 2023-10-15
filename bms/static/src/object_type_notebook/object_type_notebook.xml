@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="bms.object_type_notebook" owl="1">
-        <div >
+  
+        <div>
             <nav>
                 <div class="nav nav-tabs" id="nav-tab-otl" role="tablist">
-                    <!-- feed each tab with one OTL -->
-
+                    <!-- feed each tab with one OTL name -->
                     <t t-foreach="attributes" t-as="otl" t-key="otl.otlId">
                         <button t-attf-class="nav-link {{(otl_first)? 'active' : ''}}" t-attf-id="nav-otl-{{otl_index}}-tab" data-bs-toggle="tab" t-attf-data-bs-target="#nav-otl-{{otl_index}}" type="button" role="tab" t-attf-aria-controls="nav-otl-{{otl_index}}" t-attf-aria-selected="{{ (otl_first)? 'true' : 'false' }}">
                             <span t-out="otl.otlName"/>
@@ -16,7 +16,7 @@
 
             <div class="tab-content o_bms_tab_content" id="nav-tabContent-otl">
                 <t t-foreach="attributes" t-as="attribute" t-key="attribute.otlId">
-                    <!-- feed tab with its type -->
+                    <!-- feed tab with the object type -->
                     <div t-attf-class="tab-pane fade {{(attribute_first) ? 'show active' : ''}}" t-attf-id="nav-otl-{{attribute_index}}" role="tabpanel" t-attf-aria-labelledby="nav-otl-{{attribute_index}}-tab">
                         <!-- no type assigned yet to an OTL-->
                         <t t-if="!(attribute.objectTypeId)">
@@ -27,43 +27,50 @@
                         </t>
                         <!-- type assigned yet to an OTL-->
                         <t t-if="(attribute.objectTypeId)">
-                            <table class="o_bms_table">
-                                <tr>
-                                    <td>
-                                        <span class="o_form_label"> object type  </span>
-                                    </td>
-                                    <td>
-                                        <t t-out="attribute.objectTypeName"/>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-primary" t-on-click="() => this.changeOtlAndType(attribute.otlId, attribute.objectTypeId)">
-                                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                            <t t-if="(attribute.otlName == 'awv otl')">
+                            <!-- <t t-log="attribute" /> -->
+                            <t t-log="objectId" />
+                                <OsloType otlId="attribute.otlId" objectTypeId="attribute.objectTypeId" classUri="attribute.objectTypeInternalId" className="attribute.objectTypeName" objectId="objectId"/>
+                            </t>
+                            <t t-if="(attribute.otlName == 'lantis otl')">
+                                <table class="o_bms_table">
+                                    <tr>
+                                        <td>
+                                            <span class="o_form_label"> object type  </span>
+                                        </td>
+                                        <td>
+                                            <t t-out="attribute.objectTypeName"/>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary" t-on-click="() => this.changeOtlAndType(attribute.otlId, attribute.objectTypeId)">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
 
-                                <!-- for each type display attributes definition and if exists the assigned value -->
-                                <t t-foreach="attribute.attrDefRecords" t-as="attrDefRecord" t-key="attrDefRecord.id">
-                                    <t t-if="attrDefRecord.attr_def_id !=0">                                        <!-- check if attr definitions have been defined-->
-                                        <tr>
-                                            <td>
-                                                <span class="o_form_label">
-                                                    <t t-out="attrDefRecord.attr_def_name"/>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <t t-out="getValue(attrDefRecord)"/>
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-primary" t-on-click="() => this.changeAttrValue(attrDefRecord)">
-                                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                </button>
+                                    <!-- for each type display attributes definition and if exists the assigned value -->
+                                    <t t-foreach="attribute.attrDefRecords" t-as="attrDefRecord" t-key="attrDefRecord.id">
+                                        <t t-if="attrDefRecord.attr_def_id !=0">                                            <!-- check if attr definitions have been defined-->
+                                            <tr>
+                                                <td>
+                                                    <span class="o_form_label">
+                                                        <t t-out="attrDefRecord.attr_def_name"/>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <t t-out="getValue(attrDefRecord)"/>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-primary" t-on-click="() => this.changeAttrValue(attrDefRecord)">
+                                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                    </button>
 
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                        </t>
                                     </t>
-                                </t>
-                            </table>
+                                </table>
+                            </t>
                         </t>
                     </div>
                 </t>

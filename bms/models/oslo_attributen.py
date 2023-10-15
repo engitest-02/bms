@@ -24,3 +24,6 @@ class OsloAttributen(models.Model):
 
 # internal foreign key (no use of uri)
     oslo_class_id = fields.Many2one(comodel_name="bms.oslo_class")
+    
+
+    

@@ -20,6 +20,10 @@ class ObjectType(models.Model):
         comodel_name="bms.attribute_value",
         inverse_name="object_type_id"
     )
+    # oslo_attributen_value_id = fields.One2many(
+    #     comodel_name="bms.oslo_attributen_value",
+    #     inverse_name="object_type_id"
+    # )
     attribute_ids = fields.Many2many(
         comodel_name="bms.attribute_definition",
         relation="bms_attributes_to_types",
@@ -27,7 +31,20 @@ class ObjectType(models.Model):
         column2="attribute_id",
     )
 
+
     @api.model
     def get_object_type(self, ids):
         result = self.browse(ids)
         return result
+
+    @api.model
+    def get_oslo_attr_def(self, id):
+        """
+        Function not loosly coupled. Take the assumption that the OTL type is AWV OSLO. 
+        TODO:fixme
+        """
+
+        object_type_rec = self.browse(id)
+        domain=[('oslo_class_uri', '=', object_type_rec.type_internal_id)]
+        attributen_recs = self.env["bms.awv_attributen_primitive_datatype"].search(domain)
+        return attributen_recs

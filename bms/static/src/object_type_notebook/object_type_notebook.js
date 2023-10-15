@@ -1,9 +1,9 @@
-// /** @odoo-module */
+    // /** @odoo-module */
 
 import { registry } from "@web/core/registry";
 import { useService, useBus } from "@web/core/utils/hooks";
-const { Component, onWillStart, onWillPatch, useComponent, useEnv , useState } = owl;
-
+import { OsloType } from "./oslo_type/oslo_type";
+const { Component, onWillStart, onWillPatch } = owl;
 
 
 export class ObjectTypeNotebook extends Component {
@@ -11,9 +11,9 @@ export class ObjectTypeNotebook extends Component {
         this.orm = useService("orm");
         this.actionService = useService("action");
         // get from props
-        this.objectId = this.props.record.data.id;   
+        this.objectId = this.props.record.data.id;
         this.objectTypeRecords = this.props.record.data.object_type_ids.records;
-        
+
         this.currentObjectId = this.objectId //keep delta in case of change of object_id
         this.existingOtls;
 
@@ -30,14 +30,16 @@ export class ObjectTypeNotebook extends Component {
             //  "attrDefIds" : ...
             //  "attrDefRecords" : ...
             // }        
-        })   
+        })
 
-        onWillPatch(async () => { 
-            if (this.currentObjectId != this.props.record.data.id){// rerender OTL notebook if parent object has changed
+        onWillPatch(async () => {
+            
+            this.objectId = this.props.record.data.id;
+            if (this.currentObjectId != this.objectId) {// rerender OTL notebook if parent object has changed
                 const attributeRecords = await this.loadAttributes(this.props.record.data.id); // complex query on a view
                 this.attributes = this._jsonifyAttributes(this.existingOtls, attributeRecords);
                 this.render();
-                this.currentObjectId = this.props.record.data.id;
+                this.currentObjectId = this.objectId;
             }
         })
     }
@@ -49,12 +51,12 @@ export class ObjectTypeNotebook extends Component {
                 this,
                 "You have to save your new asset first",
                 {
-                    onForceClose: function(){
+                    onForceClose: function () {
                     },
-                    confirm_callback: function(){
+                    confirm_callback: function () {
                     }
                 }
-             );
+            );
         }
         else {
             var context = { 'default_object_ids': this.props.record.data.id };
@@ -126,7 +128,7 @@ export class ObjectTypeNotebook extends Component {
                 "target": "inline",
                 "context": context,
                 "res_id": record.attr_value_id,
-                
+
             }
         );
     }
@@ -142,6 +144,8 @@ export class ObjectTypeNotebook extends Component {
                     "otlName": existingOtl.name,
                     "objectTypeId": ojbectTypeId,
                     "objectTypeName": this._getObjectTypeNameForOtl(attributeRecords, existingOtl.id),
+                    "objectTypeInternalId": this._getObjectTypeInternalId(attributeRecords, existingOtl.id),
+                    "attrCplxDef": null, //todo {CplxDef:[attrDefIds]}
                     "attrDefIds": this._getAttrDefIdsForOtlAndObjectType(attributeRecords, existingOtl.id, ojbectTypeId),
                     "attrDefRecords": this._getAttrDefRecordsForOtlAndObjectType(attributeRecords, existingOtl.id, ojbectTypeId),
                 }
@@ -194,6 +198,16 @@ export class ObjectTypeNotebook extends Component {
         return attributeDefRecords;
     }
 
+    _getObjectTypeInternalId(attributeRecords, existingOtlId) {
+        for (let i = 0; i < attributeRecords.length; i++) {
+            const record = attributeRecords[i];
+            if (record['otl_id'] == existingOtlId) {
+                return record['otl_type_internal_id'];
+            }
+        }
+        return null;
+    }
+
     loadAttributes(objectId) {
         // complex query on a vie
         const domain = [["object_id", "=", objectId]];
@@ -203,10 +217,11 @@ export class ObjectTypeNotebook extends Component {
     loadOtls() {
         return this.orm.searchRead("bms.object_type_library", [], []);
     }
-    
+
 }
 
 ObjectTypeNotebook.template = "bms.object_type_notebook";
+ObjectTypeNotebook.components = { OsloType };
 registry.category("fields").add("object_type_notebook", ObjectTypeNotebook)
 
 

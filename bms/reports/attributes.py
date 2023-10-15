@@ -14,6 +14,7 @@ class Attributes(models.Model):
     object_type_id = fields.Integer()
     otl_id = fields.Integer()
     object_type_name = fields.Char()
+    otl_type_internal_id = fields.Char()
     value_type = fields.Char()
     attr_value_id = fields.Integer()
     value_char = fields.Char(default=None)
@@ -54,6 +55,7 @@ class Attributes(models.Model):
             , ot.id as object_type_id
             , ot.otl_id as otl_id
             , ot.name as object_type_name
+            , ot.otl_type_internal_id
             , attr_def.value_type
             , attr_val.id as attr_value_id
             , value_char

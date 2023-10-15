@@ -69,8 +69,7 @@ export class Decomposition extends Component {
 
     _loadJsonTree() {
         var rpc = require('web.rpc');
-        
-        console.log("memoize");
+
         return  memoize(() => rpc.query({
                         model: 'bms.decomposition_relationship',
                         method: 'getTree',

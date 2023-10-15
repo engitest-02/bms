@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="bms.oslo_type" owl="1">
+    <!-- <t t-out="'oslo_type props:'"/> -->
+    <!-- <t t-out="values"/>  -->
+        <table class="o_bms_table">
+            <tr>
+                <td>
+                    <span class="o_form_label"> object type  </span>
+                </td>
+                <td >
+                    <!-- <t t-log="attrPrimitiveDatatypeRecs" /> -->
+                    <!-- <t t-log="className" /> -->
+                    <t t-out="className"/>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <button class="btn btn-primary" t-on-click="() => this.changeOtlAndType()">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <!-- for each type display attributes definition and if exists the assigned value -->
+            <t t-foreach="attrPrimitiveDatatypeRecs" t-as="attrPrimitiveDatatypeRec" t-key="attrPrimitiveDatatypeRec.id">
+                <t t-if="attrPrimitiveDatatypeRec.id !=0">                    <!-- check if attr definitions have been defined-->
+                    <tr>
+                        <td>
+                            <span class="o_form_label">
+                                <t t-out="attrPrimitiveDatatypeRec.osloattributen_name"/>
+                            </span>
+                        </td>
+                        <td>
+                            <!-- <t t-out="getValue(attrDefRecord)"/> -->
+                        </td>
+                        <td>
+                            <t t-out="formatUnit(attrPrimitiveDatatypeRec.oslodatatype_primitive_attributen_constraints)"/>
+                        </td>
+
+                        <td>
+                            <button class="btn btn-primary" t-on-click="() => this.changeAttrValue(attrPrimitiveDatatypeRec)">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </button>
+
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </table>
+
+
+    </t>
+</templates>

@@ -47,12 +47,10 @@ class OtlAndType(models.TransientModel):
         result_1 = rec_maintainance_object.write(
             {"object_type_ids": [unlink_command, link_command]}
         )
-        print("result_1", result_1)
         # delete existing attribute_values (if any)
         result_2 = self._delete_attr_values(
             maintainance_object_id, current_object_type_id
         )
-        print("result_2", result_2)
         # instanciate attibute_values for each attribute_def and link to maintainance_object, object_type, and attr_def
         result_3 = self._create_attr_values(maintainance_object_id, new_object_type_id)
  

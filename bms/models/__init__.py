@@ -10,6 +10,7 @@ from . import msa_object
 from . import object_type
 from . import oslo_class
 from . import oslo_attributen
+from . import oslo_attributen_value
 from . import oslo_datatype_primitive
 from . import oslo_datatype_primitive_attributen
 
