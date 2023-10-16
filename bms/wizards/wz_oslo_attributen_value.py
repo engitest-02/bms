@@ -62,7 +62,6 @@ class WzOsloaAttributenValue(models.TransientModel):
         key = "value_" + vals["attr_def_value_type"]
         values = {key: vals[key]}
         record.write(values)
-        breakpoint()
         return True
 
     def _custom_create(self, vals):

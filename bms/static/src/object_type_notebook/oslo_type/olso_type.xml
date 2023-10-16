@@ -9,7 +9,7 @@
                     <span class="o_form_label"> object type  </span>
                 </td>
                 <td >
-                    <!-- <t t-log="attrPrimitiveDatatypeRecs" /> -->
+                    <!-- <t t-log="attrDefValueRecs" /> -->
                     <!-- <t t-log="className" /> -->
                     <t t-out="className"/>
                 </td>
@@ -23,23 +23,23 @@
             </tr>
 
             <!-- for each type display attributes definition and if exists the assigned value -->
-            <t t-foreach="attrPrimitiveDatatypeRecs" t-as="attrPrimitiveDatatypeRec" t-key="attrPrimitiveDatatypeRec.id">
-                <t t-if="attrPrimitiveDatatypeRec.id !=0">                    <!-- check if attr definitions have been defined-->
+            <t t-foreach="attrDefValueRecs" t-as="attrDefValueRec" t-key="attrDefValueRec.id">
+                <t t-if="attrDefValueRec.id !=0">                    <!-- check if attr definitions have been defined-->
                     <tr>
                         <td>
                             <span class="o_form_label">
-                                <t t-out="attrPrimitiveDatatypeRec.osloattributen_name"/>
+                                <t t-out="attrDefValueRec.osloattributen_name"/>
                             </span>
                         </td>
                         <td>
-                            <!-- <t t-out="getValue(attrDefRecord)"/> -->
+                            <t t-out="getValue(attrDefValueRec)"/>
                         </td>
                         <td>
-                            <t t-out="formatUnit(attrPrimitiveDatatypeRec.oslodatatype_primitive_attributen_constraints)"/>
+                            <t t-out="formatUnit(attrDefValueRec.oslodatatype_primitive_attributen_constraints)"/>
                         </td>
 
                         <td>
-                            <button class="btn btn-primary" t-on-click="() => this.changeAttrValue(attrPrimitiveDatatypeRec)">
+                            <button class="btn btn-primary" t-on-click="() => this.changeAttrValue(attrDefValueRec)">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </button>
 

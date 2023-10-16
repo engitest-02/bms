@@ -372,7 +372,7 @@
   </record>
 
 
-  <!-- <record id="bms_oslo_attributen_value_tree" model="ir.ui.view">
+  <record id="bms_oslo_attributen_value_tree" model="ir.ui.view">
     <field name="name">bms.oslo_attributen_value.tree</field>
     <field name="model">bms.oslo_attributen_value</field>
     <field name="arch" type="xml">
@@ -385,14 +385,13 @@
         <field name="value_date"/>
         <field name="value_datetime"/>
         <field name="value_float"/>
-        <field name="value_integer"/>
-         <field name="attr_def"/>
-        <field name="attr_def_value_type"/> 
-        <field name="object_name"/>
-        <field name="object_type_name"/>
+        <field name="value_integer"/> 
+        <field name="oslo_attributen_uri"/>
+        <field name="object_id"/>
+        <field name="object_type_id"/>
       </tree>
     </field>
-  </record> -->
+  </record>
 <!-- 
   <record id="bms_oslo_attributen_value_form" model="ir.ui.view">
     <field name="name">bms.oslo_attributen_value.form</field>
@@ -442,6 +441,33 @@
       </form>
     </field>
   </record>
+
+  <!-- test: -->
+  bms_test_awv_attributen_action
+  <record id="bms_test_awv_attributen_action_tree" model="ir.ui.view">
+    <field name="name">bms.test_awv_attributen_action.tree</field>
+    <field name="model">bms.test_awv_attributen</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name"/>
+        <field name="osloclass_name"/>
+        <field name="osloattributen_name"/>
+        <field name="osloattributen_definition"/>
+        <field name="oslodatatype_primitive_definition_nl"/>
+        <field name="oslo_type"/>
+        <field name="oslodatatype_primitive_attributen_constraints"/>
+        <field name="oslo_attributen_value_id"/>
+        <field name="object_id"/>
+        <field name="oslo_value_type"/>
+        <!-- <field name="value_type"/> -->
+        <field name="osloclass_uri"/>
+        <field name="osloattributen_uri"/>
+        <field name="oslodatatype_primitive_uri"/>
+        <field name="oslodatatype_primitive_attributen_uri"/>
+      </tree>
+    </field>
+  </record>
+
 
   <!-- actions -->
   <record id="bms_object_action" model="ir.actions.act_window">
@@ -531,17 +557,27 @@
     <field name="view_mode">tree</field>
   </record>
 
-  <!-- <record id="bms_oslo_attributen_value_action" model="ir.actions.act_window">
+  <record id="bms_oslo_attributen_value_action" model="ir.actions.act_window">
     <field name="name">Oslo attributen value</field>
     <field name="res_model">bms.oslo_attributen_value</field>
     <field name="view_mode">tree,form</field>
-  </record> -->
+  </record>
+
+
+
 
   <!-- demo agent -->
   <record id="bms_demo_agent_action" model="ir.actions.act_window">
     <field name="name">Demo agent</field>
     <field name="res_model">bms.my_demo_agent</field>
     <field name="view_mode">tree,form</field>
+  </record>
+
+<!-- test -->
+<record id="bms_test_awv_attributen_action" model="ir.actions.act_window">
+    <field name="name">test_awv_attributen tree</field>
+    <field name="res_model">bms.test_awv_attributen</field>
+    <field name="view_mode">tree</field>
   </record>
 
   <!-- menuitems -->
@@ -570,7 +606,7 @@
   <menuitem id="bms_awv_oslo_attributen" parent="bms_awv" name="OsloAttributen" groups="base.group_user" sequence="20" action="bms_oslo_attributen_action"/>
   <menuitem id="bms_awv_oslo_datatype_primitive" parent="bms_awv" name="OsloDatatypePrimitive" groups="base.group_user" sequence="30" action="bms_oslo_datatype_primitive_action"/>
   <menuitem id="bms_awv_oslo_datatype_primitive_attributen" parent="bms_awv" name="OsloDatatypePrimitiveAttributen" groups="base.group_user" sequence="40" action="bms_oslo_datatype_primitive_attributen_action"/>
-  <!-- <menuitem id="bms_awv_oslo_attributen_value" parent="bms_awv" name="Oslo Attributen Value" groups="base.group_user" sequence="50" action="bms_oslo_attributen_value_action"/> -->
-
+  <menuitem id="bms_awv_oslo_attributen_value" parent="bms_awv" name="Oslo Attributen Value" groups="base.group_user" sequence="50" action="bms_oslo_attributen_value_action"/>
+<menuitem id="bms_test_awv_attributen" parent="bms_awv" name="Oslo test Attributen Value" groups="base.group_user" sequence="0" action="bms_test_awv_attributen_action"/>
 
 </odoo>

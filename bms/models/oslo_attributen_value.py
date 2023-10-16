@@ -15,7 +15,7 @@ class OsloAttributenValue(models.Model):
     _name = "bms.oslo_attributen_value"
     _description = "bms.oslo_attributen_value: store values of attribute of an object type for the AWV OTL"
    
-
+    
     value_char = fields.Char("value", default=None)
     value_boolean = fields.Boolean("value", default=False)
     value_date = fields.Date("value", default=None)
@@ -71,7 +71,7 @@ class OsloAttributenValue(models.Model):
 
     @api.model
     def test_awv_attributen(self, vals):
-        domain = [("osloclass_name", "=", 'Aardingsinstallatie')]
+        domain = [("osloclass_uri", "=", "https://wegenenverkeer.data.vlaanderen.be/ns/installatie#Aardingsinstallatie")]
         records = self.env["bms.test_awv_attributen"].search(domain)
         for record in records:
-            print(record.osloclass_name, record.osloattributen_name)
+            print(record.osloclass_name, record.osloattributen_name, record.osloclass_uri)

@@ -13,14 +13,17 @@ export class OsloType extends Component {
         this.otlId = this.props.otlId;
         this.classUri = this.props.classUri;
         this.className = this.props.className;
-        this.objectTypeId = this.props.objectTypeId;
+        this.objectTypeId = this.props.objectTypeId; // TODO: same as classUri ???
         this.objectId = this.props.objectId;
 
         this.currentObjectId = this.objectId;
-        this.attrPrimitiveDatatypeRecs;
+        this.attrDefValueRecs;
 
         onWillStart(async () => {
-            this.attrPrimitiveDatatypeRecs = await this._loadAttrPrimitiveDatatype(this.classUri);
+            this.attrDefRecs = await this._loadAttrPrimitiveDatatype(this.classUri);
+            this.attrValueRecs = await this._loadAttrValue(this.objectId, this.objectTypeId);
+            this.attrDefValueRecs = this._mergeAttrDefsAndValues(this.attrDefRecs, this.attrValueRecs);
+                console.log("onWillStart", this.classUri, this.attrDefRecs, this.attrValueRecs, this.attrDefValueRecs);
         })
 
         onWillPatch(async () => {
@@ -31,7 +34,10 @@ export class OsloType extends Component {
             this.objectId = this.props.objectId;
 
             if (this.currentObjectId != this.objectId) {// rerender OTL notebook if parent object has changed
-                this.attrPrimitiveDatatypeRecs = await this._loadAttrPrimitiveDatatype(this.classUri);
+                this.attrDefRecs = await this._loadAttrPrimitiveDatatype(this.classUri);
+                this.attrValueRecs = await this._loadAttrValue(this.objectId, this.objectTypeId);
+                this.attrDefValueRecs = this._mergeAttrDefsAndValues(this.attrDefRecs, this.attrValueRecs);
+                console.log("onWillPatch", this.classUri, this.attrDefRecs, this.attrValueRecs, this.attrDefValueRecs);
                 this.render();
                 this.currentObjectId = this.objectId;
             }
@@ -41,8 +47,26 @@ export class OsloType extends Component {
 
     _loadAttrPrimitiveDatatype(osloclass_uri) {
         const domain = [["osloclass_uri", "=", osloclass_uri]];
-        const result = this.orm.searchRead("bms.awv_attributen_primitive_datatype", domain)
-        return result;  
+        return this.orm.searchRead("bms.awv_attributen_primitive_datatype", domain);
+    }
+
+    _loadAttrValue(objectId, objectTypeId, osloclass_uri){
+        const domain = [["object_id", "=", objectId], ["object_type_id", "=", objectTypeId]];
+        return this.orm.searchRead("bms.oslo_attributen_value", domain);
+    }
+
+    _mergeAttrDefsAndValues(attrDefRecs, attrValueRecs){
+        var merge = [];
+        Object.values(attrDefRecs).forEach((attrDefRec) => {
+            let attr = attrDefRec;        
+            Object.values(attrValueRecs).forEach((attrValueRec) => {
+                if (attrDefRec.osloattributen_uri == attrValueRec.oslo_attributen_uri){
+                attr = {...attr, ...attrValueRec};        
+                }        
+            })
+            merge.push(attr);
+        })
+        return merge;
     }
 
     changeOtlAndType() {
@@ -81,22 +105,22 @@ export class OsloType extends Component {
         }
     }
 
-    changeAttrValue(record) {
-        console.log("record", record);
+    changeAttrValue(attrDefValueRec) {
+        console.log("record", attrDefValueRec);
         const context = {
             'default_object_id': this.objectId,
             'default_object_type_id': this.objectTypeId,
-            'default_oslo_attributen_uri': record.osloattributen_uri,
-            'default_attr_name': record.osloattributen_name,
-            'default_attr_def': record.osloattributen_definition,
-            'default_att_def_value_type_definition': record.oslodatatype_primitive_definition_nl,
-            'default_attr_def_value_type': record.value_type,
-            'default_value_char': record.value_char,
-            'default_value_boolean': record.value_boolean,
-            'default_value_date': record.value_date,
-            'default_value_datetime': record.value_datetime,
-            'default_value_float': record.value_float,
-            'default_value_integer': record.value_integer,
+            'default_oslo_attributen_uri': attrDefValueRec.osloattributen_uri,
+            'default_attr_name': attrDefValueRec.osloattributen_name,
+            'default_attr_def': attrDefValueRec.osloattributen_definition,
+            'default_att_def_value_type_definition': attrDefValueRec.oslodatatype_primitive_definition_nl,
+            'default_attr_def_value_type': attrDefValueRec.value_type,
+            'default_value_char': attrDefValueRec.value_char,
+            'default_value_boolean': attrDefValueRec.value_boolean,
+            'default_value_date': attrDefValueRec.value_date,
+            'default_value_datetime': attrDefValueRec.value_datetime,
+            'default_value_float': attrDefValueRec.value_float,
+            'default_value_integer': attrDefValueRec.value_integer,
             'form_view_initial_mode': "edit",
         }
         this.actionService.doAction(
@@ -120,6 +144,17 @@ export class OsloType extends Component {
             return ""
         }
     }
+
+    getValue(attrDefValueRec){
+        const key = 'value_' + attrDefValueRec.value_type
+        if (key in attrDefValueRec){
+            return attrDefValueRec[key];
+        }
+        else {
+            return "";
+        }
+    }
+
 
 }
 

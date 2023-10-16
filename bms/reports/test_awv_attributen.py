@@ -2,18 +2,25 @@ from odoo import fields, models, tools, api
 
 
 class AWVPrimitiveDatypeAttributes(models.Model):
-    _name = "bms.awv_attributen_primitive_datatype"
-    _description = "Help to display the definitions and the attributes of primitive datatype for AWV classes"
+    _name = "bms.test_awv_attributen"
+    _description = "test_awv_attributen"
     _auto = False
+    _rec_name = "name"
 
+    name = fields.Char("name")
     osloclass_name = fields.Char("osloclass_name")
     osloattributen_name = fields.Char("osloattributen_name")
     osloattributen_definition = fields.Char("osloattributen_definition")
     oslodatatype_primitive_definition_nl = fields.Char("oslodataype_primitive_definition_nl")
     oslo_type = fields.Char("oslo_type")
     oslodatatype_primitive_attributen_constraints = fields.Char("oslodatatype_primitive_attributen_constraints")
+    
+    oslo_attributen_value_id = fields.Integer("oslo_attributen_value_id")
+    object_id = fields.Integer("object_id")
+    object_type_id = fields.Integer("object_type_id")
+    
     oslo_value_type = fields.Char("value type")
-    value_type = fields.Char(compute="_compute_odoo_value_type")
+    # value_type = fields.Char(compute="_compute_odoo_value_type")
     osloclass_uri = fields.Char("osloclass_uri")
     osloattributen_uri = fields.Char("osloattributen_uri")
     oslodatatype_primitive_uri = fields.Char("oslodatatype_primitive_uri")
@@ -44,13 +51,17 @@ class AWVPrimitiveDatypeAttributes(models.Model):
     def _select(self):
         return """
             row_number() OVER () as id
-			, c.name as osloclass_name
+			, c.name as name
+            , c.name as osloclass_name
 			, a.name as osloattributen_name
 			, a.definition_nl as osloattributen_definition
             , case when dpa.type is null then dp.uri else dpa.type end as oslo_value_type
 			, dp.definition_nl as oslodatatype_primitive_definition_nl
 			, case when dpa.type is null then dp.uri else dpa.type end as oslo_type
 			, dpa2.constraints as oslodatatype_primitive_attributen_constraints
+             , av.id as oslo_attributen_value_id
+			, av.object_id
+			, av.object_type_id
 			, c.uri as osloclass_uri
 			, a.uri as osloattributen_uri
             , dp.uri as oslodatatype_primitive_uri
@@ -65,6 +76,7 @@ class AWVPrimitiveDatypeAttributes(models.Model):
             inner join bms_oslo_datatype_primitive dp on dp.uri = a.type
             left join bms_oslo_datatype_primitive_attributen dpa on dpa.class_uri = dp.uri and dpa.name = 'waarde'
 			left join bms_oslo_datatype_primitive_attributen dpa2 on dpa2.class_uri = dp.uri and dpa2.name = 'standaardEenheid'
+            left join bms_oslo_attributen_value av on av.oslo_attributen_uri = a.uri
         """
 
 
