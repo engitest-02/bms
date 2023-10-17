@@ -2,11 +2,11 @@
  * Fancytree "custom_bms" skin.
  *
  * DON'T EDIT THE CSS FILE DIRECTLY, since it is automatically generated from
- * the LESS templates.
+ * the SCSS templates.
  */
 
 // common styles
-// !!!  "../skin-common.less" have to be imoprted first via __manifest__.py > assets mechanism !!
+// !!!  "../skin-common.css" has to be imoprted first via __manifest__.py > assets mechanism !!
 
 
 /*******************************************************************************
@@ -48,6 +48,9 @@ $fancy-node-border-width: 1px;
 $fancy-node-border-radius: 0px;
 $fancy-node-outline-width: 1px;
 
+// bms custom values
+$o_bms_has_no_awv_type_backgroung_color: rgba(252, 216, 216, 0.685);
+
 
 // $fancy-icon-width: 16px;
 // $fancy-icon-height: 16px;
@@ -71,10 +74,15 @@ $fancy-image-prefix: "./skin-win8/";
 	span.fancytree-title {
 		border: $fancy-node-border-width solid transparent;  // avoid jumping, when a border is added on hover
 	}
+		// bms customization
+	span.has_no_awv_type > span.fancytree-title {
+		background-color: $o_bms_has_no_awv_type_backgroung_color;	
+		}
 	&.fancytree-container.fancytree-treefocus span.fancytree-focused span.fancytree-title {
 		border-color: #3399ff;
 	}
 	span.fancytree-active span.fancytree-title,
+	
 	span.fancytree-selected span.fancytree-title { // active/selcted nodes inside inactive tree
 		background-color: #f7f7f7;
 		border-color: #dedede;
@@ -82,6 +90,7 @@ $fancy-image-prefix: "./skin-win8/";
 	span.fancytree-node span.fancytree-selected span.fancytree-title {
 		font-style: italic;
 	}
+
 	span.fancytree-node:hover span.fancytree-title {
 		background-color: #eff9fe; // hover is always colored, even if tree is unfocused
 		border-color: #70c0e7;

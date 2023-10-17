@@ -21,7 +21,7 @@ export class Decomposition extends Component {
 
         onWillStart(async () => {
             loadJS(["/bms/static/lib/fancytree/js/jquery.fancytree-all-deps.js"]);
-            loadCSS(["bms/static/lib/fancytree/css/skin-odoo-bms/ui.fancytree.css"])
+            loadCSS(["bms/static/lib/fancytree/css/skin-odoo-bms/ui.fancytree.css"]);
 
             this.decompositionTypeRecords = await this._loadDecompositionTypes();
             this.treeString = await this._loadJsonTree()();

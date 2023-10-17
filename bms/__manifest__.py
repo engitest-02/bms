@@ -21,7 +21,7 @@
         ],
         "web.assets_common":[
             "bms/static/lib/fancytree/js/jquery.fancytree-all-deps.js",
-            "bms/static/lib/fancytree/css/skin-odoo-bms/ui.fancytree.css",
+            "bms/static/lib/fancytree/css/skin-odoo-bms/ui.fancytree.scss",
         ]
     },
     "application": True,

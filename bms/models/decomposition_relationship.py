@@ -11,6 +11,7 @@ class DecompositionRelationship(models.Model):
     sibling_order = fields.Integer("sibling order", default=0)
 
     # object_name = fields.Char(related='object_id.name')
+    object_awv_type_not_found = fields.Boolean(related="object_id.awv_type_not_found")
 
     object_id = fields.Many2one(
         comodel_name="bms.maintainance_object", ondelete="set null"
@@ -57,7 +58,10 @@ class DecompositionRelationship(models.Model):
         return self.env["bms.decomposition_relationship"].search(domain)
 
     def _record2node(self, record):
-        return {"title": record.object_id.name, "key": record.object_id.id}
+        node = {"title": record.object_id.name, "key": record.object_id.id}
+        if record.object_awv_type_not_found:
+            node = {**node, "extraClasses": "has_no_awv_type"}
+        return node
 
     def _get_children(self, node):
         parent_id = node["key"]
