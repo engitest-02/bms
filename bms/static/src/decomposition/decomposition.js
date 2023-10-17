@@ -76,26 +76,10 @@ export class Decomposition extends Component {
                         args: [],
                         }   
                     )
-        )
-            
+        )         
     }
 
-    // _loadJsonTree() {
-    //     var rpc = require('web.rpc');
-    //     return  rpc.query({
-    //             model: 'bms.decomposition_relationship',
-    //             method: 'getTree',
-    //             args: [],
-    //         }   
-    //         )
-    // }
 }
-
 Decomposition.template = "bms.Decomposition";
 
-// CustomerList.props = {
-//     selectCustomer: {
-//         type: Function,
-//     },
-// };
 

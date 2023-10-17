@@ -36,5 +36,7 @@ class MaintainanceObject(models.Model):
     #demo agent
     agent_name = fields.Char(related="agent_id.name", readonly=True)
     agent_description = fields.Char(related="agent_id.description", readonly=True)
+    agent_email = fields.Char(related="agent_id.email", readonly=True)
+    agent_phone_number = fields.Char(related="agent_id.phone_number", readonly=True)
     agent_id = fields.Many2one(comodel_name="bms.my_demo_agent", readonly=False)
 

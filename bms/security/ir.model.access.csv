@@ -17,4 +17,3 @@ bms.access_bms_wz_oslo_attributen_value,access_bms_wz_oslo_attributen_value,bms.
 bms.access_bms_oslo_attributen_value,access_bms_oslo_attributen_value,bms.model_bms_oslo_attributen_value,base.group_user,1,1,1,1
 bms.access_bms_awv_attributen_primitive_datatype,access_bms_awv_attributen_primitive_datatype,bms.model_bms_awv_attributen_primitive_datatype,base.group_user,1,1,1,1
 bms.access_bms_my_demo_agent,access_bms_my_demo_agent,bms.model_bms_my_demo_agent,base.group_user,1,1,1,1
-bms.access_bms_test_awv_attributen,access_bms_test_awv_attributen,bms.model_bms_test_awv_attributen,base.group_user,1,1,1,1

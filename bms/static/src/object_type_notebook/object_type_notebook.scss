@@ -1,8 +1,9 @@
-$o-bms-table-width: 100%;
+$o-bms-table-width: 60%;
 $o-bms-td-width-attrdef: 30%;
-$o-bms-td-width-attrvalue: 70%;
+$o-bms-td-width-attrvalue: 60%;
+$o-bms-td-width-unit: 10%;
 $o-bms-td-width-editbutton: 10%;
-$o-bms-tab-content-width: 300px;
+$o-bms-tab-content-width: 100%;
 
 // override
 $container-max-widths: (
@@ -13,6 +14,11 @@ $container-max-widths: (
   xxl: 1320px
 ) !default;
 
+.o_field_widget{
+    width:$o-bms-tab-content-width;
+}
+
+// custom a
 .o_bms_tab_content{
     width:$o-bms-tab-content-width;
 }
@@ -26,6 +32,9 @@ $container-max-widths: (
         width: $o-bms-td-width-attrvalue;
     }
     td:nth-of-type(3) {
+        width: $o-bms-td-width-unit;
+    }
+    td:nth-of-type(4) {
         width: $o-bms-td-width-editbutton;
     }
 }
