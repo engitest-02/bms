@@ -31,12 +31,12 @@ class MaintainanceObject(models.Model):
     decomposition_ids = fields.One2many(
         comodel_name="bms.decomposition_relationship", inverse_name="object_id"
     )
-    # oslo_attributen_value_ids = fields.One2many(comodel_name="bms.oslo_attributen_value", inverse_name="object_id")
     
     #demo agent
     agent_name = fields.Char(related="agent_id.name", readonly=True)
     agent_description = fields.Char(related="agent_id.description", readonly=True)
     agent_email = fields.Char(related="agent_id.email", readonly=True)
     agent_phone_number = fields.Char(related="agent_id.phone_number", readonly=True)
+    
     agent_id = fields.Many2one(comodel_name="bms.my_demo_agent", readonly=False)
 

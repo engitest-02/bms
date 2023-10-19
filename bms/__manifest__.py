@@ -10,6 +10,7 @@
     "depends": ["base", "web"],
     "data": [
         "views/view.xml",
+        "views/view_awv.xml",
         "security/ir.model.access.csv",
         "wizards/otl_type_view.xml",
         "wizards/ws_oslo_attributen_value.xml"

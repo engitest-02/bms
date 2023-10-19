@@ -38,3 +38,5 @@ where msa_o.otl_type_id is not null and msa_o.otl_type_id <> 0
 ## Attributen ##
 1. Load attributen table with model oslo_attributen
 
+# TODO # 
+1. Make the import mechanism of awv list ("keuzelijsten") better by taking into account the status change (don't  know it happens but theoritically it could)

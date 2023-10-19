@@ -1,5 +1,8 @@
 from odoo import models, fields, api
 
+import logging
+logger = logging.getLogger(__name__)
+logger.critical("Method _get_records() is in demo mode. It has been hardcoded. It has to be modified.")
 
 class DecompositionRelationship(models.Model):
     """ """
@@ -36,24 +39,20 @@ class DecompositionRelationship(models.Model):
                 ]
         """
         tree = []
-
         level1_records = self._get_records(1)
         for record in level1_records:
             node = self._record2node(record)
-            import pdb
-       
             children_nodes = self._get_children(node)
             if children_nodes:
                 node["folder"] = True
                 node["children"] = children_nodes
             tree.append(node)
         import json
-        import pprint
-        # pprint.pprint(json.dumps(tree))   
         return json.dumps(tree)
 
     def _get_records(self, tree_level):
         # domain = [("tree_level", "=", 1)]
+
         domain = [("tree_level", "=", 4),('object_id.lantis_unique_id','=', 3675)]
         return self.env["bms.decomposition_relationship"].search(domain)
 

@@ -13,6 +13,7 @@ from . import oslo_attributen
 from . import oslo_attributen_value
 from . import oslo_datatype_primitive
 from . import oslo_datatype_primitive_attributen
+from . import oslo_enumeration
 
 from . import my_demo_agent
 

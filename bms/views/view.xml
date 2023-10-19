@@ -61,7 +61,7 @@
               <field name="agent_id"/>
               <field name="agent_description"/>
               <field name="agent_email"/>
-              <!-- <field name="agent_phone_number"/> --> 
+              <field name="agent_phone_number"/> 
             </group>
             <!-- end demo agent -->
           </page>
@@ -186,6 +186,23 @@
     </field>
   </record>
 
+ <record id="bms_decompostion_relationship_tree" model="ir.ui.view">
+    <field name="name">bms.decomposition_relationship.tree</field>
+    <field name="model">bms.decomposition_relationship</field>
+    <field name="arch" type="xml">
+      <tree>
+        <header>
+          <button name="getTree" type="object" string="Generate treeview json"/>
+        
+        </header>
+        <field name="object_id"/>
+        <field name="parent_object_id"/>
+        <field name="decomposition_type"/>
+        <field name="tree_level"/>
+        <field name="sibling_order"/>
+      </tree>
+    </field>
+  </record>
 
   <record id="bms_attribute_value_view_tree" model="ir.ui.view">
     <field name="name">bms.attribute_value.tree</field>
@@ -277,7 +294,7 @@
     </field>
   </record>
 
-  <record id="bms_oslo_class_tree" model="ir.ui.view">
+  <!-- <record id="bms_oslo_class_tree" model="ir.ui.view">
     <field name="name">bms.oslo_class.tree</field>
     <field name="model">bms.oslo_class</field>
     <field name="arch" type="xml">
@@ -393,7 +410,7 @@
         <field name="object_type_id"/>
       </tree>
     </field>
-  </record>
+  </record> -->
 <!-- 
   <record id="bms_oslo_attributen_value_form" model="ir.ui.view">
     <field name="name">bms.oslo_attributen_value.form</field>
@@ -425,8 +442,8 @@
       <tree>
         <field name="name"/>
         <field name="description"/>
-        <!-- <field name="phone_number"/> -->
         <field name="email"/>
+        <field name="phone_number"/> 
       </tree>
     </field>
   </record>
@@ -440,17 +457,13 @@
           <group>
             <field name="name"/>
             <field name="description"/>
-            <!-- <field name="phone_number"/> -->
             <field name="email"/>
+            <field name="phone_number"/> 
           </group>
         </sheet>
       </form>
     </field>
   </record>
-
-  <!-- test: -->
- 
-
 
   <!-- actions -->
   <record id="bms_object_action" model="ir.actions.act_window">
@@ -510,29 +523,7 @@
     <field name="view_mode">tree,form</field>
   </record>
 
-  <record id="bms_oslo_class_action" model="ir.actions.act_window">
-    <field name="name">OSLOCLass</field>
-    <field name="res_model">bms.oslo_class</field>
-    <field name="view_mode">tree</field>
-  </record>
-
-  <record id="bms_oslo_attributen_action" model="ir.actions.act_window">
-    <field name="name">OSLOAttributen</field>
-    <field name="res_model">bms.oslo_attributen</field>
-    <field name="view_mode">tree</field>
-  </record>
-
-  <record id="bms_oslo_datatype_primitive_action" model="ir.actions.act_window">
-    <field name="name">OSLO datype primitive </field>
-    <field name="res_model">bms.oslo_datatype_primitive</field>
-    <field name="view_mode">tree</field>
-  </record>
-
-  <record id="bms_oslo_datatype_primitive_attributen_action" model="ir.actions.act_window">
-    <field name="name">OSLO datype primitive attributen</field>
-    <field name="res_model">bms.oslo_datatype_primitive_attributen</field>
-    <field name="view_mode">tree</field>
-  </record>
+ 
 
   <record id="bms_decomposition_relationship_action" model="ir.actions.act_window">
     <field name="name">Decomposition relationship</field>
@@ -540,13 +531,7 @@
     <field name="view_mode">tree</field>
   </record>
 
-  <record id="bms_oslo_attributen_value_action" model="ir.actions.act_window">
-    <field name="name">Oslo attributen value</field>
-    <field name="res_model">bms.oslo_attributen_value</field>
-    <field name="view_mode">tree,form</field>
-  </record>
-
-
+ 
 
 
   <!-- demo agent -->
@@ -579,13 +564,6 @@
 
   <menuitem id="bms_imports" parent="bms_root" name="Imports" sequence ="20" groups="base.group_user" />
   <menuitem id="bms_ms_object" parent="bms_imports" name="MSA object table" groups="base.group_user" sequence="20" action="bms_msa_object_action"/>
-
-  <menuitem id="bms_awv" parent="bms_root" name="AWV OTL" sequence ="30" groups="base.group_user" />
-  <menuitem id="bms_awv_oslo_class" parent="bms_awv" name="OsloClass" groups="base.group_user" sequence="10" action="bms_oslo_class_action"/>
-  <menuitem id="bms_awv_oslo_attributen" parent="bms_awv" name="OsloAttributen" groups="base.group_user" sequence="20" action="bms_oslo_attributen_action"/>
-  <menuitem id="bms_awv_oslo_datatype_primitive" parent="bms_awv" name="OsloDatatypePrimitive" groups="base.group_user" sequence="30" action="bms_oslo_datatype_primitive_action"/>
-  <menuitem id="bms_awv_oslo_datatype_primitive_attributen" parent="bms_awv" name="OsloDatatypePrimitiveAttributen" groups="base.group_user" sequence="40" action="bms_oslo_datatype_primitive_attributen_action"/>
-  <menuitem id="bms_awv_oslo_attributen_value" parent="bms_awv" name="Oslo Attributen Value" groups="base.group_user" sequence="50" action="bms_oslo_attributen_value_action"/>
 
 
 </odoo>
