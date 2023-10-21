@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="bms.awv_import_action" owl="1">
+        <div class="m-3">
+            <h1> AWV import tools </h1>
+            <h2> Enumeration </h4>
+            <div class="row">
+                <div class="col-md-auto">
+                    <button class="btn btn-primary" t-on-click="import_awv_enumeration_values"> import enumeration values</button>
+                </div>
+                <div class="col-md-auto">
+                    <t t-out="state.processed"/>
+                    <span> AWV enumeration(s) processed on </span>
+                    <t t-out="state.total_to_process"/>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
