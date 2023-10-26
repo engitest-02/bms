@@ -1,5 +1,5 @@
-from . import attribute_definition
-from . import attribute_value
+from . import attribute_definition #TODO : delete
+from . import attribute_value  #TODO : delete
 from . import decomposition_relationship
 from . import decomposition_type
 from . import maintainance_object
@@ -15,8 +15,14 @@ from . import oslo_datatype_primitive
 from . import oslo_datatype_primitive_attributen
 from . import oslo_enumeration
 from . import oslo_enumeration_values
+from . import oslo_type_link_tabel
+from . import oslo_datatype_complex
+from . import oslo_datatype_complex_attributen
 
-from . import my_demo_agent
+from . import attribute_definition_
+
+from . import oslo_generic_model #TODO : delete
+from . import my_demo_agent # TODO: adapt
 
 
 

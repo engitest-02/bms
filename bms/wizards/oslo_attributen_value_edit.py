@@ -1,8 +1,8 @@
 from odoo import models, fields, api, Command
 
 
-class WzOsloaAttributenValue(models.TransientModel):
-    _name = "bms.wz_oslo_attributen_value"
+class OsloaAttributenValueEdit(models.TransientModel):
+    _name = "bms.oslo_attributen_value_edit"
     _description = "Transient model for the assignation of a value to an Oslo attribute linked to an existing object."
 
     object_id = fields.Many2one("bms.maintainance_object", string="maintainance object")
@@ -28,11 +28,11 @@ class WzOsloaAttributenValue(models.TransientModel):
     @api.model
     def create(self, vals):
         self._change_attribute_value(vals)
-        return super(WzOsloaAttributenValue, self).create(vals)
+        return super(OsloaAttributenValueEdit, self).create(vals)
 
     def write(self, vals):
         self._change_attribute_value(vals)
-        return super(WzOsloaAttributenValue, self).write(vals)
+        return super(OsloaAttributenValueEdit, self).write(vals)
 
     def _change_attribute_value(self, vals):
         vals = {

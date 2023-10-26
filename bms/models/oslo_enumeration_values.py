@@ -21,11 +21,7 @@ class OsloEnumerationValues(models.Model):
             Import thte values list on github 'https://github.com/Informatievlaanderen/OSLOthema-wegenenverkeer/tree/master/codelijsten'
             which are exposed under Turtle fiel (.tt) by iterating on the codelist of the  bms_oslo_enumeration table.
         """
-        # enumeration_recs = self.env["bms.oslo_enumeration"].search([])
-        #delete all the record
-        # enumeration_values_recs = self.env["bms.oslo_enumeration_values"].search([])
-        # for enumeration_values_rec in enumeration_values_recs:
-        print("import_value_list called", type(enumeration_id),enumeration_id)
+
         domain = [('enumeration_id', "=", enumeration_id)]
         self.env["bms.oslo_enumeration_values"].search(domain).unlink()
         
@@ -34,16 +30,12 @@ class OsloEnumerationValues(models.Model):
         
         awv_enum_values = AwvEnumerationValues(enumeration_rec.name)
         records = awv_enum_values.get_values_list(enumeration_rec.id)
-        # print("records ", enumeration_rec.name, records)
+
         self.env["bms.oslo_enumeration_values"].create(records)
-        # counter = counter + 1
-            # if counter > limit :
-            #     break
         return True
 
 
 # utility class 
-
 from rdflib import Graph, term, URIRef
 import requests
 from pprint import pprint
@@ -122,7 +114,3 @@ class AwvEnumerationValues():
             values = {"enumeration_id": enumeration_id, **values}
             records.append(values)
         return records
-
-# if __name__ == "__main__":
-#     awv_enumeration = "KlUitvoeringsmethode"
-#     awv_enum = AwvEnumerationValues(awv_enumeration)

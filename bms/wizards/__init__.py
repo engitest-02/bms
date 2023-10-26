@@ -1,2 +1,2 @@
 from . import otl_type
-from . import wz_oslo_attributen_value
+from . import oslo_attributen_value_edit

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<record id="bms_wz_oslo_attributen_value_form" model="ir.ui.view">
-    <field name="name">bms.wz_oslo_attributen_value.form</field>
-    <field name="model">bms.wz_oslo_attributen_value</field>
+<record id="bms_oslo_attributen_value_edit_form" model="ir.ui.view">
+    <field name="name">bms.oslo_attributen_value_edit.form</field>
+    <field name="model">bms.oslo_attributen_value_edit</field>
     <field name="arch" type="xml">
         <form>
             <group>

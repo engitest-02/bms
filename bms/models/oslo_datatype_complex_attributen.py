@@ -1,9 +1,9 @@
 from odoo import models, fields
 
 
-class OsloDatatypePrimitive_test(models.Model):
-    _name = "bms.oslo_datatype_primitive_attributen"
-    _description = "awv OSLODatatypePrimitiveAttributen table"
+class OsloDatatypeComplexAttributen(models.Model):
+    _name = "bms.oslo_datatype_complex_attributen"
+    _description = "awv OSLODatatypeComplexAttributen table"
 
     name = fields.Char("name")
     label_nl = fields.Char("label_nl")
@@ -18,4 +18,3 @@ class OsloDatatypePrimitive_test(models.Model):
     readonly = fields.Integer("readonly")
     usagenote_nl = fields.Char("usagenote_nl")
     deprecated_version = fields.Char("deprecated_version")
-

@@ -219,6 +219,7 @@
         <field name="value_integer"/>
         <field name="attr_def_id"/>
         <field name="object_id"/>
+        <!-- <field name="otl_type_internal_id"/> -->
       </tree>
     </field>
   </record>
@@ -245,20 +246,7 @@
     </field>
   </record>
 
-  <!-- <record id="bms_attribute_value_view_form" model="ir.ui.view">
-    <field name="name">bms.decomposition_type.form</field>
-    <field name="model">bms.decomposition_type</field>
-    <field name="arch" type="xml">
-      <form>
-        <sheet>
-          <group>
-            <field name="name"/>
-            <field name="description"/>
-          </group>
-        </sheet>
-      </form>
-    </field>
-  </record> -->
+ 
 
   <record id="bms_msa_object_tree" model="ir.ui.view">
     <field name="name">bms.msa_object.tree</field>
@@ -294,146 +282,6 @@
     </field>
   </record>
 
-  <!-- <record id="bms_oslo_class_tree" model="ir.ui.view">
-    <field name="name">bms.oslo_class.tree</field>
-    <field name="model">bms.oslo_class</field>
-    <field name="arch" type="xml">
-      <tree>
-        <field name ="msa_otl_type_id"/>
-        <field name ="label_nl"/>
-        <field name ="name" />
-        <field name ="uri" />
-        <field name ="definition_nl" />
-        <field name ="usagenote_nl" />
-        <field name ="abstract" />
-        <field name ="deprecated_version" />
-      </tree>
-    </field>
-  </record>
-
-  <record id="bms_oslo_attributen_tree" model="ir.ui.view">
-    <field name="name">bms.oslo_attributen.tree</field>
-    <field name="model">bms.oslo_attributen</field>
-    <field name="arch" type="xml">
-      <tree>
-        <field name ="name"/>
-        <field name ="label_nl"/>
-        <field name ="definition_nl" />
-        <field name ="class_uri" />
-        <field name ="kardinaliteit_min" />
-        <field name ="kardinaliteit_max"/>
-        <field name ="uri" />
-        <field name ="type"/>
-        <field name ="overerving"/>
-        <field name ="constraints"/>
-        <field name ="readonly"/>
-        <field name ="usagenote_nl" />
-        <field name ="deprecated_version" />
-      </tree>
-    </field>
-  </record>
-
-
-  <record id="bms_oslo_datatype_primitive" model="ir.ui.view">
-    <field name="name">bms.oslo_datatype_primitive.tree</field>
-    <field name="model">bms.oslo_datatype_primitive</field>
-    <field name="arch" type="xml">
-      <tree>
-        <field name ="name" />
-        <field name ="uri" />
-        <field name ="definition_nl" />
-        <field name ="label_nl" />
-        <field name ="usagenote_nl" />
-        <field name ="deprecated_version" />
-      </tree>
-    </field>
-  </record>
-
-
-  <record id="bms_oslo_datatype_primitive_attributen" model="ir.ui.view">
-    <field name="name">bms.oslo_datatype_primitive_attributen.tree</field>
-    <field name="model">bms.oslo_datatype_primitive_attributen</field>
-    <field name="arch" type="xml">
-      <tree>
-        <field name ="name"/>
-        <field name ="label_nl"/>
-        <field name ="definition_nl" />
-        <field name ="class_uri" />
-        <field name ="kardinaliteit_min" />
-        <field name ="kardinaliteit_max"/>
-        <field name ="uri" />
-        <field name ="type"/>
-        <field name ="overerving"/>
-        <field name ="constraints"/>
-        <field name ="readonly"/>
-        <field name ="usagenote_nl" />
-        <field name ="deprecated_version" />
-      </tree>
-    </field>
-  </record>
-
-  <record id="bms_decompostion_relationship_tree" model="ir.ui.view">
-    <field name="name">bms.decomposition_relationship.tree</field>
-    <field name="model">bms.decomposition_relationship</field>
-    <field name="arch" type="xml">
-      <tree>
-        <header>
-          <button name="getTree" type="object" string="Generate treeview json"/>
-        
-        </header>
-        <field name="object_id"/>
-        <field name="parent_object_id"/>
-        <field name="decomposition_type"/>
-        <field name="tree_level"/>
-        <field name="sibling_order"/>
-      </tree>
-    </field>
-  </record>
-
-
-  <record id="bms_oslo_attributen_value_tree" model="ir.ui.view">
-    <field name="name">bms.oslo_attributen_value.tree</field>
-    <field name="model">bms.oslo_attributen_value</field>
-    <field name="arch" type="xml">
-      <tree>
-        <header>
-          <button name="test_awv_attributen" type="object" string="test model.search on test_awv_attributen"/>
-        </header>
-        <field name="value_char"/>
-        <field name="value_boolean"/>
-        <field name="value_date"/>
-        <field name="value_datetime"/>
-        <field name="value_float"/>
-        <field name="value_integer"/> 
-        <field name="oslo_attributen_uri"/>
-        <field name="object_id"/>
-        <field name="object_type_id"/>
-      </tree>
-    </field>
-  </record> -->
-<!-- 
-  <record id="bms_oslo_attributen_value_form" model="ir.ui.view">
-    <field name="name">bms.oslo_attributen_value.form</field>
-    <field name="model">bms.oslo_attributen_value</field>
-    <field name="arch" type="xml">
-      <form>
-
-        <group>
-          <field name="object_id" readonly="1"/>
-          <field name="object_type_id" readonly="1"/>
-          <field name="value_char" />
-          <field name="value_boolean"/>
-          <field name="value_date" />
-          <field name="value_datetime"/>
-          <field name="value_float"/>
-          <field name="value_integer"/>
-         
-        </group>
-      </form>
-    </field>
-  </record> -->
-
-
   <!-- demo agent -->
   <record id="bms_my_demo_agent_tree" model="ir.ui.view">
     <field name="name">bms.my_demo_agent.tree</field>
@@ -464,6 +312,25 @@
       </form>
     </field>
   </record>
+
+
+<record id="bms_attribute_definition__tree" model="ir.ui.view">
+    <field name="name">bms.attribute_definition_.tree</field>
+    <field name="model">bms.attribute_definition_</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="id"/>
+        <field name="uri"/>
+        <field name="name"/>
+        <field name="label_nl"/> 
+        <field name="definition_nl"/> 
+        <field name="type"/> 
+        <field name="parent_id"/> 
+        <field name="parent_uri"/> 
+      </tree>
+    </field>
+</record>
+
 
   <!-- actions -->
   <record id="bms_object_action" model="ir.actions.act_window">
@@ -535,7 +402,12 @@
     <field name="view_mode">tree</field>
   </record>
 
- 
+
+   <record id="bms_attribute_definition__action" model="ir.actions.act_window">
+    <field name="name">Attribute values decomposition_</field>
+    <field name="res_model">bms.attribute_definition_</field>
+    <field name="view_mode">tree</field>
+  </record>
 
 
   <!-- demo agent -->
@@ -563,11 +435,12 @@
   <menuitem id="bms_decomposition_type" parent="bms_settings" name="Decomposition type" groups="base.group_user" sequence="60" action="bms_decomposition_type_action"/>
   <menuitem id="bms_decomposition_relationship" parent="bms_settings" name="Decomposition relationship" groups="base.group_user" sequence="70" action="bms_decomposition_relationship_action"/>
   <menuitem id="bms_maintainance_object" parent="bms_settings" name="Maintainance object" groups="base.group_user" sequence="100" action="bms_object_action"/>
+  <menuitem id="bms_attribute_definition_" parent="bms_settings" name="Attribute definition_" groups="base.group_user" sequence="30" action="bms_attribute_definition__action"/>
   <!-- demo agent -->
   <menuitem id="bms_demo_agent" parent="bms_settings" name="Demo agent" groups="base.group_user" sequence="71" action="bms_demo_agent_action"/>
 
   <menuitem id="bms_imports" parent="bms_root" name="Imports" sequence ="20" groups="base.group_user" />
   <menuitem id="bms_ms_object" parent="bms_imports" name="MSA object table" groups="base.group_user" sequence="20" action="bms_msa_object_action"/>
-  <menuitem id="bms_awv_oslo_enumeration_values_import" parent="bms_imports" name="Oslo enumeration values - import" groups="base.group_user" sequence="70" action="bms_import_value_list_action"/>
+  <menuitem id="bms_awv_oslo_enumeration_values_import" parent="bms_imports" name="Oslo import and generation tools" groups="base.group_user" sequence="70" action="bms_import_value_list_action"/>
 
 </odoo>

@@ -39,4 +39,16 @@ where msa_o.otl_type_id is not null and msa_o.otl_type_id <> 0
 1. Load attributen table with model oslo_attributen
 
 # TODO # 
-1. Make the import mechanism of awv list ("keuzelijsten") better by taking into account the status change (don't  know it happens but theoritically it could)
+## technical ##
+1. Make the import mechanism of awv list ("keuzelijsten") better by taking into account the status change (don't  know if it happens but theoritically it could)
+2. lazy loading for the decomposition to improve loading performance
+
+## Governance ##
+1. Unique ID asset format
+2. Quid awv type not found -> use OTL lantis (and potentially create a new type? ) + problem no attribute in Relatics (no meta-model)
+3. quid versionning AWV type ? by object or by "sqlite" model
+
+## Refactoring ##
+1. delete modle oslo_generic_model
+2. delete attribute_definition.py  and attribute_value.py + views + menus + security
+3. adapt demo_agent.py

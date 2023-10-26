@@ -20,10 +20,10 @@ class ObjectType(models.Model):
         comodel_name="bms.attribute_value",
         inverse_name="object_type_id"
     )
-    # oslo_attributen_value_id = fields.One2many(
-    #     comodel_name="bms.oslo_attributen_value",
-    #     inverse_name="object_type_id"
-    # )
+    oslo_attributen_value_id = fields.One2many(
+        comodel_name="bms.oslo_attributen_value",
+        inverse_name="object_type_id"
+    )
     attribute_ids = fields.Many2many(
         comodel_name="bms.attribute_definition",
         relation="bms_attributes_to_types",

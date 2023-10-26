@@ -23,21 +23,22 @@ class OsloAttributenValue(models.Model):
     value_float = fields.Float("value", default=None)
     value_integer = fields.Integer("value", default=None)
     oslo_attributen_uri = fields.Char("oslo_attributen_uri", default=None)
-    object_id= fields.Integer("object_id")
-    object_type_id = fields.Integer("object_type_id")
+    # object_id= fields.Integer("object_id")
+    # object_type_id = fields.Integer("object_type_id")
 
     # compute fields
     # attr_def = fields.Char(compute="_get_attribute_def")
     # attr_def_value_type = fields.Char(compute="_get_value_type")
     
     # related fields
+    otl_type_internal_id = fields.Char(related="object_type_id.otl_type_internal_id", string="otl_type_internal_id")
+
     # object_name = fields.Char(related="object_id.name", string="object name")
     # object_type_name = fields.Char(related="object_type_id.name", string="object type")
 
     #relational fields
-
-    # object_id = fields.Many2one(comodel_name="bms.maintainance_object", string="Maintainance Object", required=True, ondelete="cascade")
-    # object_type_id = fields.Many2one(comodel_name="bms.object_type", required=True, ondelete="cascade")
+    object_id = fields.Many2one(comodel_name="bms.maintainance_object", string="Maintainance Object", required=True, ondelete="cascade")
+    object_type_id = fields.Many2one(comodel_name="bms.object_type", required=True, ondelete="cascade")
     
 
     # @api.depends("oslo_attributen_uri")

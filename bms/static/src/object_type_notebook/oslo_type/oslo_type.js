@@ -126,7 +126,7 @@ export class OsloType extends Component {
         this.actionService.doAction(
             {
                 "type": "ir.actions.act_window",
-                "res_model": "bms.wz_oslo_attributen_value",
+                "res_model": "bms.oslo_attributen_value_edit",
                 "views": [[false, "form"]],
                 "target": "inline",
                 "context": context,

@@ -30,7 +30,8 @@ class MaintainanceObject(models.Model):
     parent_object_ids = fields.One2many(comodel_name="bms.decomposition_relationship", inverse_name="parent_object_id")
     decomposition_ids = fields.One2many(
         comodel_name="bms.decomposition_relationship", inverse_name="object_id"
-    )
+    )  
+    oslo_attributen_value_id = fields.One2many(comodel_name="bms.oslo_attributen_value", inverse_name="object_id")
     
     #demo agent
     agent_name = fields.Char(related="agent_id.name", readonly=True)
