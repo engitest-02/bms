@@ -18,6 +18,8 @@ from . import oslo_enumeration_values
 from . import oslo_type_link_tabel
 from . import oslo_datatype_complex
 from . import oslo_datatype_complex_attributen
+from . import oslo_datatype_union
+from . import oslo_datatype_union_attributen
 
 from . import attribute_definition_
 

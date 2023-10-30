@@ -155,7 +155,6 @@ export class OsloType extends Component {
         }
     }
 
-
 }
 
 OsloType.template = "bms.oslo_type";

@@ -10,7 +10,7 @@ class OsloEnumerationValues(models.Model):
     enumeration_id = fields.Many2one(
         'bms.oslo_enumeration', 'enumeration_id',
         auto_join=True)
-    value_id = fields.Char("value_id")
+    selection_id = fields.Char("selection_id")
     status = fields.Char("status")
     definition = fields.Char("definition")
     notation = fields.Char("notation")
@@ -86,7 +86,7 @@ class AwvEnumerationValues():
     def _parse(self):
         for subject, _ in self.graph.subject_objects(self.PREDICATE_IN_SCHEME):
             value = {}
-            value["value_id"] = subject.toPython()
+            value["selection_id"] = subject.toPython()
             value["status"] = self._get_object(
                 subject=subject, predicate=term.URIRef(self.PREDICATE_STATUS)
             )
