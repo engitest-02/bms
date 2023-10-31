@@ -47,8 +47,10 @@ where msa_o.otl_type_id is not null and msa_o.otl_type_id <> 0
 1. Unique ID asset format
 2. Quid awv type not found -> use OTL lantis (and potentially create a new type? ) + problem no attribute in Relatics (no meta-model)
 3. quid versionning AWV type ? by object or by "sqlite" model
+4. check status of values for the value lists (oslo enumeration)
 
 ## Refactoring ##
 1. delete modle oslo_generic_model
 2. delete attribute_definition.py  and attribute_value.py + views + menus + security
 3. adapt demo_agent.py
+4. change oslo datatype in CONSTANT VALUE defined on one place

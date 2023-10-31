@@ -409,7 +409,7 @@
 
 
   <record id="bms_attribute_definition__action" model="ir.actions.act_window">
-    <field name="name">Attribute values decomposition_</field>
+    <field name="name">Attribute definition_</field>
     <field name="res_model">bms.attribute_definition_</field>
     <field name="view_mode">tree</field>
   </record>

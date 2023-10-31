@@ -31,16 +31,13 @@ class AttributeDefinition(models.Model):
 
     @api.model
     def get_att_def(self, class_id):
-        from pprint import pprint
-
-        pprint(class_id)
-        pprint(JSONAttrDef(self, class_id).get_data())
+        print(JSONAttrDef(self, class_id).get_data())
+        return JSONAttrDef(self, class_id).get_data()
 
 
 # utility classes
 
 import logging
-
 logger = logging.getLogger(__name__)
 
 
@@ -64,8 +61,7 @@ class AttributeDefinitionRecord:
             "definition_nl": record.definition_nl,
             "type": record.type if hasattr(record, "type") else None,
             "oslo_datatype": oslo_datatype,
-            "constraints": record.constraints
-            if hasattr(record, "constraints")
+            "constraints": record.constraints if hasattr(record, "constraints")
             else None,
             "parent_id": parent_id,
             "parent_uri": parent_uri,
@@ -79,22 +75,16 @@ class AttributeDefinitionRecord:
 
 
 class AwvDatatypePrimitive(AttributeDefinitionRecord):
-    def __init__(
-        self, model, datatype_primitive_rec, parent_id, parent_uri, oslo_datatype
-    ):
-        super().__init__(
-            model, datatype_primitive_rec, parent_id, parent_uri, oslo_datatype
-        )
+    def __init__(self, model, datatype_primitive_rec, parent_id, parent_uri, oslo_datatype):
+        super().__init__(model, datatype_primitive_rec, parent_id, parent_uri, oslo_datatype)
 
     def populate(self):
         # create datatype_primitive record in attribute defintion table
         parent_id, parent_uri = self.create()
-
+        
         # create datatype_primitive_attributen records in attribute definiton table
-        domain = [("class_uri", "=", self.attr_def["uri"])]
-        datatype_primitive_attr_recs = self.model.env[
-            "bms.oslo_datatype_primitive_attributen"
-        ].search(domain)
+        domain = [("class_uri", "=", self.attr_def['uri'])]
+        datatype_primitive_attr_recs = self.model.env["bms.oslo_datatype_primitive_attributen"].search(domain)
         for datatype_primitive_attr_rec in datatype_primitive_attr_recs:
             AttributeDefinitionRecord(
                 self.model,
@@ -118,75 +108,34 @@ class AwvEnumeration(AttributeDefinitionRecord):
         pass
 
 
-class AwvDatatypeComplex(AttributeDefinitionRecord):
-    def __init__(
-        self, model, datatype_complex_record, parent_id, parent_uri, oslo_datatype
-    ):
-        super().__init__(
-            model, datatype_complex_record, parent_id, parent_uri, oslo_datatype
-        )
+class AwvDatatypeIterative(AttributeDefinitionRecord):
+    """ Cover the oslo datatype Complex and the oslo datatype Union"""
+    def __init__(self, model, datatype_complex_record, parent_id, parent_uri, oslo_datatype):
+        super().__init__(model, datatype_complex_record, parent_id, parent_uri, oslo_datatype)
+        match oslo_datatype:
+            case "OSLODatatypeComplex": 
+                self.table = "bms.oslo_datatype_complex_attributen"
+                self.attribute_datatype = "OSLODatatypeComplexAttributen"
+            case "OSLODatatypeUnion": 
+                self.table = "bms.oslo_datatype_union_attributen"
+                self.attribute_datatype = "OSLODatatypeUnionAttributen"
+            case default: 
+                raise Exception(msg="oslo dataype unknown")
 
     def populate(self):
-        # create datatypecomplex record in attribute definition table
-        parent_id, parent_uri = self.create()
+        # create datatype complex record
+        iterative_parent_id, iterative_parent_uri = self.create()
 
         # datatypecomplex attributen
         domain = [("class_uri", "=", self.attr_def["uri"])]
-        oslo_datatype_complex_attributen_recs = self.model.env[
-            "bms.oslo_datatype_complex_attributen"
-        ].search(domain, [])
+        oslo_datatype_iterative_attributen_recs = self.model.env[self.table].search(domain, [])
 
-        for (
-            oslo_datatype_complex_attributen_rec
-        ) in oslo_datatype_complex_attributen_recs:
-            attribute_datatype = get_datatype(
-                self.model, oslo_datatype_complex_attributen_rec.type
-            )
-            AWVAttributen.getDatatypePopulator(
-                self.model,
-                attribute_datatype,
-                oslo_datatype_complex_attributen_rec,
-                parent_id,
-                parent_uri,
-            ).populate()
-            # _, _ = AttributeDefinitionRecord(self.model, oslo_datatype_complex_attributen_rec, parent_id, parent_uri, attribute_datatype).create()
-
-            # if datatypecomplex attributen is a dataypecomplex iterate otherwise do nothing
-            # if attribute_datatype == 'OSLODatatypeComplex':
-            #     AwvDatatypeComplex(self.model, oslo_datatype_complex_attributen_rec, parent_id, parent_uri, attribute_datatype).populate()
-
-
-class AwvDatatypeUnion(AttributeDefinitionRecord):
-    def __init__(
-        self, model, datatype_complex_record, parent_id, parent_uri, oslo_datatype
-    ):
-        super().__init__(
-            model, datatype_complex_record, parent_id, parent_uri, oslo_datatype
-        )
-
-    def populate(self):
-        # create datatypecomplex record in attribute definition table
-        parent_id, parent_uri = self.create()
-
-        # datatypeunion attributen
-        domain = [("class_uri", "=", self.attr_def["uri"])]
-        oslo_datatype_union_attributen_recs = self.model.env[
-            "bms.oslo_datatype_union_attributen"
-        ].search(domain, [])
-
-        for oslo_datatype_union_attributen_rec in oslo_datatype_union_attributen_recs:
-            attribute_datatype = get_datatype(
-                self.model, oslo_datatype_union_attributen_rec.type
-            )
-            # if oslo_datatype_complex_attributen_rec == 'OSLODatatypeComplex': breakpoint()
-            AWVAttributen.getDatatypePopulator(
-                self.model,
-                attribute_datatype,
-                oslo_datatype_union_attributen_rec,
-                parent_id,
-                parent_uri,
-            ).populate()
-
+        for oslo_datatype_iterative_attributen_rec in oslo_datatype_iterative_attributen_recs:
+            
+            attribute_datatype = get_datatype(self.model, oslo_datatype_iterative_attributen_rec.type)
+            parent_id, parent_uri = AttributeDefinitionRecord(self.model, oslo_datatype_iterative_attributen_rec, iterative_parent_id, iterative_parent_uri, self.attribute_datatype).create()
+            AWVAttributen.getDatatypePopulator(self.model,attribute_datatype, oslo_datatype_iterative_attributen_rec, parent_id, parent_uri).populate()
+            
 
 class AWVAttributen:
     def __init__(self, model, oslo_class_id):
@@ -197,80 +146,47 @@ class AWVAttributen:
         """
         Take all the attributes link to a class id, and populate with a factory of populators based on the type of each attribute
         """
+        # create OSLOClass item
         oslo_class_rec = self.model.env["bms.oslo_class"].browse(self.oslo_class_id)
-        parent_id, parent_uri = AttributeDefinitionRecord(
-            self.model, oslo_class_rec, oslo_datatype="OSLOclass"
-        ).create()
-
+        parent_id, parent_uri = AttributeDefinitionRecord(self.model, oslo_class_rec, oslo_datatype="OSLOclass").create()
+        
         domain = [("class_uri", "=", oslo_class_rec.uri)]
         oslo_attributen_recs = self.model.env["bms.oslo_attributen"].search(domain, [])
 
         for oslo_attributen_rec in oslo_attributen_recs:
+            # create OSLOAttributen item
+            attr_id, attr_uri = AttributeDefinitionRecord(self.model, oslo_attributen_rec, parent_id, parent_uri, "OSLOAttributen").create()
             attribute_datatype = get_datatype(self.model, oslo_attributen_rec.type)
-            attr_id, attr_uri = AttributeDefinitionRecord(
-                self.model, oslo_attributen_rec, parent_id, parent_uri, "OSLOAttributen"
-            ).create()
-            self.getDatatypePopulator(
-                self.model, attribute_datatype, oslo_attributen_rec, attr_id, attr_uri
-            ).populate()
+            # create datatype and datatype attributen
+            self.getDatatypePopulator(self.model, attribute_datatype, oslo_attributen_rec, attr_id, attr_uri).populate()
 
     @classmethod
-    def getDatatypePopulator(
-        cls, model, attribute_datatype, attributen_record, parent_id, parent_uri
-    ):
+    def getDatatypePopulator(cls, model, attribute_datatype, attributen_record, parent_id, parent_uri):
         """Factory based on attribute_datatype"""
         match attribute_datatype:
             case "OSLODatatypePrimitive":
                 domain = [("uri", "=", attributen_record.type)]
-                datatype_primitive_rec = model.env[
-                    "bms.oslo_datatype_primitive"
-                ].search(domain)
-                return AwvDatatypePrimitive(
-                    model,
-                    datatype_primitive_rec,
-                    parent_id,
-                    parent_uri,
-                    attribute_datatype,
-                )
+                datatype_primitive_rec = model.env["bms.oslo_datatype_primitive"].search(domain)
+                return AwvDatatypePrimitive(model, datatype_primitive_rec, parent_id, parent_uri, attribute_datatype)
 
             case "OSLOEnumeration":
                 domain = [("uri", "=", attributen_record.type)]
-                datatype_enumeration_rec = model.env["bms.oslo_enumeration"].search(
-                    domain
-                )
-                return AwvEnumeration(
-                    model,
-                    datatype_enumeration_rec,
-                    parent_id,
-                    parent_uri,
-                    attribute_datatype,
-                )
+                datatype_enumeration_rec = model.env["bms.oslo_enumeration"].search(domain)
+                return AwvEnumeration(model, datatype_enumeration_rec, parent_id, parent_uri, attribute_datatype)
 
             case "OSLODatatypeComplex":
                 domain = [("uri", "=", attributen_record.type)]
-                datatype_complex_rec = model.env["bms.oslo_datatype_complex"].search(
-                    domain
-                )
-                return AwvDatatypeComplex(
-                    model,
-                    datatype_complex_rec,
-                    parent_id,
-                    parent_uri,
-                    attribute_datatype,
-                )
+                datatype_complex_rec = model.env["bms.oslo_datatype_complex"].search(domain)
+                return AwvDatatypeIterative(model, datatype_complex_rec, parent_id, parent_uri, attribute_datatype)
 
             case "OSLODatatypeUnion":
                 domain = [("uri", "=", attributen_record.type)]
                 datatype_union_rec = model.env["bms.oslo_datatype_union"].search(domain)
-                return AwvDatatypeUnion(
-                    model, datatype_union_rec, parent_id, parent_uri, attribute_datatype
-                )
+                return AwvDatatypeIterative(model, datatype_union_rec, parent_id, parent_uri, attribute_datatype)
 
             case default:
                 msg = """Oslo attribute_type '{0}' unknown. Check TypeLinkTabel in OSLO sqlite database. Tip: 'select distinct item_tabel
-                         from TypeLinkTabel' """.format(
-                    str(attribute_datatype)
-                )
+                         from TypeLinkTabel' """.format(str(attribute_datatype))
                 raise Exception(msg)
 
 
@@ -283,88 +199,69 @@ class JSONAttrDef:
 
     def get_data(self):
         import json
-
         return json.dumps(self.attr_def)
 
     def _generate_json(self):
-        attr_defs = {"oslo_class_uri": self.oslo_class_uri, "attributes": []}
+        attr_defs = {"oslo_class_uri": self.oslo_class_uri,
+                     "attributes": []} #OSLOClass
         attribute_recs = self._get_attributes()
         if len(attribute_recs) == 0:
             return attr_defs
-
         for attribute_rec in attribute_recs:
-            datatype_recs = self._get_children(attribute_rec.id)
-            attr_def = {
+            attr_def = { #OSLOAttributen
                 "attr_name": attribute_rec.label_nl,
                 "attr_definition_nl": attribute_rec.definition_nl,
-                "attr_datatype": datatype_recs.oslo_datatype
-                # "oslo_datatype_primitive": [],
-                # "oslo_datatype_enumeration": [],
-                # "oslo_datatype_complex": [],
-                # "oslo_datatype_union": [],
+                "attr_datatype": attribute_rec.oslo_datatype,
+                "attr_datatype_def":[]
             }
-            # breakpoint()
-            for datatype_rec in datatype_recs:
-                match datatype_rec.oslo_datatype:
-                    case "OSLODatatypePrimitive":
-                        attr_def[
-                            "oslo_datatype_primitive"
-                        ] = self._format_datatype_primitive(datatype_rec)
+            datatype_rec = self._get_children(attribute_rec.id)
+            
+            # for datatype_rec in datatype_recs:
+            match datatype_rec.oslo_datatype:#OSLODatatype
+                case "OSLODatatypePrimitive":
+                    attr_def["attr_datatype_def"] = self._format_datatype_primitive(datatype_rec)
 
-                    case "OSLOEnumeration":
-                        attr_def[
-                            "oslo_datatype_enumeration"
-                        ] = self._format_datatype_enumeration(attribute_rec)
+                case "OSLOEnumeration":
+                    attr_def["attr_datatype_def"] = self._format_datatype_enumeration(datatype_rec)
 
-                    case "OSLODatatypeComplex":
-                        pass
+                case "OSLODatatypeComplex":
+                    attr_def["attr_datatype_def"] = self._format_datatype_iterative(datatype_rec)
 
-                    case "OSLODatatypeUnion":
-                        pass
+                case "OSLODatatypeUnion":
+                    attr_def["attr_datatype_def"] = self._format_datatype_iterative(datatype_rec) 
 
-                    case default:
-                        msg = """Oslo attribute_type '{0}' unknown. ('{1}')  Check TypeLinkTabel in OSLO sqlite database. Tip: 'select distinct item_tabel
-                            from TypeLinkTabel' """.format(
-                            str(attribute_rec.oslo_datatype, attribute_rec.uri)
-                        )
-                        raise Exception(msg)
+                case default:
+                    msg = """Oslo attribute_type '{0}' unknown. ('{1}')  Check TypeLinkTabel in OSLO sqlite database. Tip: 'select distinct item_tabel
+                        from TypeLinkTabel' """.format(
+                        str(attribute_rec.oslo_datatype, attribute_rec.uri)
+                    )
+                    raise Exception(msg)
 
-                attr_defs["attributes"].append(attr_def)
+            attr_defs["attributes"].append(attr_def)
 
         return attr_defs
 
-    def _format_datatype_primitive(self, datatype_rec):
-        """returns an dictionnary like :
-        {
-         "datatype_label_nl": "Kwantitatieve waarde in meter TAW",
-         "datatype_definition_nl": "Een kwantitatieve waarde die de hoogte weergeeft in meter van een locatie tov het TAW-referentiepeil.",
-         "oslo_datatype": "OSLODatatypePrimitive",
-         "unit": "\"m\"^^cdt:ucumunit",
-         "value_id": 140282,
-         "att_type": "http://www.w3.org/2001/XMLSchema#decimal"
-        }
-        """
 
+    def _format_datatype_primitive(self, datatype_rec):
+        # datatype primitive
         datatype_def = {
             "datatype_label_nl": datatype_rec.label_nl,
             "datatype_definition_nl": datatype_rec.definition_nl,
             "oslo_datatype": datatype_rec.oslo_datatype,
         }
         datatype_att_recs = self._get_children(datatype_rec.id)
-        if (
-            len(datatype_att_recs) == 0
-        ):  # datatype of kind http://www.w3.org/2001/XMLSchema#xxx
+        if (len(datatype_att_recs) < 2):  # datatype of kind http://www.w3.org/2001/XMLSchema#xxx
             datatype_def = {
                 **datatype_def,
-                "value_id": datatype_rec.id,
+                "value_definition_id": datatype_rec.id,
                 "att_type": datatype_rec.uri,
             }
         else:
-            for datatype_att_rec in datatype_att_recs:
+            for datatype_att_rec in datatype_att_recs: # datattype primitive attributen
                 if datatype_att_rec.name == "waarde":
                     datatype_def = {
                         **datatype_def,
-                        "value_id": datatype_att_rec.id,
+                        "value_definition_id": datatype_att_rec.id,
                         "att_type": datatype_att_rec.type,
                     }
                 if datatype_att_rec.name == "standaardEenheid":
@@ -379,10 +276,10 @@ class JSONAttrDef:
             "datatype_label_nl": datatype_rec.label_nl,
             "datatype_definition_nl": datatype_rec.definition_nl,
             "oslo_datatype": datatype_rec.oslo_datatype,
-            "value_id": datatype_rec.id,
+            "value_definition_id": datatype_rec.id,
             "selection_values": [],
         }
-        enumeration_value_recs = self._get_enumeration_values(datatype_rec.type)
+        enumeration_value_recs = self._get_enumeration_values(datatype_rec.uri)
         if len(enumeration_value_recs) == 0:
             pass  # TODO give advices to submit new proposal to AWV
 
@@ -393,8 +290,66 @@ class JSONAttrDef:
                 "notation": enumeration_value_rec.notation,
                 "selection_id": enumeration_value_rec.selection_id,
             }
+            
             datatype_def["selection_values"].append(selection_value)
-        breakpoint()
+        return datatype_def
+
+    def _format_datatype_iterative(self, datatype_rec):
+        """datatype_rec: a datatype Complex or datatypeUnion (ex: DtcIdentificator of attribute Asset Id)
+        
+            for each ComplexAttributes (datatype_attr_rec) (ex Identificator, toegekendDoor)
+                for each datatype of any king (datatype_child_rec) (ex Datatype Primitive, DatatypePrimitive)  
+                    append attributes to complex attribute
+                    create ComplexAttribute dict (datatype_child_def) and append iterative_attributes {Identificator, attributes=[DatatypePrimitive]}
+                Create Complex dict and append iteratives attributes {DtcIdentificator, iterative_attributes: [{Identificator,...}, {ToegekendDoor,...}]
+        """
+
+        # print(datatype_def)
+        iterative_attributes = []
+        datatype_attr_recs = self._get_children(datatype_rec.id)  #datatypeComplexAttributen or DatatypeUnionAttributen
+
+        for datatype_attr_rec in datatype_attr_recs:     
+                # print(datatype_def)
+            attributes = []
+            datatype_child_recs = self._get_children(datatype_attr_rec.id) # datatype composing datatyepComplexAttributen or DatatpeUnionAttributen
+            for datatype_child_rec in datatype_child_recs: 
+                # print(datatype_child_rec, datatype_child_rec.oslo_datatype)
+                match datatype_child_rec.oslo_datatype :
+                    case "OSLODatatypePrimitive": 
+                        attributes.append(self._format_datatype_primitive(datatype_child_rec))
+                        # datatype_def["iterative_attributes"].append(self._format_datatype_primitive(datatype_attr_rec))
+
+                    case "OSLOEnumeration":
+                        attributes.append(self._format_datatype_enumeration(datatype_child_rec))
+                        # datatype_def["iterative_attributes"].append(self._format_datatype_enumeration(datatype_attr_rec))
+
+                    case "OSLODatatypeComplex":
+                        attributes.append(self._format_datatype_iterative(datatype_child_rec))
+                        # datatype_def["iterative_attributes"].append(self._format_datatype_iterative(datatype_attr_rec))
+
+                    case "OSLODatatypeUnion":
+                        attributes.append(self._format_datatype_iterative(datatype_child_rec))
+                        # datatype_def["iterative_attributes"].append(self._format_datatype_iterative(datatype_attr_rec))
+
+                    case default:
+                        msg = """Oslo attribute_type '{0}' unknown. ('{1}')  Check TypeLinkTabel in OSLO sqlite database. Tip: 'select distinct item_tabel
+                            from TypeLinkTabel' """.format(
+                            datatype_attr_rec.oslo_datatype, datatype_attr_rec.uri)
+                        raise Exception(msg)    
+            datatype_child_def = {
+                "datatype_attr_label_nl": datatype_attr_rec.label_nl,
+                "datatype_attr_definition_nl": datatype_attr_rec.definition_nl,
+                "datatype_attr_oslo_datatype": datatype_attr_rec.oslo_datatype, # DatatypeComplexAttributen or DatatypeUnionAttributen
+                "attributes":attributes
+            }
+            iterative_attributes.append(datatype_child_def)
+
+        datatype_def={
+            "datatype_label_nl": datatype_rec.label_nl,
+            "datatype_definition_nl": datatype_rec.definition_nl,
+            "oslo_datatype": datatype_rec.oslo_datatype, #DatatypeComplex or DatatypeUnion
+            "iterative_attributes": iterative_attributes
+            }
         return datatype_def
 
     def _get_children(self, parent_id):
@@ -406,21 +361,7 @@ class JSONAttrDef:
         return self.model.env["bms.oslo_enumeration_values"].search(domain)
 
     def _get_attributes(self):
-        """ " Get OSLOAttributen of OSLOClass based on class_uri"""
+        """ Get OSLOAttributen of OSLOClass based on class_uri"""
         domain = [("parent_id", "=", self.oslo_class_uri)]
         attr_def_recs = self.model.env["bms.attribute_definition_"].search(domain)
         return attr_def_recs
-
-        # children_nodes = []
-        # for record in children_records:
-        #     child_node = self._record2node(record)
-        #     # import pdb; pdb.set_trace()
-        #     little_children_nodes = self._get_children(child_node)
-
-        #     if little_children_nodes:
-        #         child_node["folder"] = True
-        #         child_node["children"] = little_children_nodes
-
-        #     children_nodes.append(child_node)
-
-        # return children_nodes
