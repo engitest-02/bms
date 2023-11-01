@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="bms.oslo_datatype_primitive" owl="1">
+        <div>
+        !!!!!!!!!!!!
+            <table class="o_bms_table">
+                <tr>
+                    <td>
+                        <t t-out="attr_name" />
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <t t-out="unit" />
+                    </td>
+                    <td>
+                      <button class="btn btn-primary" t-on-click="() => this.changeAttrValue()">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </t>
+</templates>

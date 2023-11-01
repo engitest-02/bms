@@ -2,6 +2,8 @@
 
 import { useService, useBus } from "@web/core/utils/hooks";
 const { Component, onWillStart, onWillPatch } = owl;
+import { OsloDatatypePrimitive } from "./oslo_datatype_primitive";
+var rpc = require('web.rpc');
 
 
 
@@ -23,7 +25,11 @@ export class OsloType extends Component {
             this.attrDefRecs = await this._loadAttrPrimitiveDatatype(this.classUri);
             this.attrValueRecs = await this._loadAttrValue(this.objectId, this.objectTypeId);
             this.attrDefValueRecs = this._mergeAttrDefsAndValues(this.attrDefRecs, this.attrValueRecs);
-                console.log("onWillStart", this.classUri, this.attrDefRecs, this.attrValueRecs, this.attrDefValueRecs);
+
+            // new code
+            const d = await this._loadAttrDefintion(this.classUri);
+            this.attrDefs = JSON.parse(d)
+            console.log("attributes", this.attrDefs);
         })
 
         onWillPatch(async () => {
@@ -37,10 +43,21 @@ export class OsloType extends Component {
                 this.attrDefRecs = await this._loadAttrPrimitiveDatatype(this.classUri);
                 this.attrValueRecs = await this._loadAttrValue(this.objectId, this.objectTypeId);
                 this.attrDefValueRecs = this._mergeAttrDefsAndValues(this.attrDefRecs, this.attrValueRecs);
-                console.log("onWillPatch", this.classUri, this.attrDefRecs, this.attrValueRecs, this.attrDefValueRecs);
+                // console.log("onWillPatch", this.classUri, this.attrDefRecs, this.attrValueRecs, this.attrDefValueRecs);
+                
+                // new code
+                const d = await this._loadAttrDefintion(this.classUri);
+                this.attrDefs = JSON.parse(d)
+                console.log("attributes", this.attrDefs);
+                
+
+                // end new code 
                 this.render();
                 this.currentObjectId = this.objectId;
+                
             }
+            
+
         })
 
     }
@@ -48,6 +65,19 @@ export class OsloType extends Component {
     _loadAttrPrimitiveDatatype(osloclass_uri) {
         const domain = [["osloclass_uri", "=", osloclass_uri]];
         return this.orm.searchRead("bms.awv_attributen_primitive_datatype", domain);
+    }
+
+    _loadAttrDefintion(osloclass_uri){
+        console.log('osloclass_uri', osloclass_uri)
+        const attrDefs = rpc.query({
+            model: 'bms.attribute_definition_',
+            method: 'get_att_def',
+            args: [osloclass_uri],
+            }
+        )
+        return attrDefs   
+        // ).then((data) => {return JSON.parse(data)})  
+
     }
 
     _loadAttrValue(objectId, objectTypeId, osloclass_uri){
@@ -158,4 +188,13 @@ export class OsloType extends Component {
 }
 
 OsloType.template = "bms.oslo_type";
+OsloType.components={OsloDatatypePrimitive};
 
+class JSONAttrDefParser{
+    constructor(JSONAttrDef){
+        const attrs = JSONAttrDef.attributes
+        Object.values(attrs).forEach((attr) => {
+            
+    })
+}
+}

@@ -31,9 +31,9 @@ class AttributeDefinition(models.Model):
 
     @api.model
     def get_att_def(self, class_id):
-        print(JSONAttrDef(self, class_id).get_data())
-        return JSONAttrDef(self, class_id).get_data()
-
+        data = JSONAttrDef(self, class_id).get_data()
+        print(data)
+        return data
 
 # utility classes
 
@@ -194,7 +194,7 @@ class JSONAttrDef:
     def __init__(self, model, oslo_class_uri):
         """class_id is an oslo identifier of an object type"""
         self.model = model
-        self.oslo_class_uri = oslo_class_uri[0]  # TODO [0] only for testing
+        self.oslo_class_uri = oslo_class_uri  # TODO [0] only for testing
         self.attr_def = self._generate_json()
 
     def get_data(self):
@@ -253,15 +253,16 @@ class JSONAttrDef:
         if (len(datatype_att_recs) < 2):  # datatype of kind http://www.w3.org/2001/XMLSchema#xxx
             datatype_def = {
                 **datatype_def,
-                "value_definition_id": datatype_rec.id,
+                "attr_def_id": datatype_rec.id,
                 "att_type": datatype_rec.uri,
+                "unit": None
             }
         else:
             for datatype_att_rec in datatype_att_recs: # datattype primitive attributen
                 if datatype_att_rec.name == "waarde":
                     datatype_def = {
                         **datatype_def,
-                        "value_definition_id": datatype_att_rec.id,
+                        "attr_def_id": datatype_att_rec.id,
                         "att_type": datatype_att_rec.type,
                     }
                 if datatype_att_rec.name == "standaardEenheid":
@@ -276,7 +277,7 @@ class JSONAttrDef:
             "datatype_label_nl": datatype_rec.label_nl,
             "datatype_definition_nl": datatype_rec.definition_nl,
             "oslo_datatype": datatype_rec.oslo_datatype,
-            "value_definition_id": datatype_rec.id,
+            "attr_def_id": datatype_rec.id,
             "selection_values": [],
         }
         enumeration_value_recs = self._get_enumeration_values(datatype_rec.uri)
@@ -362,6 +363,6 @@ class JSONAttrDef:
 
     def _get_attributes(self):
         """ Get OSLOAttributen of OSLOClass based on class_uri"""
-        domain = [("parent_id", "=", self.oslo_class_uri)]
+        domain = [("parent_uri", "=", self.oslo_class_uri)]
         attr_def_recs = self.model.env["bms.attribute_definition_"].search(domain)
         return attr_def_recs

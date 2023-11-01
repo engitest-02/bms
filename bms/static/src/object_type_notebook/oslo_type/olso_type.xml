@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="bms.oslo_type" owl="1">
-    <!-- <t t-out="'oslo_type props:'"/> -->
-    <!-- <t t-out="values"/>  -->
+        <!-- <t t-out="'oslo_type props:'"/> -->
+        <!-- <t t-out="values"/>  -->
         <table class="o_bms_table">
             <tr>
                 <td>
@@ -49,6 +49,17 @@
             </t>
         </table>
 
+        <div>
+            <t t-foreach="attrDefs.attributes" t-as="attribute" t-key="attribute.attr_name">
+                <div>
+                    <t t-out="attribute.attr_name" />
+                </div>
+                <t t-if="attribute.attr_datatype_def.oslo_datatype=='OSLODatatypePrimitive'">
+                    <OsloDatatypePrimitive attr="attribute" objectId="objectId" objectTypeId="objectTypeId">
+                    </t>
+                </t>
+                <!-- <t t-out="attrDefs" /> -->
+            </div>
 
-    </t>
-</templates>
+        </t>
+    </templates>

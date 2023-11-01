@@ -3,6 +3,7 @@ import { useService } from "@web/core/utils/hooks";
 import { loadCSS, loadJS } from "@web/core/assets";
 import { memoize } from "@web/core/utils/functions";
 var core = require("web.core");
+var rpc = require('web.rpc');
 
 const { Component, onMounted, onWillStart, useRef } = owl;
 
@@ -68,8 +69,7 @@ export class Decomposition extends Component {
     }
 
     _loadJsonTree() {
-        var rpc = require('web.rpc');
-
+        // var rpc = require('web.rpc');
         return  memoize(() => rpc.query({
                         model: 'bms.decomposition_relationship',
                         method: 'getTree',
