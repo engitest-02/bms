@@ -328,6 +328,7 @@
         <field name="label_nl"/>
         <field name="definition_nl"/>
         <field name="type"/>
+        <field name="value_type"/>
         <field name="oslo_datatype"/>
         <field name ="constraints"/>
         <field name="parent_id"/>

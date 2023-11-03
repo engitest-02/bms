@@ -7,11 +7,18 @@ class OsloaAttributenValueEdit(models.TransientModel):
 
     object_id = fields.Many2one("bms.maintainance_object", string="maintainance object")
     object_type_id = fields.Many2one("bms.object_type", string="object type")
+    attr_def_id = fields.Many2one("bms.attribute_definition_", string="attribute definition id")
+    
+    
+    attr_def_id_id = fields.Integer(related="attr_def_id.id")
+    # attr_def_type = fields.Char(related="attr_def_id.type")
+    attr_def_uri = fields.Char(related="attr_def_id.uri")
+
 
     attr_name = fields.Char("attribute name")
     attr_def = fields.Char("attribute definition")
-    att_def_value_type_definition = fields.Char("value definition")
-    attr_def_value_type = fields.Char("value type")
+    attr_def_datatype_definition = fields.Char("value definition")
+    attr_def_value_type = fields.Char(related="attr_def_id.value_type", string="value type")
 
     value_char = fields.Char("value", default=None)
     value_boolean = fields.Boolean("value", default=False)
@@ -20,10 +27,10 @@ class OsloaAttributenValueEdit(models.TransientModel):
     value_float = fields.Float("value", default=None)
     value_integer = fields.Integer("value", default=None)
 
-    oslo_datatype_xxx_attributen_uri = fields.Char(
-        "oslo_datatype_xxx_attributen_uri", default=None
-    )
-    oslodatatype_primitive_uri = fields.Char("oslodatatype_primitive_uri")
+    # oslo_datatype_xxx_attributen_uri = fields.Char(
+    #     "oslo_datatype_xxx_attributen_uri", default=None
+    # )
+    # oslodatatype_primitive_uri = fields.Char("oslodatatype_primitive_uri")
 
     @api.model
     def create(self, vals):
@@ -39,7 +46,7 @@ class OsloaAttributenValueEdit(models.TransientModel):
             **vals,
             "object_id": self._context["default_object_id"],
             "object_type_id": self._context["default_object_type_id"],
-            "oslo_attributen_uri": self._context["default_oslo_attributen_uri"],
+            # "oslo_attributen_uri": self._context["default_oslo_attributen_uri"],
             "attr_def_value_type": self._context["default_attr_def_value_type"]
         }
         record = self._get_existing_item(vals)
@@ -52,7 +59,7 @@ class OsloaAttributenValueEdit(models.TransientModel):
         domain = [
             ("object_id", "=", vals["object_id"]),
             ("object_type_id", "=", vals["object_type_id"]),
-            ("oslo_attributen_uri", "=", vals["oslo_attributen_uri"]),
+            ("attr_def_id", "=", vals["attr_def_id"]),
         ]
         return self.env["bms.oslo_attributen_value"].search(domain)
 
@@ -69,7 +76,7 @@ class OsloaAttributenValueEdit(models.TransientModel):
         values = {
             "object_id": vals["object_id"],
             "object_type_id": vals["object_type_id"],
-            "oslo_attributen_uri": vals["oslo_attributen_uri"]
+            "attr_def_id": vals["attr_def_id"]
         }
         key = "value_" + vals["attr_def_value_type"]
         values = {**values, key: vals[key]}

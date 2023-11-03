@@ -1,36 +1,46 @@
 // /** @odoo-module */
 
-import { useService, useBus } from "@web/core/utils/hooks";
-const { Component, onWillStart, onWillPatch } = owl;
-var rpc = require('web.rpc');
+import { useService, useBus } from "@web/core/utils/hooks"
+const { Component, onWillStart, onWillPatch } = owl
+var rpc = require('web.rpc')
 
 
 export class OsloDatatypePrimitive extends Component {
     setup(){
+        this.actionService = useService("action")
+
         this.attr_name = this.props.attr.attr_name;
-        this.unit = this._format_unit(this.props.attr.attr_datatype_def.unit);
-        this.attrDefId = this.props.attr.attr_datatype_def.attr_def_id;
-        this.objectId = this.props.objectId;
-        this.objectTypeId = this.objectTypeId;
+        this.unit = this._format_unit(this.props.attr.attr_datatype_def.unit)
+        
+        this.objectId = this.props.objectId
+        this.otlId = this.props.otlId
+        this.objectTypeId = this.props.objectTypeId
+        this.attrDefId = this.props.attr.attr_datatype_def.attr_def_id
+        this.attrType = this.props.attr.attr_datatype_def.attr_type
+        this.attrDefinitionNl = this.props.attr.attr_definition_nl
+        this.attrDefDatatypeDef= this.props.attr.attr_datatype_def.datatype_label_nl
     }
 
     changeAttrValue(){
-        console.log("attribute value changed!", this.attrDefId);
+        console.log("attribute value changed!", this.attrDefinitionNl, this.attrDefDatatypeDef
+        );
         const context = {
             'default_object_id': this.objectId,
             'default_object_type_id': this.objectTypeId,
-            // 'default_oslo_attributen_uri': attrDefValueRec.osloattributen_uri,
-            // 'default_attr_name': attrDefValueRec.osloattributen_name,
-            // 'default_attr_def': attrDefValueRec.osloattributen_definition,
-            // 'default_att_def_value_type_definition': attrDefValueRec.oslodatatype_primitive_definition_nl,
             'default_attr_def_id': this.attrDefId,
-            'default_attr_def_value_type': attrDefValueRec.value_type,
-            'default_value_char': attrDefValueRec.value_char,
-            'default_value_boolean': attrDefValueRec.value_boolean,
-            'default_value_date': attrDefValueRec.value_date,
-            'default_value_datetime': attrDefValueRec.value_datetime,
-            'default_value_float': attrDefValueRec.value_float,
-            'default_value_integer': attrDefValueRec.value_integer,
+            // 'default_oslo_attributen_uri': attrDefValueRec.osloattributen_uri,
+            'default_attr_name': this.attr_name,
+            'default_attr_def': this.attrDefinitionNl,
+            'default_attr_def_datatype_definition': this.attrDefDatatypeDef,
+            
+            //'default_attr_def_value_type': this.attattrDefValueType,
+            // 'default_value_char': attrDefValueRec.value_char,
+            // 'default_value_boolean': attrDefValueRec.value_boolean,
+            // 'default_value_date': attrDefValueRec.value_date,
+            // 'default_value_datetime': attrDefValueRec.value_datetime,
+            // 'default_value_float': attrDefValueRec.value_float,
+            // 'default_value_integer': attrDefValueRec.value_integer,
+            // 'default_value_integer': attrDefValueRec.value_enumerator,
             'form_view_initial_mode': "edit",
         }
         this.actionService.doAction(

@@ -55,7 +55,7 @@
                     <t t-out="attribute.attr_name" />
                 </div>
                 <t t-if="attribute.attr_datatype_def.oslo_datatype=='OSLODatatypePrimitive'">
-                    <OsloDatatypePrimitive attr="attribute" objectId="objectId" objectTypeId="objectTypeId">
+                    <OsloDatatypePrimitive attr="attribute" objectId="objectId" objectTypeId="objectTypeId", otlId="otlId" >
                     </t>
                 </t>
                 <!-- <t t-out="attrDefs" /> -->

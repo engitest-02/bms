@@ -12,6 +12,7 @@ class AttributeDefinition(models.Model):
     label_nl = fields.Char("label_nl")
     definition_nl = fields.Char("definition_nl")
     type = fields.Char("type")
+    value_type = fields.Char("attribute value type")
     oslo_datatype = fields.Char("oslo data type")
     constraints = fields.Char("constraints")
     parent_id = fields.Many2one(
@@ -47,10 +48,30 @@ def get_datatype(model, attribute_uri):
     attribute_datatype = model.env["bms.oslo_type_link_tabel"].search(domain).item_tabel
     return attribute_datatype
 
+def _get_attr_value_type(attr_type):
+     match attr_type:
+        case "http://www.w3.org/2001/XMLSchema#anyURI":
+            return "char"
+        case "http://www.w3.org/2001/XMLSchema#boolean":
+            return "boolean"
+        case "http://www.w3.org/2001/XMLSchema#date":
+            return "date"
+        case "http://www.w3.org/2001/XMLSchema#dateTime":
+            return "datetime"
+        case "http://www.w3.org/2001/XMLSchema#decimal":
+            return "float"
+        case "http://www.w3.org/2001/XMLSchema#nonNegativeInteger":
+            return "integer"
+        case "http://www.w3.org/2001/XMLSchema#string":
+            return "char"
+        case default:
+            # print(attr_type)
+            return None
+            
 
 class AttributeDefinitionRecord:
     def __init__(
-        self, model, record, parent_id=None, parent_uri=None, oslo_datatype=None
+        self, model, record, parent_id=None, parent_uri=None, oslo_datatype=None, value_type=None
     ):
         """kwargs is an odoo record"""
         self.model = model
@@ -60,9 +81,9 @@ class AttributeDefinitionRecord:
             "label_nl": record.label_nl,
             "definition_nl": record.definition_nl,
             "type": record.type if hasattr(record, "type") else None,
+            "value_type": value_type, 
             "oslo_datatype": oslo_datatype,
-            "constraints": record.constraints if hasattr(record, "constraints")
-            else None,
+            "constraints": record.constraints if hasattr(record, "constraints") else None,
             "parent_id": parent_id,
             "parent_uri": parent_uri,
         }
@@ -76,7 +97,11 @@ class AttributeDefinitionRecord:
 
 class AwvDatatypePrimitive(AttributeDefinitionRecord):
     def __init__(self, model, datatype_primitive_rec, parent_id, parent_uri, oslo_datatype):
-        super().__init__(model, datatype_primitive_rec, parent_id, parent_uri, oslo_datatype)
+        # breakpoint()
+        super().__init__(model,
+                         datatype_primitive_rec, parent_id, parent_uri,
+                         oslo_datatype, 
+                         _get_attr_value_type(datatype_primitive_rec['uri']))
 
     def populate(self):
         # create datatype_primitive record in attribute defintion table
@@ -86,12 +111,12 @@ class AwvDatatypePrimitive(AttributeDefinitionRecord):
         domain = [("class_uri", "=", self.attr_def['uri'])]
         datatype_primitive_attr_recs = self.model.env["bms.oslo_datatype_primitive_attributen"].search(domain)
         for datatype_primitive_attr_rec in datatype_primitive_attr_recs:
+            # breakpoint()
             AttributeDefinitionRecord(
                 self.model,
-                datatype_primitive_attr_rec,
-                parent_id,
-                parent_uri,
+                datatype_primitive_attr_rec, parent_id, parent_uri,
                 "OSLODatatypePrimitiveAttributen",
+                _get_attr_value_type(datatype_primitive_attr_rec['type'])
             ).create()
 
 
@@ -254,7 +279,7 @@ class JSONAttrDef:
             datatype_def = {
                 **datatype_def,
                 "attr_def_id": datatype_rec.id,
-                "att_type": datatype_rec.uri,
+                "attr_type": _get_attr_value_type(datatype_rec.uri),
                 "unit": None
             }
         else:
@@ -263,7 +288,7 @@ class JSONAttrDef:
                     datatype_def = {
                         **datatype_def,
                         "attr_def_id": datatype_att_rec.id,
-                        "att_type": datatype_att_rec.type,
+                        "attr_type": _get_attr_value_type(datatype_att_rec.type),
                     }
                 if datatype_att_rec.name == "standaardEenheid":
                     datatype_def = {
