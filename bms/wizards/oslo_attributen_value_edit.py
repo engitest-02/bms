@@ -1,4 +1,5 @@
 from odoo import models, fields, api, Command
+from odoo.exceptions import ValidationError
 
 
 class OsloaAttributenValueEdit(models.TransientModel):
@@ -11,7 +12,6 @@ class OsloaAttributenValueEdit(models.TransientModel):
     
     
     attr_def_id_id = fields.Integer(related="attr_def_id.id")
-    # attr_def_type = fields.Char(related="attr_def_id.type")
     attr_def_uri = fields.Char(related="attr_def_id.uri")
 
 
@@ -25,12 +25,23 @@ class OsloaAttributenValueEdit(models.TransientModel):
     value_date = fields.Date("value", default=None)
     value_datetime = fields.Datetime("value", default=None)
     value_float = fields.Float("value", default=None)
-    value_integer = fields.Integer("value", default=None)
+    value_non_negative_integer = fields.Integer("value", default=None)
+    value_enumeration = fields.Selection(selection="_compute_selection", string="value", default="_get_selection_default")
 
-    # oslo_datatype_xxx_attributen_uri = fields.Char(
-    #     "oslo_datatype_xxx_attributen_uri", default=None
-    # )
-    # oslodatatype_primitive_uri = fields.Char("oslodatatype_primitive_uri")
+  
+    @api.constrains('value_non_negative_integer')
+    def _check_description(self):
+        for rec in self:
+            if rec.value_non_negative_integer < 0:
+                raise ValidationError("The expected value has to be a non negative integer")
+
+    def _compute_selection(self):
+        return self._context["default_enumeration_selection_values"]
+    
+    @api.model
+    def _get_selection_default(self):
+        print("value enumeration", self._context["default_value_enumeration"])
+        return self._context["default_value_enumeration"]
 
     @api.model
     def create(self, vals):
@@ -46,7 +57,7 @@ class OsloaAttributenValueEdit(models.TransientModel):
             **vals,
             "object_id": self._context["default_object_id"],
             "object_type_id": self._context["default_object_type_id"],
-            # "oslo_attributen_uri": self._context["default_oslo_attributen_uri"],
+            "attr_def_id": self._context["default_attr_def_id"],
             "attr_def_value_type": self._context["default_attr_def_value_type"]
         }
         record = self._get_existing_item(vals)
@@ -63,7 +74,6 @@ class OsloaAttributenValueEdit(models.TransientModel):
         ]
         return self.env["bms.oslo_attributen_value"].search(domain)
 
-
     def _custom_update(self, record, vals):
         print("_update called")
         key = "value_" + vals["attr_def_value_type"]
@@ -73,14 +83,13 @@ class OsloaAttributenValueEdit(models.TransientModel):
 
     def _custom_create(self, vals):
         print("_create called", vals, type(vals))
+        key = "value_" + vals["attr_def_value_type"]
         values = {
             "object_id": vals["object_id"],
             "object_type_id": vals["object_type_id"],
-            "attr_def_id": vals["attr_def_id"]
+            "attr_def_id": vals["attr_def_id"],
+            key: vals[key]
         }
-        key = "value_" + vals["attr_def_value_type"]
-        values = {**values, key: vals[key]}
         print(values)
-
         new_att_value = self.env["bms.oslo_attributen_value"].create([values])
         return True

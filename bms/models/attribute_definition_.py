@@ -15,9 +15,8 @@ class AttributeDefinition(models.Model):
     value_type = fields.Char("attribute value type")
     oslo_datatype = fields.Char("oslo data type")
     constraints = fields.Char("constraints")
-    parent_id = fields.Many2one(
-        comodel_name="bms.attribute_definition_", string="parent_id"
-    )
+    parent_id = fields.Many2one(comodel_name="bms.attribute_definition_",
+                                string="parent_id")
     parent_uri = fields.Char("parent_uri")
 
     @api.model
@@ -33,7 +32,6 @@ class AttributeDefinition(models.Model):
     @api.model
     def get_att_def(self, class_id):
         data = JSONAttrDef(self, class_id).get_data()
-        print(data)
         return data
 
 # utility classes
@@ -61,7 +59,7 @@ def _get_attr_value_type(attr_type):
         case "http://www.w3.org/2001/XMLSchema#decimal":
             return "float"
         case "http://www.w3.org/2001/XMLSchema#nonNegativeInteger":
-            return "integer"
+            return "non_negative_integer"
         case "http://www.w3.org/2001/XMLSchema#string":
             return "char"
         case default:
@@ -123,8 +121,7 @@ class AwvDatatypePrimitive(AttributeDefinitionRecord):
 class AwvEnumeration(AttributeDefinitionRecord):
     def __init__(self, model, enumeration_record, parent_id, parent_uri, oslo_datatype):
         super().__init__(
-            model, enumeration_record, parent_id, parent_uri, oslo_datatype
-        )
+            model, enumeration_record, parent_id, parent_uri, oslo_datatype)
 
     def populate(self):
         # create enumeration record in attribute definition table
@@ -279,7 +276,7 @@ class JSONAttrDef:
             datatype_def = {
                 **datatype_def,
                 "attr_def_id": datatype_rec.id,
-                "attr_type": _get_attr_value_type(datatype_rec.uri),
+                "attr_value_type": _get_attr_value_type(datatype_rec.uri),
                 "unit": None
             }
         else:
@@ -288,7 +285,7 @@ class JSONAttrDef:
                     datatype_def = {
                         **datatype_def,
                         "attr_def_id": datatype_att_rec.id,
-                        "attr_type": _get_attr_value_type(datatype_att_rec.type),
+                        "attr_value_type": _get_attr_value_type(datatype_att_rec.type),
                     }
                 if datatype_att_rec.name == "standaardEenheid":
                     datatype_def = {
@@ -304,6 +301,7 @@ class JSONAttrDef:
             "oslo_datatype": datatype_rec.oslo_datatype,
             "attr_def_id": datatype_rec.id,
             "selection_values": [],
+            "attr_value_type": "enumeration"
         }
         enumeration_value_recs = self._get_enumeration_values(datatype_rec.uri)
         if len(enumeration_value_recs) == 0:
@@ -330,32 +328,25 @@ class JSONAttrDef:
                 Create Complex dict and append iteratives attributes {DtcIdentificator, iterative_attributes: [{Identificator,...}, {ToegekendDoor,...}]
         """
 
-        # print(datatype_def)
         iterative_attributes = []
         datatype_attr_recs = self._get_children(datatype_rec.id)  #datatypeComplexAttributen or DatatypeUnionAttributen
 
         for datatype_attr_rec in datatype_attr_recs:     
-                # print(datatype_def)
             attributes = []
             datatype_child_recs = self._get_children(datatype_attr_rec.id) # datatype composing datatyepComplexAttributen or DatatpeUnionAttributen
             for datatype_child_rec in datatype_child_recs: 
-                # print(datatype_child_rec, datatype_child_rec.oslo_datatype)
                 match datatype_child_rec.oslo_datatype :
                     case "OSLODatatypePrimitive": 
                         attributes.append(self._format_datatype_primitive(datatype_child_rec))
-                        # datatype_def["iterative_attributes"].append(self._format_datatype_primitive(datatype_attr_rec))
 
                     case "OSLOEnumeration":
                         attributes.append(self._format_datatype_enumeration(datatype_child_rec))
-                        # datatype_def["iterative_attributes"].append(self._format_datatype_enumeration(datatype_attr_rec))
 
                     case "OSLODatatypeComplex":
                         attributes.append(self._format_datatype_iterative(datatype_child_rec))
-                        # datatype_def["iterative_attributes"].append(self._format_datatype_iterative(datatype_attr_rec))
 
                     case "OSLODatatypeUnion":
                         attributes.append(self._format_datatype_iterative(datatype_child_rec))
-                        # datatype_def["iterative_attributes"].append(self._format_datatype_iterative(datatype_attr_rec))
 
                     case default:
                         msg = """Oslo attribute_type '{0}' unknown. ('{1}')  Check TypeLinkTabel in OSLO sqlite database. Tip: 'select distinct item_tabel

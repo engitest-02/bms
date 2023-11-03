@@ -88,11 +88,9 @@
         <field name="value_date"/>
         <field name="value_datetime"/>
         <field name="value_float"/>
-        <field name="value_integer"/>
+        <field name="value_non_negative_integer"/>
         <field name="value_enumeration"/>
-        <field name="attr_def_value_type"/>
         <field name="value_type"/>
-        <field name="otl_type_internal_id"/>
         <field name="object_id"/>
         <field name="object_type_id"/>
         <field name="attr_def_id"/>

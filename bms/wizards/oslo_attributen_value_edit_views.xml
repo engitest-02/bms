@@ -22,8 +22,8 @@
                 <field name="value_date" attrs="{'invisible': [('attr_def_value_type', '!=', 'date')]}"/>
                 <field name="value_datetime" attrs="{'invisible': [('attr_def_value_type', '!=', 'datetime')]}"/>
                 <field name="value_float" attrs="{'invisible': [('attr_def_value_type', '!=', 'float')]}"/>
-                <field name="value_integer" attrs="{'invisible': [('attr_def_value_type', '!=', 'integer')]}"/>
-                <!-- <field name="value_enumeration" attrs="{'invisible': [('attr_value_type', '!=', 'enumeration')]}"/> -->
+                <field name="value_non_negative_integer" attrs="{'invisible': [('attr_def_value_type', '!=', 'non_negative_integer')]}"/>
+                <field name="value_enumeration" attrs="{'invisible': [('attr_def_value_type', '!=', 'enumeration')]}"/> 
             </group>
         </form>
     </field>
