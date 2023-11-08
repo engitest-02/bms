@@ -7,13 +7,25 @@ class OsloEnumerationValues(models.Model):
     _description = "awv OSLOEnumeration values table"
     _inherits = {"bms.oslo_enumeration": "enumeration_id"}
 
-    enumeration_id = fields.Many2one(
-        'bms.oslo_enumeration', 'enumeration_id',
-        auto_join=True)
+    enumeration_id = fields.Many2one('bms.oslo_enumeration', 'enumeration_id',auto_join=True)
     selection_id = fields.Char("selection_id")
     status = fields.Char("status")
     definition = fields.Char("definition")
     notation = fields.Char("notation")
+
+    def name_get(self): 
+        """display the notation insteand of enumeration name if context item 
+           'enum_display_notation is true. 
+        """
+        
+        res = []
+        if self.env.context.get('enum_display_notation', False):
+            for rec in self:
+                res.append((rec.id, rec.notation ))
+        else:
+            for rec in self:
+                res.append((rec.id, rec.name))
+        return res
 
     @api.model
     def import_value_list(self, enumeration_id):

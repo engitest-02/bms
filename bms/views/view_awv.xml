@@ -207,6 +207,7 @@
     <field name="model">bms.oslo_enumeration_values</field>
     <field name="arch" type="xml">
       <tree>
+        <field name="id"/>
         <field name="name"/>
         <field name="uri"/>
         <field name="usagenote_nl"/>

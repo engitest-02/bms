@@ -4,7 +4,7 @@ import { useService } from "@web/core/utils/hooks"
 const { Component, onWillStart } = owl
 
 
-export class OsloDatatypePrimitive extends Component {
+export class OsloDatatypePrimitiveEnumeration extends Component {
     setup(){
         this.actionService = useService("action")
         this.ormService = useService("orm")
@@ -54,9 +54,8 @@ export class OsloDatatypePrimitive extends Component {
             'default_attr_def': this.attrDefinitionNl,
             'default_attr_def_datatype_definition': this.attrDefDatatypeDef,
             'default_attr_def_value_type': this.attrDefValueType,
-            "default_enumeration_selection_values": [],
-
-            'form_view_initial_mode': "edit",
+            // "default_enumeration_selection_values": [],
+            'form_view_initial_mode': "new",
         }
         if (this.attrValueRec) { //attribute has already a value
             context = {...context,
@@ -66,13 +65,13 @@ export class OsloDatatypePrimitive extends Component {
                     'default_value_datetime': this.attrValueRec.value_datetime,
                     'default_value_float': this.attrValueRec.value_float,
                     'default_value_non_negative_integer': this.attrValueRec.value_non_negative_integer,
-                    'default_value_enumeration': this.attrValueRec.value_enumeration,}
+                    'default_enumeration_value_id':  this.attrValueRec.enumeration_value_id? this.attrValueRec.enumeration_value_id[0]:false}
         }
 
-        if (this.attrOsloDatatype == "OSLOEnumeration"){ // assign selection list
+        // if (this.attrOsloDatatype == "OSLOEnumeration"){ // assign selection list
 
-            context['default_enumeration_selection_values'] = this.selectionValues
-        }
+        //     context['default_enumeration_selection_values'] = this.selectionValues
+        // }
         console.log('context', context)
         this.actionService.doAction(
             {
@@ -97,7 +96,6 @@ export class OsloDatatypePrimitive extends Component {
         
     }
 
-
     _load_attribute_value(){
         const domain=[["object_id", "=", this.objectId], 
                 ["object_type_id","=",this.objectTypeId],
@@ -107,4 +105,4 @@ export class OsloDatatypePrimitive extends Component {
     }
 }
 
-OsloDatatypePrimitive.template = "bms.oslo_datatype_primitive"
+OsloDatatypePrimitiveEnumeration.template = "bms.oslo_datatype_primitive_enumeration"

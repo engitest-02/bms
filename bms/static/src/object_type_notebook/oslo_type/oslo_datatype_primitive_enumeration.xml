@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
-    <t t-name="bms.oslo_enumeration" owl="1">
+    <t t-name="bms.oslo_datatype_primitive_enumeration" owl="1">
         <div>
             <table class="o_bms_table">
                 <tr>
@@ -8,10 +8,10 @@
                         <t t-out="attrName" />
                     </td>
                     <td >
-                        <t t-out="attrValue"/>
+                        <t t-out="attrValueToDisplay"/>
                     </td>
                     <td class="o_form_label">
-                        
+                        <t t-out="unit" />
                     </td>
                     <td>
                         <button class="btn btn-primary" t-on-click="() => this.changeAttrValue()">

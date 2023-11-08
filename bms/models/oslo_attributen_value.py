@@ -23,12 +23,13 @@ class OsloAttributenValue(models.Model):
     value_datetime = fields.Datetime("value", default=None)
     value_float = fields.Float("value", default=None)
     value_non_negative_integer = fields.Integer("value", default=None)
-    value_enumeration  = fields.Char("choice", default=None)
+    value_enumeration  = fields.Char(related="enumeration_value_id.selection_id", string="choice", default=None, store=True)
 
     # relational fields
     object_id = fields.Many2one(comodel_name="bms.maintainance_object", string="Maintainance Object", required=True, ondelete="cascade")
     object_type_id = fields.Many2one(comodel_name="bms.object_type")
     attr_def_id = fields.Many2one(comodel_name="bms.attribute_definition_")
+    enumeration_value_id = fields.Many2one(comodel_name="bms.oslo_enumeration_values")
 
     #related field
     otl_type_internal_id = fields.Char(related="object_type_id.otl_type_internal_id", string="otl_type_internal_id")    
@@ -40,3 +41,5 @@ class OsloAttributenValue(models.Model):
         for rec in self:
             if rec.value_non_negative_integer < 0:
                 raise ValidationError("The expected value has to be a non negative integer")
+    
+    

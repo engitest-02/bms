@@ -50,7 +50,7 @@
 
                                     <!-- for each type display attributes definition and if exists the assigned value -->
                                     <t t-foreach="attribute.attrDefRecords" t-as="attrDefRecord" t-key="attrDefRecord.id">
-                                        <t t-if="attrDefRecord.attr_def_id !=0">                                            <!-- check if attr definitions have been defined-->
+                                        <t t-if="attrDefRecord.attr_def_id !=0">  <!-- check if attr definitions have been defined-->
                                             <tr>
                                                 <td>
                                                     <span class="o_form_label">

@@ -121,7 +121,7 @@ class AwvDatatypePrimitive(AttributeDefinitionRecord):
 class AwvEnumeration(AttributeDefinitionRecord):
     def __init__(self, model, enumeration_record, parent_id, parent_uri, oslo_datatype):
         super().__init__(
-            model, enumeration_record, parent_id, parent_uri, oslo_datatype)
+            model, enumeration_record, parent_id, parent_uri, oslo_datatype, value_type="enumeration")
 
     def populate(self):
         # create enumeration record in attribute definition table
