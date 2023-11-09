@@ -272,7 +272,7 @@ class JSONAttrDef:
             "attr_datatype": datatype_rec.oslo_datatype,
         }
         datatype_att_recs = self._get_children(datatype_rec.id)
-        if (len(datatype_att_recs) < 2):  # datatype of kind http://www.w3.org/2001/XMLSchema#xxx
+        if (len(datatype_att_recs) < 1):  # datatype of kind http://www.w3.org/2001/XMLSchema#xxx
             datatype_def = {
                 **datatype_def,
                 "attr_def_id": datatype_rec.id,
@@ -280,7 +280,7 @@ class JSONAttrDef:
                 "unit": None
             }
         else:
-            for datatype_att_rec in datatype_att_recs: # datattype primitive attributen
+            for datatype_att_rec in datatype_att_recs: # datatype primitive attributen
                 if datatype_att_rec.name == "waarde":
                     datatype_def = {
                         **datatype_def,
