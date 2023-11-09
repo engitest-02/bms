@@ -3,6 +3,7 @@
 import { useService, useBus } from "@web/core/utils/hooks";
 const { Component, onWillStart, onWillPatch } = owl;
 import { OsloDatatypePrimitiveEnumeration } from "./oslo_datatype_primitive_enumeration";
+import { OsloDatatypeIterative } from "./oslo_datatype_iterative";
 var rpc = require('web.rpc');
 
 
@@ -188,7 +189,7 @@ export class OsloType extends Component {
 }
 
 OsloType.template = "bms.oslo_type";
-OsloType.components={OsloDatatypePrimitiveEnumeration};
+OsloType.components={OsloDatatypePrimitiveEnumeration, OsloDatatypeIterative};
 
 class JSONAttrDefParser{
     constructor(JSONAttrDef){

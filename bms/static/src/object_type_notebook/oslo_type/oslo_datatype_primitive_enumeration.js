@@ -9,19 +9,20 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
         this.actionService = useService("action")
         this.ormService = useService("orm")
 
-        this.attrName = this.props.attr.attr_name;
-        this.unit = this._format_unit(this.props.attr.attr_datatype_def.unit)
-        
         this.objectId = this.props.objectId
         this.objectTypeId = this.props.objectTypeId
         this.attrDefId = this.props.attr.attr_datatype_def.attr_def_id
-        this.attrType = this.props.attr.attr_datatype_def.attr_type
+        // this.attrType = this.props.attr.attr_datatype_def.attr_datatype
+
+        this.attrName = this.props.attr.attr_name
         this.attrDefinitionNl = this.props.attr.attr_definition_nl
-        this.attrDefDatatypeDef= this.props.attr.attr_datatype_def.datatype_label_nl
+        this.unit = this._format_unit(this.props.attr.attr_datatype_def.unit) 
+       
+        this.attrDefDatatypeDef= this.props.attr.attr_datatype_def.attr_name
         this.attrDefValueType = this.props.attr.attr_datatype_def.attr_value_type
-        this.attrOsloDatatype = this.props.attr.attr_datatype_def.oslo_datatype
+        this.attrOsloDatatype = this.props.attr.attr_datatype_def.attr_datatype
         
-        this.attrValueToDisplay;
+        this.attrValueToDisplay;    
 
         onWillStart(async () => {
             var valueField = "value_" + this.attrDefValueType
@@ -31,16 +32,16 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
             this.attrValueToDisplay = this.attrValueRec? this.attrValueRec[valueField]: ""
             
             if (this.attrOsloDatatype == "OSLOEnumeration"){// create selectionValues list useful for the form + notation to display
-                var selectionValues = []
+                // var selectionValues = []
                 Object.values(this.props.attr.attr_datatype_def.selection_values).forEach(
                     (selection_value) => {                        
-                        selectionValues.push([selection_value.selection_id, selection_value.notation]) 
+                        // selectionValues.push([selection_value.selection_id, selection_value.notation]) 
                         if (this.attrValueToDisplay === selection_value.selection_id){
                             // don't display the selection_id of the existing value but its notation
                             this.attrValueToDisplay = selection_value.notation
                         }
                 })
-                this.selectionValues = selectionValues
+                // this.selectionValues = selectionValues
             }  
         })
     }
@@ -50,7 +51,7 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
             'default_object_id': this.objectId,
             'default_object_type_id': this.objectTypeId,
             'default_attr_def_id': this.attrDefId,
-            'default_attr_name': this.attr_name,
+            'default_attr_name': this.attrName,
             'default_attr_def': this.attrDefinitionNl,
             'default_attr_def_datatype_definition': this.attrDefDatatypeDef,
             'default_attr_def_value_type': this.attrDefValueType,

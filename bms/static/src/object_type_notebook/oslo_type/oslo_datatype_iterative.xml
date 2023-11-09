@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="bms.oslo_datatype_iterative" owl="1">
+        <div>
+            <table class="o_bms_table">
+                <tr>
+                    <td class="o_form_label">
+                        <t t-out="attrName" />
+                    </td>
+                    <t t-foreach="iterativeAttributes" t-as="attribute" t-key="attribute.attr_name">
+                        <tr>
+                            <td>
+                                <t t-if="attribute.attr_datatype_def.attr_datatype != 'OSLODatatypeComplex' and attribute.attr_datatype_def.attr_datatype != 'OSLODatatypeUnion' ">
+                                    <OsloDatatypePrimitiveEnumeration attr="attribute" objectId="objectId" objectTypeId="objectTypeId"/>
+                                </t>
+                                <t t-if="attribute.attr_datatype_def.attr_datatype == 'OSLODatatypeComplex' or attribute.attr_datatype_def.attr_datatype == 'OSLODatatypeUnion' ">
+                                    <OsloDatatypeIterative attr="attribute" objectId="objectId" objectTypeId="objectTypeId"/>
+                                </t>
+
+                            </td>
+                        </tr>
+                    </t>
+                    <tr>
+                    </div>
+
+                </t>
+            </templates>

@@ -267,9 +267,9 @@ class JSONAttrDef:
     def _format_datatype_primitive(self, datatype_rec):
         # datatype primitive
         datatype_def = {
-            "datatype_label_nl": datatype_rec.label_nl,
-            "datatype_definition_nl": datatype_rec.definition_nl,
-            "oslo_datatype": datatype_rec.oslo_datatype,
+            "attr_name": datatype_rec.label_nl,
+            "attr_definition_nl": datatype_rec.definition_nl,
+            "attr_datatype": datatype_rec.oslo_datatype,
         }
         datatype_att_recs = self._get_children(datatype_rec.id)
         if (len(datatype_att_recs) < 2):  # datatype of kind http://www.w3.org/2001/XMLSchema#xxx
@@ -296,9 +296,9 @@ class JSONAttrDef:
 
     def _format_datatype_enumeration(self, datatype_rec):
         datatype_def = {
-            "datatype_label_nl": datatype_rec.label_nl,
-            "datatype_definition_nl": datatype_rec.definition_nl,
-            "oslo_datatype": datatype_rec.oslo_datatype,
+            "attr_name": datatype_rec.label_nl,
+            "attr_definition_nl": datatype_rec.definition_nl,
+            "attr_datatype": datatype_rec.oslo_datatype,
             "attr_def_id": datatype_rec.id,
             "selection_values": [],
             "attr_value_type": "enumeration"
@@ -332,21 +332,25 @@ class JSONAttrDef:
         datatype_attr_recs = self._get_children(datatype_rec.id)  #datatypeComplexAttributen or DatatypeUnionAttributen
 
         for datatype_attr_rec in datatype_attr_recs:     
-            attributes = []
+            attributes = {}
             datatype_child_recs = self._get_children(datatype_attr_rec.id) # datatype composing datatyepComplexAttributen or DatatpeUnionAttributen
             for datatype_child_rec in datatype_child_recs: 
                 match datatype_child_rec.oslo_datatype :
                     case "OSLODatatypePrimitive": 
-                        attributes.append(self._format_datatype_primitive(datatype_child_rec))
+                        # attributes.append(self._format_datatype_primitive(datatype_child_rec))
+                        attributes = self._format_datatype_primitive(datatype_child_rec)
 
                     case "OSLOEnumeration":
-                        attributes.append(self._format_datatype_enumeration(datatype_child_rec))
+                        # attributes.append(self._format_datatype_enumeration(datatype_child_rec))
+                        attributes = self._format_datatype_enumeration(datatype_child_rec)
 
                     case "OSLODatatypeComplex":
-                        attributes.append(self._format_datatype_iterative(datatype_child_rec))
+                        # attributes.append(self._format_datatype_iterative(datatype_child_rec))
+                        attributes = self._format_datatype_iterative(datatype_child_rec)
 
                     case "OSLODatatypeUnion":
-                        attributes.append(self._format_datatype_iterative(datatype_child_rec))
+                        # attributes.append(self._format_datatype_iterative(datatype_child_rec))
+                        attributes = self._format_datatype_iterative(datatype_child_rec)
 
                     case default:
                         msg = """Oslo attribute_type '{0}' unknown. ('{1}')  Check TypeLinkTabel in OSLO sqlite database. Tip: 'select distinct item_tabel
@@ -354,17 +358,17 @@ class JSONAttrDef:
                             datatype_attr_rec.oslo_datatype, datatype_attr_rec.uri)
                         raise Exception(msg)    
             datatype_child_def = {
-                "datatype_attr_label_nl": datatype_attr_rec.label_nl,
-                "datatype_attr_definition_nl": datatype_attr_rec.definition_nl,
-                "datatype_attr_oslo_datatype": datatype_attr_rec.oslo_datatype, # DatatypeComplexAttributen or DatatypeUnionAttributen
-                "attributes":attributes
+                "attr_name": datatype_attr_rec.label_nl,
+                "attr_definition_nl": datatype_attr_rec.definition_nl,
+                "attr_datatype": datatype_attr_rec.oslo_datatype, # DatatypeComplexAttributen or DatatypeUnionAttributen
+                "attr_datatype_def":attributes
             }
             iterative_attributes.append(datatype_child_def)
 
         datatype_def={
-            "datatype_label_nl": datatype_rec.label_nl,
-            "datatype_definition_nl": datatype_rec.definition_nl,
-            "oslo_datatype": datatype_rec.oslo_datatype, #DatatypeComplex or DatatypeUnion
+            "attr_name": datatype_rec.label_nl,
+            "attr_definition_nl": datatype_rec.definition_nl,
+            "attr_datatype": datatype_rec.oslo_datatype, #DatatypeComplex or DatatypeUnion
             "iterative_attributes": iterative_attributes
             }
         return datatype_def
