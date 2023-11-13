@@ -22,8 +22,6 @@ from . import oslo_datatype_union
 from . import oslo_datatype_union_attributen
 
 
-# from . import my_demo_agent # TODO: adapt
-
 
 
 
