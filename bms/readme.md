@@ -51,7 +51,10 @@ where msa_o.otl_type_id is not null and msa_o.otl_type_id <> 0
 
 ## Refactoring ##
 1. delete modle oslo_generic_model
-2. delete attribute_definition.py  and attribute_value.py + views + menus + security
+2. attribute_value.py + views + menus + security
 3. adapt demo_agent.py
 4. change oslo datatype in CONSTANT VALUE defined on one place
 5. owl components implments props validation
+6. use of AWV OWL library type hardcoded in .js code
+7. store json of get_att_def() instead of recalulate on the fly to increase loading speed
+8. change res_id by default of `bms_decomposition_action`

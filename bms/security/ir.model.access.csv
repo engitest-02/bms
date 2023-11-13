@@ -2,9 +2,7 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 bms.access_bms_maintainance_object,access_bms_maintainance_object,bms.model_bms_maintainance_object,base.group_user,1,1,1,1
 bms.access_bms_object_type_library,access_bms_object_type_library,bms.model_bms_object_type_library,base.group_user,1,1,1,1
 bms.access_bms_object_type,access_bms_object_type,bms.model_bms_object_type,base.group_user,1,1,1,1
-bms.access_bms_attribute_definition,access_bms_attribute_definition,bms.model_bms_attribute_definition,base.group_user,1,1,1,1
 bms.access_bms_attribute_value,access_bms_attribute_value,bms.model_bms_attribute_value,base.group_user,1,1,1,1
-bms.access_bms_attributes,access_bms_attributes,bms.model_bms_attributes,base.group_user,1,1,1,1
 bms.access_bms_otl_type,access_bms_otl_type,bms.model_bms_otl_type,base.group_user,1,1,1,1
 bms.access_bms_decomposition_relationship,access_bms_decomposition_relationship,bms.model_bms_decomposition_relationship,base.group_user,1,1,1,1
 bms.access_bms_decomposition_type,access_bms_decomposition_type,bms.model_bms_decomposition_type,base.group_user,1,1,1,1
@@ -19,7 +17,7 @@ bms.access_bms_oslo_attributen_value,access_bms_oslo_attributen_value,bms.model_
 bms.access_bms_awv_attributen_primitive_datatype,access_bms_awv_attributen_primitive_datatype,bms.model_bms_awv_attributen_primitive_datatype,base.group_user,1,1,1,1
 bms.access_bms_oslo_enumeration_values,access_bms_oslo_enumeration_values,bms.model_bms_oslo_enumeration_values,base.group_user,1,1,1,1
 bms.access_bms_oslo_type_link_tabel,access_bms_oslo_type_link_tabel,bms.model_bms_oslo_type_link_tabel,base.group_user,1,1,1,1
-bms.access_bms_attribute_definition_,access_bms_attribute_definition_,bms.model_bms_attribute_definition_,base.group_user,1,1,1,1
+bms.access_bms_attribute_definition,access_bms_attribute_definition,bms.model_bms_attribute_definition,base.group_user,1,1,1,1
 bms.access_bms_oslo_generic_model,access_bms_oslo_generic_model,bms.model_bms_oslo_generic_model,base.group_user,1,1,1,1
 bms.access_bms_my_demo_agent,access_bms_my_demo_agent,bms.model_bms_my_demo_agent,base.group_user,1,1,1,1
 bms.access_bms_oslo_datatype_complex,access_bms_oslo_datatype_complex,bms.model_bms_oslo_datatype_complex,base.group_user,1,1,1,1

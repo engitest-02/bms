@@ -1,4 +1,4 @@
-from . import attribute_definition #TODO : delete
+from . import attribute_definition
 from . import attribute_value  #TODO : delete
 from . import decomposition_relationship
 from . import decomposition_type
@@ -21,7 +21,7 @@ from . import oslo_datatype_complex_attributen
 from . import oslo_datatype_union
 from . import oslo_datatype_union_attributen
 
-from . import attribute_definition_
+
 
 from . import oslo_generic_model #TODO : delete
 from . import my_demo_agent # TODO: adapt

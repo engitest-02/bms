@@ -10,5 +10,5 @@ class DecompositionType(models.Model):
     description = fields.Char("description")
 
     decompostion_relationship = fields.One2many(
-        comodel_name="bms.decomposition_relationship", inverse_name="decomposition_type"
+        comodel_name="bms.decomposition_relationship", inverse_name="decomposition_type_id"
     )

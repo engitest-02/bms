@@ -8,9 +8,6 @@ var rpc = require('web.rpc');
 const { Component, onMounted, onWillStart, useRef } = owl;
 
 export class Decomposition extends Component {
-    loadObjectId(objectId){
-        this.model.load({resId: objectId});
-    }
 
     setup() {
         this.ormService = useService("orm");
@@ -25,58 +22,51 @@ export class Decomposition extends Component {
             loadCSS(["/bms/static/lib/fancytree/css/skin-odoo-bms/ui.fancytree.css"]);
 
             this.decompositionTypeRecords = await this._loadDecompositionTypes();
-            this.treeString = await this._loadJsonTree()();
-            this.treeJson = JSON.parse(this.treeString);
+            this.lazyTreeString = await this._loadLazyTree()(this.resId);            
+            this.lazyTreeJson = JSON.parse(this.lazyTreeString);
+
         })
         
         onMounted(async () => {
-            this.decompositionTree = $.ui.fancytree.createTree('#decompositionTree_1', {
-                extensions: ['edit', 'filter'],
-                source: this.treeJson, 
-                click: this.loadClickedObjectId.bind(this),
-                autoScroll: true,
-            }
+            this.decompositionTree1 = $.ui.fancytree.createTree(
+                '#decompositionTree_1',
+                {extensions: ['edit', 'filter'],
+                 source: this.lazyTreeJson, 
+                 click: this.loadClickedObjectId.bind(this),
+                 autoScroll: true,
+                 lazyLoad: (event, data) => {this._lazyLoad(event, data)}
+                }
             );
-            this.decompositionTree.activateKey(this.resId);
+            this.decompositionTree1.activateKey(this.resId);
 
-            console.log("decompostion.js: TODO: review toggleDecomposition which is in demo mode");
         })
-
     }
 
     loadClickedObjectId(ev, data){
-        this.model.load({resId:  parseInt(data.node.key)});
+        this.model.load({resId: parseInt(data.node.key)});
      }
-
-    toggleDecomposition(event) {
-        // TODO: adapt the logica !!!! not generic. 
-        if (event.target.id === "decomposition_1") {
-            document.getElementById("decompositionTree_1").style.visibility = "visible";
-            document.getElementById("decompositionTree_2").style.visibility = "hidden";
-        } else {
-            document.getElementById("decompositionTree_1").style.visibility = "hidden";
-            document.getElementById("decompositionTree_2").style.visibility = "visible";
-        }
-    }
-
-    _loadObjectId(objectId){
-        this.model.load({resId: objectId});
-        this.core.bus.trigger("decomposition_upload");
-    }
 
     _loadDecompositionTypes() {
         return this.ormService.searchRead("bms.decomposition_type", [], []);
     }
 
-    _loadJsonTree() {
-        // var rpc = require('web.rpc');
-        return  memoize(() => rpc.query({
-                        model: 'bms.decomposition_relationship',
-                        method: 'getTree',
-                        args: [],
-                        }   
-                    )
-        )         
+    _loadLazyTree(object_id){
+        return memoize((object_id) => 
+                        rpc.query({model: 'bms.decomposition_relationship',
+                                   method: 'get_lazy_tree_for_object',
+                                   args: [object_id], })
+                );
+    }
+    
+    _lazyLoad(event, data){
+        var node = data.node
+        var nextTree = rpc.query({
+            model: 'bms.decomposition_relationship',
+            method: 'get_lazy_tree',
+            args: [node.key],
+            }).then((tree) => {return JSON.parse(tree);});
+        data.result = nextTree
+
     }
 
 }

@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="bms.oslo_type" owl="1">
-        <!-- <t t-out="'oslo_type props:'"/> -->
-        <!-- <t t-out="values"/>  -->
         <table class="o_bms_table">
             <tr>
                 <td>
                     <span class="o_form_label"> object type  </span>
                 </td>
                 <td >
-                    <!-- <t t-log="attrDefValueRecs" /> -->
-                    <!-- <t t-log="className" /> -->
                     <t t-out="className"/>
                 </td>
                 <td>
@@ -22,9 +18,9 @@
                 </td>
             </tr>
 
-            <!-- for each type display attributes definition and if exists the assigned value -->
-            <t t-foreach="attrDefValueRecs" t-as="attrDefValueRec" t-key="attrDefValueRec.id">
-                <t t-if="attrDefValueRec.id !=0">                    <!-- check if attr definitions have been defined-->
+            <!-- for each type display attributes definition and if exists the assigned value 
+             <t t-foreach="attrDefValueRecs" t-as="attrDefValueRec" t-key="attrDefValueRec.id">
+                <t t-if="attrDefValueRec.id !=0">                    check if attr definitions have been defined-
                     <tr>
                         <td>
                             <span class="o_form_label">
@@ -47,7 +43,7 @@
                     </tr>
                 </t>
             </t>
-        </table>
+        </table> -->
 
         <div>
              <t t-foreach="attrDefs.attributes" t-as="attribute" t-key="attribute.attr_name">

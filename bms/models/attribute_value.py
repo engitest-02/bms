@@ -20,12 +20,12 @@ class AttributeValue(models.Model):
     value_float = fields.Float("value", default=None)
     value_integer = fields.Integer("value", default=None)
 
-    attr_def_name = fields.Char(related="attr_def_id.name", readonly=True, string="attribute name")
-    attr_def_value_type = fields.Selection(related="attr_def_id.value_type", readonly=True)
+    # attr_def_name = fields.Char(related="attr_def_id.name", readonly=True, string="attribute name")
+    # attr_def_value_type = fields.Selection(related="attr_def_id.value_type", readonly=True)
     object_name = fields.Char(related="object_id.name", string="object name")
 
     object_id = fields.Many2one(comodel_name="bms.maintainance_object", string="Maintainance Object", required=True, ondelete="cascade")
     object_type_id = fields.Many2one(comodel_name="bms.object_type", required=True, ondelete="cascade")
-    attr_def_id = fields.Many2one(comodel_name="bms.attribute_definition", required=True, ondelete="cascade")
+    # attr_def_id = fields.Many2one(comodel_name="bms.attribute_definition", required=True, ondelete="cascade")
     
     

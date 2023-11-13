@@ -10,8 +10,6 @@
         <field name="id"/>
         <field name="name"/>
         <field name="lantis_unique_id"/>
-        <field name="is_active"/>
-        <field name="is_asset"/>
         <field name="awv_type_not_found"/>
         <field name="bo_temporary_type"/>
       </tree>
@@ -40,8 +38,6 @@
         <group >
           <field name="name" />
           <field name="lantis_unique_id" readonly="1" />
-          <field name="is_active"/>
-          <field name="is_asset" />
         </group>
         <notebook>
           <page string="OTL">
@@ -50,11 +46,11 @@
                 <field name="name"/>
                 <field name="definition"/>
                 <field name="otl_id"/>
-                <field name="attribute_ids" invisible="1"/>
+                <field name="otl_type_internal_id"/>
+                <!-- <field name="attribute_ids" invisible="1"/> -->
               </tree>
             </field>
           </page>
-          <page string="Documents..."></page>
           <page string="Acces Mgt...">
             <!-- demo agent -->
             <group>
@@ -78,10 +74,6 @@
         <field name="name" />
         <field name="lantis_unique_id" />
         <field name="object_type_ids">
-          <!-- <form>
-            <field name="otl_name"/>
-            <field name="name"/>
-          </form> -->
         </field>
       </form>
     </field>
@@ -135,69 +127,20 @@
           <field name="definition"/>
           <field name="otl_id"/>
         </group>
-
-        <field name="attribute_ids" nolabel="1" widget="many2many">
-          <!-- <tree>
-                <field name="name"/>
-                <field name="description"/>
-                <field name="value_type"/>
-              </tree> -->
-        </field>
-        <!-- <field name="attr_value_ids" nolabel="1" widget="many2many">
-            <tree>
-            <field name="value_char" />
-            <field name="value_boolean" />
-            <field name="value_date" />
-            <field name="value_float" />
-            <field name="value_integer" />
-            </tree>
-            </field> -->
-
-
       </form>
     </field>
   </record>
 
-  <record id="bms_attribute_definition_view_tree" model="ir.ui.view">
-    <field name="name">bms.attribute_definition.tree</field>
-    <field name="model">bms.attribute_definition</field>
-    <field name="arch" type="xml">
-      <tree>
-        <field name="name"/>
-        <field name="description"/>
-        <field name="value_type"/>
-      </tree>
-    </field>
-  </record>
-
-  <record id="bms_attribute_definition_view_form" model="ir.ui.view">
-    <field name="name">bms.attribute_definition.form</field>
-    <field name="model">bms.attribute_definition</field>
-    <field name="arch" type="xml">
-      <form string="Attribute definition">
-        <sheet>
-          <group>
-            <field name="name"/>
-            <field name="description"/>
-            <field name="value_type"/>
-          </group>
-        </sheet>
-      </form>
-    </field>
-  </record>
 
   <record id="bms_decompostion_relationship_tree" model="ir.ui.view">
     <field name="name">bms.decomposition_relationship.tree</field>
     <field name="model">bms.decomposition_relationship</field>
     <field name="arch" type="xml">
       <tree>
-        <header>
-          <button name="getTree" type="object" string="Generate treeview json"/>
-
-        </header>
+        <field name="object_id_id"/>
         <field name="object_id"/>
         <field name="parent_object_id"/>
-        <field name="decomposition_type"/>
+        <field name="decomposition_type_id"/>
         <field name="tree_level"/>
         <field name="sibling_order"/>
       </tree>
@@ -210,14 +153,14 @@
     <field name="arch" type="xml">
       <tree>
         <field name="object_name" />
-        <field name="attr_def_name"/>
-        <field name="attr_def_value_type"/>
+        <!-- <field name="attr_def_name"/>
+        <field name="attr_def_value_type"/> -->
         <field name="value_char"/>
         <field name="value_boolean"/>
         <field name="value_date"/>
         <field name="value_float"/>
         <field name="value_integer"/>
-        <field name="attr_def_id"/>
+        <!-- <field name="attr_def_id"/> -->
         <field name="object_id"/>
         <!-- <field name="otl_type_internal_id"/> -->
       </tree>
@@ -232,9 +175,9 @@
         <sheet>
           <group>
             <field name="object_id" readonly="1"/>
-            <field name="attr_def_id" readonly="1"/>
+            <!-- <field name="attr_def_id" readonly="1"/> -->
             <field name="object_type_id" readonly="1"/>
-            <field name="attr_def_value_type" readonly="1"/>
+            <!-- <field name="attr_def_value_type" readonly="1"/> -->
             <field name="value_char" />
             <field name="value_boolean" />
             <field name="value_date" />
@@ -314,14 +257,11 @@
   </record>
 
 
-  <record id="bms_attribute_definition__tree" model="ir.ui.view">
-    <field name="name">bms.attribute_definition_.tree</field>
-    <field name="model">bms.attribute_definition_</field>
+  <record id="bms_attribute_definition_tree" model="ir.ui.view">
+    <field name="name">bms.attribute_definition.tree</field>
+    <field name="model">bms.attribute_definition</field>
     <field name="arch" type="xml">
       <tree>
-             <header>
-          <button name="get_att_def" type="object" string="test get_att_def onbms.attribute_definition_"/>
-        </header>
         <field name="id"/>
         <field name="uri"/>
         <field name="name"/>
@@ -345,6 +285,13 @@
     <field name="view_mode">tree,form</field>
   </record>
 
+ <record id="bms_decomposition_action" model="ir.actions.act_window">
+    <field name="name">Maintainance Object</field>
+    <field name="res_model">bms.maintainance_object</field>
+    <field name="view_mode">form</field>
+    <field name="res_id">3672</field>
+  </record>
+
 
   <record id="bms_object_type_library_action" model="ir.actions.act_window">
     <field name="name">Maintainance Object Type Library</field>
@@ -363,13 +310,6 @@
     <field name="res_model">bms.attribute_value</field>
     <field name="view_mode">tree,form</field>
   </record>
-
-  <record id="bms_attribute_definition_action" model="ir.actions.act_window">
-    <field name="name">Attribute definition</field>
-    <field name="res_model">bms.attribute_definition</field>
-    <field name="view_mode">tree,form</field>
-  </record>
-
 
   <record id="bms_m_object_action_2" model="ir.actions.act_window">
     <field name="name">Modify otl and type</field>
@@ -409,9 +349,9 @@
   </record>
 
 
-  <record id="bms_attribute_definition__action" model="ir.actions.act_window">
-    <field name="name">Attribute definition_</field>
-    <field name="res_model">bms.attribute_definition_</field>
+  <record id="bms_attribute_definition_action" model="ir.actions.act_window">
+    <field name="name">Attribute definition</field>
+    <field name="res_model">bms.attribute_definition</field>
     <field name="view_mode">tree</field>
   </record>
 
@@ -430,18 +370,18 @@
   <menuitem id="bms_root" name="BMS"/>
 
   <menuitem id="bms_object" parent="bms_root" name="Maintainance Object" groups="base.group_user"  sequence ="10" action="bms_object_action"/>
+  <menuitem id="bms_decomposition" parent="bms_root" name="Decompositions" groups="base.group_user"  sequence ="10" action="bms_decomposition_action"/>
 
   <menuitem id="bms_settings" parent="bms_root" name="Settings" groups="base.group_user" />
   <menuitem id="bms_object_type_library" parent="bms_settings" name="Object Type Library" groups="base.group_user" sequence="10" action="bms_object_type_library_action"/>
   <menuitem id="bms_object_type" parent="bms_settings" name="Object type" groups="base.group_user" sequence="10" action="bms_object_type_action"/>
   <menuitem id="bms_attribute_value" parent="bms_settings" name="Attribute value" groups="base.group_user" sequence="20" action="bms_attribute_value_action"/>
-  <menuitem id="bms_attribute_definition" parent="bms_settings" name="Attribute definition" groups="base.group_user" sequence="30" action="bms_attribute_definition_action"/>
   <menuitem id="bms_otl_and_type_assgination" parent="bms_settings" name="Assign otl and type" groups="base.group_user" sequence="40" action="bms_m_object_action_2"/>
   <menuitem id="bms_otl_and_type_assgination_2" parent="bms_settings" name="Assign otl and type v2" groups="base.group_user" sequence="50" action="bms_m_object_action_3"/>
   <menuitem id="bms_decomposition_type" parent="bms_settings" name="Decomposition type" groups="base.group_user" sequence="60" action="bms_decomposition_type_action"/>
   <menuitem id="bms_decomposition_relationship" parent="bms_settings" name="Decomposition relationship" groups="base.group_user" sequence="70" action="bms_decomposition_relationship_action"/>
   <menuitem id="bms_maintainance_object" parent="bms_settings" name="Maintainance object" groups="base.group_user" sequence="100" action="bms_object_action"/>
-  <menuitem id="bms_attribute_definition_" parent="bms_settings" name="Attribute definition_" groups="base.group_user" sequence="30" action="bms_attribute_definition__action"/>
+  <menuitem id="bms_attribute_definition" parent="bms_settings" name="Attribute definition" groups="base.group_user" sequence="30" action="bms_attribute_definition_action"/>
   <!-- demo agent -->
   <menuitem id="bms_demo_agent" parent="bms_settings" name="Demo agent" groups="base.group_user" sequence="71" action="bms_demo_agent_action"/>
 

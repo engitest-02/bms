@@ -7,16 +7,16 @@
         </div>
 
         <t t-foreach="decompositionTypeRecords" t-as="decompositionTypeRecord" t-key="decompositionTypeRecord.id">
-            <input type="radio" t-attf-id="decomposition_{{decompositionTypeRecord.id}}" t-attf-value="{{decompositionTypeRecord.id}}" class="o_bms_input_radio" name="decompostion_types" t-att-checked="decompositionTypeRecord_first" t-on-click="(ev) => this.toggleDecomposition(ev)" />
+            <input type="radio" t-attf-id="decomposition_{{decompositionTypeRecord.id}}" t-attf-value="{{decompositionTypeRecord.id}}" class="o_bms_input_radio" name="decompostion_types" t-att-checked="decompositionTypeRecord_first" />
             <label t-attf-for="decomposition_{{decompositionTypeRecord.id}}" class="o_input">
                 <t t-out="decompositionTypeRecord.name"/>
             </label>
         </t>
-        <div id="decompositionTree_2" style="visibility:hidden"> 
-                No decompostion yet...
+        <div id="decompositionTree_1" class="o_bms_decomposition"> 
+
         </div>
-        <div id="decompositionTree_1" style="visibility:visible" class="o_bms_decomposition">
-        </div>
+        <!-- <div id="decompositionTree_1" style="visibility:visible" class="o_bms_decomposition">
+        </div> -->
    
     </div>
     </t>

@@ -8,7 +8,7 @@ class OsloaAttributenValueEdit(models.TransientModel):
 
     object_id = fields.Many2one("bms.maintainance_object", string="maintainance object")
     object_type_id = fields.Many2one("bms.object_type", string="object type")
-    attr_def_id = fields.Many2one("bms.attribute_definition_", string="attribute definition id")
+    attr_def_id = fields.Many2one("bms.attribute_definition", string="attribute definition id")
     enumeration_value_id = fields.Many2one("bms.oslo_enumeration_values", string="value")
     
     enum_notation = fields.Char(related="enumeration_value_id.notation")
@@ -42,8 +42,6 @@ class OsloaAttributenValueEdit(models.TransientModel):
     #     print("_compute_selection launched", self.attr_def_id, self.env.context["default_enumeration_selection_values"])
     #     return self.env.context["default_enumeration_selection_values"]
     
- 
-
 
     @api.model
     def create(self, vals):

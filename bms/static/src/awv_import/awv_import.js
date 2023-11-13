@@ -7,7 +7,6 @@ import { Component, useState } from "@odoo/owl";
 class AwvImportAction extends Component {
     setup(){
         this.orm = useService("orm");
-        // this.nbr_enumerations;
         this.state_import_awv_enum_values = useState({processed: 0, total_to_process: 0});
         this.state_populate_att_def_table = useState({processed: 0, total_to_process: 0});
     }
@@ -39,7 +38,7 @@ class AwvImportAction extends Component {
 
         Object.values(class_ids).forEach((class_id) => {
             const is_done = rpc.query({
-                model: 'bms.attribute_definition_',
+                model: 'bms.attribute_definition',
                 method: 'populate_table_with_awv_otl',
                 args: [class_id.id],
             }).then(() => {this.state_populate_att_def_table.processed += 1}) // }
@@ -50,6 +49,4 @@ class AwvImportAction extends Component {
 }   
 
 AwvImportAction.template = "bms.awv_import_action";
-
-// remember the tag name we put in the first step
 registry.category("actions").add("bms.AwvImportAction", AwvImportAction);

@@ -11,8 +11,8 @@ class MaintainanceObject(models.Model):
 
     name = fields.Char("name", required=True)
     lantis_unique_id = fields.Char("Lantis ID", required=True)
-    is_active = fields.Boolean("Is active")
-    is_asset = fields.Boolean("Is asset")
+    # is_active = fields.Boolean("Is active")
+    # is_asset = fields.Boolean("Is asset")
 
     awv_type_not_found = fields.Boolean()
     bo_temporary_type = fields.Char()

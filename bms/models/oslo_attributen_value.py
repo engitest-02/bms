@@ -28,7 +28,7 @@ class OsloAttributenValue(models.Model):
     # relational fields
     object_id = fields.Many2one(comodel_name="bms.maintainance_object", string="Maintainance Object", required=True, ondelete="cascade")
     object_type_id = fields.Many2one(comodel_name="bms.object_type")
-    attr_def_id = fields.Many2one(comodel_name="bms.attribute_definition_")
+    attr_def_id = fields.Many2one(comodel_name="bms.attribute_definition")
     enumeration_value_id = fields.Many2one(comodel_name="bms.oslo_enumeration_values")
 
     #related field
