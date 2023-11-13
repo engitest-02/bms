@@ -24,9 +24,9 @@ class MaintainanceObject(models.Model):
         column1="object_id",
         column2="object_type_id",
     )
-    attr_value_ids = fields.One2many(
-        comodel_name="bms.attribute_value", inverse_name="object_id"
-    )
+    # attr_value_ids = fields.One2many(
+    #     comodel_name="bms.attribute_value", inverse_name="object_id"
+    # )
     parent_object_ids = fields.One2many(comodel_name="bms.decomposition_relationship", inverse_name="parent_object_id")
     decomposition_ids = fields.One2many(
         comodel_name="bms.decomposition_relationship", inverse_name="object_id"

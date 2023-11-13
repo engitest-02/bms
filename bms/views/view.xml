@@ -137,42 +137,6 @@
     </field>
   </record>
 
-  <record id="bms_attribute_value_view_tree" model="ir.ui.view">
-    <field name="name">bms.attribute_value.tree</field>
-    <field name="model">bms.attribute_value</field>
-    <field name="arch" type="xml">
-      <tree>
-        <field name="object_name" />
-        <field name="value_char"/>
-        <field name="value_boolean"/>
-        <field name="value_date"/>
-        <field name="value_float"/>
-        <field name="value_integer"/>
-        <field name="object_id"/>
-      </tree>
-    </field>
-  </record>
-
-  <record id="bms_attribute_value_view_form" model="ir.ui.view">
-    <field name="name">bms.attribute_value.form</field>
-    <field name="model">bms.attribute_value</field>
-    <field name="arch" type="xml">
-      <form string="Attribute value">
-        <sheet>
-          <group>
-            <field name="object_id" readonly="1"/>
-            <field name="object_type_id" readonly="1"/>
-            <field name="value_char" />
-            <field name="value_boolean" />
-            <field name="value_date" />
-            <field name="value_float"/>
-            <field name="value_integer"/>
-          </group>
-        </sheet>
-      </form>
-    </field>
-  </record>
-
   <record id="bms_msa_object_tree" model="ir.ui.view">
     <field name="name">bms.msa_object.tree</field>
     <field name="model">bms.msa_object</field>
@@ -255,12 +219,6 @@
     <field name="view_mode">tree,form</field>
   </record>
 
-  <record id="bms_attribute_value_action" model="ir.actions.act_window">
-    <field name="name">Attribute value</field>
-    <field name="res_model">bms.attribute_value</field>
-    <field name="view_mode">tree,form</field>
-  </record>
-
   <record id="bms_m_object_action_2" model="ir.actions.act_window">
     <field name="name">Modify otl and type</field>
     <field name="res_model">bms.maintainance_object</field>
@@ -314,7 +272,6 @@
   <menuitem id="bms_settings" parent="bms_root" name="Settings" groups="base.group_user" />
   <menuitem id="bms_object_type_library" parent="bms_settings" name="Object Type Library" groups="base.group_user" sequence="10" action="bms_object_type_library_action"/>
   <menuitem id="bms_object_type" parent="bms_settings" name="Object type" groups="base.group_user" sequence="10" action="bms_object_type_action"/>
-  <menuitem id="bms_attribute_value" parent="bms_settings" name="Attribute value" groups="base.group_user" sequence="20" action="bms_attribute_value_action"/>
   <menuitem id="bms_otl_and_type_assgination" parent="bms_settings" name="Assign otl and type" groups="base.group_user" sequence="40" action="bms_m_object_action_2"/>
   <menuitem id="bms_otl_and_type_assgination_2" parent="bms_settings" name="Assign otl and type v2" groups="base.group_user" sequence="50" action="bms_m_object_action_3"/>
   <menuitem id="bms_decomposition_type" parent="bms_settings" name="Decomposition type" groups="base.group_user" sequence="60" action="bms_decomposition_type_action"/>
