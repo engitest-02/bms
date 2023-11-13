@@ -22,9 +22,7 @@ from . import oslo_datatype_union
 from . import oslo_datatype_union_attributen
 
 
-
-from . import oslo_generic_model #TODO : delete
-from . import my_demo_agent # TODO: adapt
+# from . import my_demo_agent # TODO: adapt
 
 
 

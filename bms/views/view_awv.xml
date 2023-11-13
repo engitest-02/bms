@@ -263,13 +263,13 @@
     </field>
   </record> -->
 
-  <record id="bms_oslo_generic_model_form" model="ir.ui.view">
+  <!-- <record id="bms_oslo_generic_model_form" model="ir.ui.view">
     <field name="name">bms.oslo_generic_model.form</field>
     <field name="model">bms.oslo_generic_model</field>
     <field name="arch" type="xml">
       <form>
         <group>
-          <!-- <field name="name"/> -->
+           <field name="name"/> 
           <field name="object_id"/>
           <field name="object_type_id" domain="[('otl_name', '=', 'awv otl')]"/>
         </group>
@@ -286,12 +286,12 @@
         <field name="otl_name" invisible="1"/>
         <field name="otl_type_internal_id" invisible="1"/>
         <field name="type" invisible="1" />
-        <!-- <field name="">
+       <field name="">
         <field name="">
-        <field name=""> -->
+        <field name=""> 
       </tree>
     </field>
-  </record>
+  </record> -->
 
 
 
@@ -374,11 +374,11 @@
   </record>
 
 
-  <record id="bms_oslo_generic_model_action" model="ir.actions.act_window">
+  <!-- <record id="bms_oslo_generic_model_action" model="ir.actions.act_window">
     <field name="name">OSLO generic model</field>
     <field name="res_model">bms.oslo_generic_model</field>
     <field name="view_mode">form</field>
-  </record>
+  </record> -->
 
   <!-- <record id="bms_import_value_list_action" model="ir.actions.server">
         <field name="name">Text to display as menu item</field>
@@ -402,7 +402,7 @@
   <menuitem id="bms_awv_oslo_type_link_tabel" parent="bms_awv" name="OsloTypeLinkTabel" groups="base.group_user" sequence="47" action="bms_oslo_type_link_tabel_action"/>
   <menuitem id="bms_awv_oslo_enumeration_values" parent="bms_awv" name="Oslo enumeration values" groups="base.group_user" sequence="48" action="bms_oslo_enumeration_values_action"/>
   <menuitem id="bms_awv_oslo_attributen_value" parent="bms_awv" name="Oslo Attributen Value" groups="base.group_user" sequence="50" action="bms_oslo_attributen_value_action"/>
-  <menuitem id="bms_awv_oslo_generic_model" parent="bms_awv" name="Oslo generic model" groups="base.group_user" sequence="60" action="bms_oslo_generic_model_action"/>
+  <!-- <menuitem id="bms_awv_oslo_generic_model" parent="bms_awv" name="Oslo generic model" groups="base.group_user" sequence="60" action="bms_oslo_generic_model_action"/> -->
 
 
 
