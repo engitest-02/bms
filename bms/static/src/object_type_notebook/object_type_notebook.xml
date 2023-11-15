@@ -18,12 +18,5 @@
             <OsloType objectId="objectId" otlId="otlId" objectTypeId="objectTypeId" classUri="classUri" className="className" /> 
         </t>
 
-        <!-- <t t-if="(attribute.otlName == 'awv otl')">
-
-                                <t t-log="objectId" />
-                                <OsloType otlId="attribute.otlId" objectTypeId="attribute.objectTypeId" classUri="attribute.objectTypeInternalId" className="attribute.objectTypeName" objectId="objectId"/>
-                            </t> -->
-
-
     </t>
 </templates>

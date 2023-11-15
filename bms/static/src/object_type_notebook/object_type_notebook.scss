@@ -1,27 +1,19 @@
 $o-bms-table-width: 60%;
 $o-bms-td-width-attrdef: 30%;
-$o-bms-td-width-attrvalue: 60%;
+$o-bms-td-width-attrvalue: 50%;
 $o-bms-td-width-unit: 10%;
 $o-bms-td-width-editbutton: 10%;
 $o-bms-tab-content-width: 100%;
 
 // override
 $container-max-widths: (
-  sm: 1320px,
-  md: 1320px,
-  lg: 1320px,
-  xl: 1320px,
-  xxl: 1320px
+  sm: 1000px,
+  md: 1000px,
+  lg: 1000px,
+  xl: 1000px,
+  xxl: 1000px
 ) !default;
 
-.o_field_widget{
-    width:$o-bms-tab-content-width;
-}
-
-// custom a
-.o_bms_tab_content{
-    width:$o-bms-tab-content-width;
-}
 
 .o_bms_table{
     width: $o-bms-table-width;

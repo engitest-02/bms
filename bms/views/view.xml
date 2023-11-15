@@ -9,6 +9,7 @@
       <tree>
         <field name="id"/>
         <field name="name"/>
+        <field name="lantis_id"/>
         <field name="lantis_unique_id"/>
         <field name="awv_type_not_found"/>
         <field name="bo_temporary_type"/>
@@ -37,16 +38,27 @@
       <form string="Maintainance object" js_class="bms_form_with_decompo">
         <group >
           <field name="name" />
+          <field name="lantis_id" readonly="1"/>
           <field name="lantis_unique_id" readonly="1" />
         </group>
         <notebook>
-          <page string="OTL">
+          <page string="OTL AWV">
             <field name="object_type_ids" widget="object_type_notebook">
               <tree >
                 <field name="name"/>
                 <field name="definition"/>
                 <field name="otl_id"/>
                 <field name="otl_type_internal_id"/>
+              </tree>
+            </field>
+          </page>
+          <page string="Decomposition">
+            <field name="decomposition_ids">
+              <tree>
+                <field name="object_id" invisible="1"/>
+                <field name="parent_object_id_id"/>
+                <field name="parent_object_id"/>
+                <field name="decomposition_type_id"/>
               </tree>
             </field>
           </page>
@@ -127,15 +139,36 @@
     <field name="model">bms.decomposition_relationship</field>
     <field name="arch" type="xml">
       <tree>
-        <field name="object_id_id"/>
-        <field name="object_id"/>
+        <field name="object_id_id" />
+        <field name="object_id" />
         <field name="parent_object_id"/>
         <field name="decomposition_type_id"/>
-        <field name="tree_level"/>
-        <field name="sibling_order"/>
+        <field name="tree_level" />
+        <field name="sibling_order" />
       </tree>
     </field>
   </record>
+
+
+  <record id="bms_decompostion_relationship_form" model="ir.ui.view">
+    <field name="name">bms.decomposition_relationship.form</field>
+    <field name="model">bms.decomposition_relationship</field>
+    <field name="arch" type="xml">
+      <form>
+        <group>
+          <field name="object_id_id" invisible="1"/>
+          <field name="object_id" invisible="1"/>
+          <field name="decomposition_type_id"  options="{'no_open': True}"/>
+          <field name="parent_object_id_id" readonly="1"/>
+          <field name="parent_object_id" options="{'no_open': True}" />
+          <field name="tree_level" invisible="1"/>
+          <field name="sibling_order" invisible="1"/>
+          <!-- options="{'no_quick_create': True, 'no_create_edit': True, 'no_open': True}" -->
+        </group>
+      </form>
+    </field>
+  </record>
+
 
   <record id="bms_msa_object_tree" model="ir.ui.view">
     <field name="name">bms.msa_object.tree</field>
@@ -171,7 +204,7 @@
     </field>
   </record>
 
-<record id="bms_attribute_definition_tree" model="ir.ui.view">
+  <record id="bms_attribute_definition_tree" model="ir.ui.view">
     <field name="name">bms.attribute_definition.tree</field>
     <field name="model">bms.attribute_definition</field>
     <field name="arch" type="xml">
@@ -199,11 +232,11 @@
     <field name="view_mode">tree,form</field>
   </record>
 
- <record id="bms_decomposition_action" model="ir.actions.act_window">
+  <record id="bms_decomposition_action" model="ir.actions.act_window">
     <field name="name">Maintainance Object</field>
     <field name="res_model">bms.maintainance_object</field>
     <field name="view_mode">form</field>
-    <field name="res_id">3672</field>
+    <field name="res_id">3656</field>
   </record>
 
 
@@ -267,9 +300,8 @@
   <menuitem id="bms_root" name="BMS"/>
 
   <menuitem id="bms_object" parent="bms_root" name="Maintainance Object" groups="base.group_user"  sequence ="10" action="bms_object_action"/>
-  <menuitem id="bms_decomposition" parent="bms_root" name="Decompositions" groups="base.group_user"  sequence ="10" action="bms_decomposition_action"/>
-
-  <menuitem id="bms_settings" parent="bms_root" name="Settings" groups="base.group_user" />
+  <menuitem id="bms_decomposition" parent="bms_root" name="Decomposition" groups="base.group_user"  sequence ="20" action="bms_decomposition_action"/>
+  <menuitem id="bms_settings" parent="bms_root" name="Settings" sequence ="30" groups="base.group_user" />
   <menuitem id="bms_object_type_library" parent="bms_settings" name="Object Type Library" groups="base.group_user" sequence="10" action="bms_object_type_library_action"/>
   <menuitem id="bms_object_type" parent="bms_settings" name="Object type" groups="base.group_user" sequence="10" action="bms_object_type_action"/>
   <menuitem id="bms_otl_and_type_assgination" parent="bms_settings" name="Assign otl and type" groups="base.group_user" sequence="40" action="bms_m_object_action_2"/>
@@ -278,8 +310,8 @@
   <menuitem id="bms_decomposition_relationship" parent="bms_settings" name="Decomposition relationship" groups="base.group_user" sequence="70" action="bms_decomposition_relationship_action"/>
   <menuitem id="bms_maintainance_object" parent="bms_settings" name="Maintainance object" groups="base.group_user" sequence="100" action="bms_object_action"/>
   <menuitem id="bms_attribute_definition" parent="bms_settings" name="Attribute definition" groups="base.group_user" sequence="30" action="bms_attribute_definition_action"/>
-  
-  <menuitem id="bms_imports" parent="bms_root" name="Imports" sequence ="20" groups="base.group_user" />
+
+  <menuitem id="bms_imports" parent="bms_root" name="Imports" sequence ="40" groups="base.group_user" />
   <menuitem id="bms_ms_object" parent="bms_imports" name="MSA object table" groups="base.group_user" sequence="20" action="bms_msa_object_action"/>
   <menuitem id="bms_awv_oslo_enumeration_values_import" parent="bms_imports" name="Oslo import and generation tools" groups="base.group_user" sequence="70" action="bms_import_value_list_action"/>
 

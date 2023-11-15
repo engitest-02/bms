@@ -8,13 +8,13 @@
 
         <!-- insert Decompostion -->
         <xpath expr="//t[@archInfo='archInfo']" position="replace">
-            <div class="row">
+            <div class="row" style="width:1600px">
                 <div class="col-4">
                     <div class="o_form_with_decompo">
                         <Decomposition model="this.model" resId="this.props.resId"/>
                     </div>
                 </div>
-                <div class="flex-nowrap col-8">
+                <div class="col-8">
                     <t t-component="props.Renderer" record="model.root" Compiler="props.Compiler" archInfo="archInfo" setFieldAsDirty.bind="setFieldAsDirty" enableViewButtons.bind="enableButtons" disableViewButtons.bind="disableButtons" onNotebookPageChange.bind="onNotebookPageChange" activeNotebookPages="props.state and props.state.activeNotebookPages"/>
                 </div>
             </div>

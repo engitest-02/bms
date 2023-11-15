@@ -9,13 +9,6 @@ class OtlAndType(models.TransientModel):
     otl = fields.Many2one("bms.object_type_library", string="OTL")
     object_type = fields.Many2one("bms.object_type", string="object type")
 
-    # @api.onchange("otl")
-    # def _get_domain(self):
-    #     if self.otl:
-    #         domain = [("otl_id", "=", self.otl.id)]
-    #     else:
-    #         domain = []
-    #     return {"domain": {"object_type": domain}}
 
     def write(self, vals):
         self._change_object_type(vals)
@@ -43,15 +36,7 @@ class OtlAndType(models.TransientModel):
         result_1 = rec_maintainance_object.write({"object_type_ids": [unlink_command, link_command]})
         # delete existing attribute_values (if any)
         result_2 = self._delete_attr_values(maintainance_object_id, current_object_type_id)
-        # instanciate attibute_values for each attribute_def and link to maintainance_object, object_type, and attr_def
-        # result_3 = self._create_attr_values(maintainance_object_id, new_object_type_id)
- 
-        return result_1 & result_2 #& result_3
-
-    # def _get_attr_def_ids(self, object_type_id):
-    #     domain = [("object_type_id", "=", object_type_id)]
-    #     attr_def_ids = self.env["bms.attribute_definition"].search(domain)
-    #     return attr_def_ids
+        return result_1 & result_2
 
     def _delete_attr_values(self, object_id, object_type_id):
         domain = [
@@ -60,35 +45,9 @@ class OtlAndType(models.TransientModel):
         ]
         attr_value_recs = self.env["bms.oslo_attributen_value"].search(domain)
 
-        # unlink_commands = [
-        #     Command.unlink(attr_value_rec.id) for attr_value_rec in attr_value_recs
-        # ]
-        # # unlink from maintainance_object:
-        # domain = [("id", "=", object_id)]
-        # rec_maintainance_object = self.env["bms.maintainance_object"].search(domain)
-        # rec_maintainance_object.write({"attr_value_ids": unlink_commands})
-
-        # # unlink from attr_definition
-        # domain = [("id", "=", object_type_id)]
-        # rec_object_type = self.env["bms.object_type"].search(domain)
-        # rec_object_type.write({"attr_value_ids": unlink_commands})
-
-        # delete att_values
         for attr_value_rec in attr_value_recs:
             attr_value_rec.unlink()
 
         return True
 
-    # def _create_attr_values(self, object_id, object_type_id):
-    #     recs_attr_def = self._get_attr_def_ids(object_type_id)
-
-    #     for rec_attr_def in recs_attr_def:
-    #         new_attr_value = self.env["bms.attribute_value"].create([{
-    #             "object_id": object_id,
-    #             "object_type_id": object_type_id,
-    #             "attr_def_id": rec_attr_def.id
-    #         }]) 
-    #     return True
-
-    
     

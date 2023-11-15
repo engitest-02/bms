@@ -389,7 +389,7 @@
 </record> -->
 
   <!-- menu -->
-  <menuitem id="bms_awv" parent="bms_root" name="AWV OTL" sequence ="30" groups="base.group_user" />
+  <menuitem id="bms_awv" parent="bms_root" name="AWV OTL" sequence ="50" groups="base.group_user" />
   <menuitem id="bms_awv_oslo_class" parent="bms_awv" name="OsloClass" groups="base.group_user" sequence="10" action="bms_oslo_class_action"/>
   <menuitem id="bms_awv_oslo_attributen" parent="bms_awv" name="OsloAttributen" groups="base.group_user" sequence="20" action="bms_oslo_attributen_action"/>
   <menuitem id="bms_awv_oslo_datatype_primitive" parent="bms_awv" name="OsloDatatypePrimitive" groups="base.group_user" sequence="30" action="bms_oslo_datatype_primitive_action"/>

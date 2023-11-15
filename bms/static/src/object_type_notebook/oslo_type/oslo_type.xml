@@ -18,32 +18,6 @@
                 </td>
             </tr>
 
-            <!-- for each type display attributes definition and if exists the assigned value 
-             <t t-foreach="attrDefValueRecs" t-as="attrDefValueRec" t-key="attrDefValueRec.id">
-                <t t-if="attrDefValueRec.id !=0">                    check if attr definitions have been defined-
-                    <tr>
-                        <td>
-                            <span class="o_form_label">
-                                <t t-out="attrDefValueRec.osloattributen_name"/>
-                            </span>
-                        </td>
-                        <td>
-                            <t t-out="getValue(attrDefValueRec)"/>
-                        </td>
-                        <td>
-                            <t t-out="formatUnit(attrDefValueRec.oslodatatype_primitive_attributen_constraints)"/>
-                        </td>
-
-                        <td>
-                            <button class="btn btn-primary" t-on-click="() => this.changeAttrValue(attrDefValueRec)">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </button>
-
-                        </td>
-                    </tr>
-                </t>
-            </t>
-        </table> -->
 
         <div>
              <t t-foreach="attrDefs.attributes" t-as="attribute" t-key="attribute.attr_name">

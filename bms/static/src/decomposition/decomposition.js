@@ -22,7 +22,7 @@ export class Decomposition extends Component {
             loadCSS(["/bms/static/lib/fancytree/css/skin-odoo-bms/ui.fancytree.css"]);
 
             this.decompositionTypeRecords = await this._loadDecompositionTypes();
-            this.lazyTreeString = await this._loadLazyTree()(this.resId);            
+            this.lazyTreeString = await this._loadLazyTree(this.resId);            
             this.lazyTreeJson = JSON.parse(this.lazyTreeString);
 
         })
@@ -51,11 +51,10 @@ export class Decomposition extends Component {
     }
 
     _loadLazyTree(object_id){
-        return memoize((object_id) => 
-                        rpc.query({model: 'bms.decomposition_relationship',
+        return rpc.query({model: 'bms.decomposition_relationship',
                                    method: 'get_lazy_tree_for_object',
-                                   args: [object_id], })
-                );
+                                   args: [object_id], });
+               
     }
     
     _lazyLoad(event, data){
@@ -70,6 +69,7 @@ export class Decomposition extends Component {
     }
 
 }
+
 Decomposition.template = "bms.Decomposition";
 
 

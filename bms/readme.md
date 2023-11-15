@@ -40,8 +40,15 @@ where msa_o.otl_type_id is not null and msa_o.otl_type_id <> 0
 
 # TODO # 
 ## technical ##
-1. Make the import mechanism of awv list ("keuzelijsten") better by taking into account the status change (don't  know if it happens but theoritically it could)
-2. lazy loading for the decomposition to improve loading performance
+- [x] lazy loading for the decomposition to improve loading performance
+- [ ] create new object
+- [ ] change parent via dropdown list
+- [ ] change parent via drag&drop on decomposition
+- [ ] look&feel attributes
+- [ ] hover defintion attibutes
+- [ ] Make the import mechanism of awv list ("keuzelijsten") better by taking into account the status change (don't  know if it happens but 
+theoritically it could)
+- [ ] fix tree_level which should be filled in (after having checked it's still     useful)
 
 ## Governance ##
 1. Unique ID asset format
@@ -50,11 +57,12 @@ where msa_o.otl_type_id is not null and msa_o.otl_type_id <> 0
 4. check status of values for the value lists (oslo enumeration)?
 
 ## Refactoring ##
-1. delete modle oslo_generic_model
-2. attribute_value.py + views + menus + security
-3. adapt demo_agent.py
-4. change oslo datatype in CONSTANT VALUE defined on one place
-5. owl components implments props validation
-6. use of AWV OWL library type hardcoded in .js code
-7. store json of get_att_def() instead of recalulate on the fly to increase loading speed
-8. change res_id by default of `bms_decomposition_action`
+- [x] delete modle oslo_generic_model
+- [x] attribute_value.py + views + menus + security
+- [x] delte demo_agent.py
+- [ ] change oslo datatype in CONSTANT VALUE defined on one place
+- [ ] owl components implments props validation
+- [ ] use of AWV OWL library type hardcoded in .js code
+- [ ] store json of get_att_def() instead of recalulate on the fly to increase loading speed
+- [ ] change res_id by default of `bms_decomposition_action`
+- [ ] `get_oslo_attr_def` of `object_type.py`
