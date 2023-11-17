@@ -35,7 +35,7 @@
     <field name="name">bms.maintainance_object.form</field>
     <field name="model">bms.maintainance_object</field>
     <field name="arch" type="xml">
-      <form string="Maintainance object" js_class="bms_form_with_decompo">
+      <form string="Maintainance object" js_class="bms_form_with_decompo" duplicate="0">
         <group >
           <field name="name" />
           <field name="lantis_id" readonly="1"/>

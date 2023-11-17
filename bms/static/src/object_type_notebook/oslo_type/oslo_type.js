@@ -1,6 +1,6 @@
 // /** @odoo-module */
 import { useService} from "@web/core/utils/hooks";
-const { Component, onWillStart, onWillPatch } = owl;
+const { Component, onWillStart, onWillUpdateProps } = owl;
 import { OsloDatatypePrimitiveEnumeration } from "./oslo_datatype_primitive_enumeration";
 import { OsloDatatypeIterative } from "./oslo_datatype_iterative";
 var rpc = require('web.rpc');
@@ -24,13 +24,13 @@ export class OsloType extends Component {
             this.attrDefs = JSON.parse(data)
         })
 
-        onWillPatch(async () => {
-            this.objectId = this.props.objectId;
-
+        onWillUpdateProps(async (nextProps) => {  
+            this.objectId = nextProps.objectId;
             if (this.currentObjectId != this.objectId) {// rerender OTL notebook if parent object has changed
-                this.otlId = this.props.otlId;
-                this.classUri = this.props.classUri;
-                this.className = this.props.className;
+                this.otlId = nextProps.otlId;
+                this.objectTypeId = nextProps.objectTypeId;
+                this.classUri = nextProps.classUri;
+                this.className = nextProps.className;
                 
                 const data = await this._loadAttrDefinition(this.classUri);
                 this.attrDefs = JSON.parse(data)
@@ -38,7 +38,8 @@ export class OsloType extends Component {
                 this.render();
                 this.currentObjectId = this.objectId;       
             }
-        })
+        })      
+
     }
 
     _loadAttrDefinition(osloclass_uri){

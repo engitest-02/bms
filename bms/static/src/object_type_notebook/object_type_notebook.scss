@@ -1,9 +1,10 @@
-$o-bms-table-width: 60%;
+$o-bms-table-width: 100%;
 $o-bms-td-width-attrdef: 30%;
 $o-bms-td-width-attrvalue: 50%;
 $o-bms-td-width-unit: 10%;
 $o-bms-td-width-editbutton: 10%;
 $o-bms-tab-content-width: 100%;
+
 
 // override
 $container-max-widths: (
@@ -16,6 +17,10 @@ $container-max-widths: (
 
 
 .o_bms_table{
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
     width: $o-bms-table-width;
     td:nth-of-type(1){
         width: $o-bms-td-width-attrdef;

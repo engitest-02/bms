@@ -41,14 +41,16 @@ where msa_o.otl_type_id is not null and msa_o.otl_type_id <> 0
 # TODO # 
 ## technical ##
 - [x] lazy loading for the decomposition to improve loading performance
-- [ ] create new object
+- [X] create new object
+- [ ] refresh button of decompostion
+- [ ] automatic refresh of decomposition
 - [ ] change parent via dropdown list
 - [ ] change parent via drag&drop on decomposition
 - [ ] look&feel attributes
 - [ ] hover defintion attibutes
 - [ ] Make the import mechanism of awv list ("keuzelijsten") better by taking into account the status change (don't  know if it happens but 
 theoritically it could)
-- [ ] fix tree_level which should be filled in (after having checked it's still     useful)
+- [ ] fix tree_level which should be filled in (after having checked it's still useful)
 
 ## Governance ##
 1. Unique ID asset format
