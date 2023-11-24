@@ -8,6 +8,7 @@ class FormWithDecompoController extends FormController {
 
     setup() {
         super.setup();
+        
     }
 
 }

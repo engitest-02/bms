@@ -5,7 +5,7 @@ import { memoize } from "@web/core/utils/functions";
 var core = require("web.core");
 var rpc = require('web.rpc');
 
-const { Component, onMounted, onWillStart, useRef } = owl;
+const { Component, onMounted, onWillStart, onWillUpdateProps } = owl;
 
 export class Decomposition extends Component {
 
@@ -15,7 +15,7 @@ export class Decomposition extends Component {
         this.decompositionTree;
         this.model = this.props.model;
         this.resId = this.props.resId;
-        this.core = core;
+        core.bus.on('maintainance_object_changed', this, this._refreshDecomposition); //record event trigger in object_type_notebook
 
         onWillStart(async () => {
             loadJS("/bms/static/lib/fancytree/js/jquery.fancytree-all-deps.js")
@@ -28,6 +28,10 @@ export class Decomposition extends Component {
 
         })
         
+        onWillUpdateProps( (nextProps) => {
+            // this.resId = this.props.resId
+        })
+
         onMounted(async () => {
             this.decompositionTree1 = $.ui.fancytree.createTree(
                 '#decompositionTree_1',
@@ -37,23 +41,15 @@ export class Decomposition extends Component {
                  autoScroll: true,
                  lazyLoad: (event, data) => {this._lazyLoad(event, data)},
                  dnd5:{
-                    autoExpandMS: 1500,
+                    autoExpandMS: 400,
                     preventRecursion: true, // Prevent dropping nodes on own descendants
                     preventVoidMoves: true,
-                    // autoExpandMS: 1000,
-                    // dropEffectDefault: "move",
-                    // preventForeignNodes: false,   // Prevent dropping nodes from another Fancytree
-                    // preventLazyParents: false,     // Prevent dropping items on unloaded lazy Fancytree nodes
-                    // preventNonNodes: false,       // Prevent dropping items other than Fancytree nodes
-                    // preventRecursion: false,       // Prevent dropping nodes on own descendants when in move-mode
-                    // preventSameParent: false,     // Prevent dropping nodes under same direct parent
-                    // preventVoidMoves: false,       // Prevent moving nodes 'before self', etc.
-                    // multiSource: true,  // drag all selected nodes (plus current node)
-                    dragStart: (sourceNode, data) => {this._dragStart(sourceNode, data)}, // must return true to enable draggin
-                    dragEnd: (sourceNode, data) => {this._dragEnd(sourceNode, data)},
-                    dragEnter: (targetNode, data) => {this._dragEnter(targetNode, data)}, // must return true to enable dropping
-                    dragOver: (targetNode, data) => {this._dragOver(targetNode, data)},
-                    dragDrop: (targetNode, data) => {this._dragDrop(targetNode, data)}
+                    dropEffectDefault: "move", 
+                    dragStart: (sourceNode, data) => { return this._dragStart(sourceNode, data)}, // must return true to enable draggin
+                    dragEnd: (sourceNode, data) => { return this._dragEnd(sourceNode, data)},
+                    dragEnter: (targetNode, data) => { return this._dragEnter(targetNode, data)}, // must return true to enable dropping
+                    dragOver: (targetNode, data) => { return this._dragOver(targetNode, data)},
+                    dragDrop: (targetNode, data) => { return this._dragDrop(targetNode, data)}
                  }
 
                 }
@@ -87,8 +83,17 @@ export class Decomposition extends Component {
             args: [node.key],
             }).then((tree) => {return JSON.parse(tree);});
         data.result = nextTree
+        console.log("_lazyload", nextTree)
 
     }
+
+    async _refreshDecomposition(objectId){
+        const lazyTreeString = await this._loadLazyTree(objectId)
+        const lazyTreeJson = JSON.parse(lazyTreeString)
+        this.decompositionTree1.reload(lazyTreeJson)
+        this.decompositionTree1.activateKey(objectId)
+    }
+
 
     // function for drag&drop support on the treeview
     // --- Drag Support --------------------------------------------------------
@@ -102,20 +107,21 @@ export class Decomposition extends Component {
         //   - Return false to cancel dragging of `node`.
   
         // Set the allowed effects (i.e. override the 'effectAllowed' option)
-        data.effectAllowed = "all";  // or 'copyMove', 'link'', ...
+        //data.effectAllowed = "all";  // or 'copyMove', 'link'', ...
   
         // Set a drop effect (i.e. override the 'dropEffectDefault' option)
         // One of 'copy', 'move', 'link'.
         // In order to use a common modifier key mapping, we can use the suggested value:
-        data.dropEffect = data.dropEffectSuggested;
+        //data.dropEffect = data.dropEffectSuggested;
   
         // We could also define a custom image here (not on IE though):
         //data.dataTransfer.setDragImage($("<div>TEST</div>").appendTo("body")[0], -10, -10);
         //data.useDefaultImage = false;
   
         // Return true to allow the drag operation
-        if( node.isFolder() ) { return false; }
-        console.log("dragStart", data.dropEffectSuggested, data)
+        // if( node.isFolder() ) { return false; }
+        data.effectAllowed = "all";
+        // console.log("dragStart", data.dropEffectSuggested, data)
         return true; 
       }
 
@@ -149,10 +155,12 @@ export class Decomposition extends Component {
         //return ["before", "after"];
   
         // Accept everything:
-        // data.node.info("dragEnter", data, true);
-        console.log("_dragEnter");
+        //data.node.info("dragEnter", data, true);
+        //console.log("_dragEnter", node, data.node);
         // data.dropEffect = "move";
-        return true;
+        // return ["over", "before", "after"];
+        return true
+
       }
     
     _dragOver(node, data) {
@@ -171,13 +179,30 @@ export class Decomposition extends Component {
         // One of 'copy', 'move', 'link'.
         // In order to use a common modifier key mapping, we can use the suggested value:
         // data.dropEffect = data.dropEffectSuggested;
-        data.node.info("dragOver", data)
         data.dropEffect = data.dropEffectSuggested;
       }
-    _dragEnd(node, data) {
-        data.node.info("dragEnd", data);
-        // return true
+
+    _dragEnd(sourceNode, data) {
+        var newParentId
+        var childrenNodes
+
+        if (data.hitMode == "over" && data.node.key != data.node.parent.key){
+            newParentId = (data.node.key == 'root_1') ? null : parseInt(data.node.key)
+            childrenNodes = data.node.children
+        }
+        else{
+            newParentId = (data.node.parent.key == 'root_1') ? null : parseInt(data.node.parent.key)
+            childrenNodes = data.node.parent.children
+        }
+ 
+        var newSiblingOrder = -1
+        for (const idx in childrenNodes) {// store the new siblingorder and new parent_id
+            var siblingId = parseInt(childrenNodes[idx].key)
+            newSiblingOrder = newSiblingOrder + 1
+            this._updateSiblingOrder(siblingId, newParentId, newSiblingOrder)
+        }
     }
+
      _dragDrop(node, data) {
         // This function MUST be defined to enable dropping of items on the tree.
         //
@@ -191,30 +216,20 @@ export class Decomposition extends Component {
         //   `data.dataTransfer.dropEffect`,`.effectAllowed`
         //   `data.originalEvent.shiftKey`, ...
         //
-        // Example:
-        console.log("dragDrop")
-        var transfer = data.dataTransfer;
 
-        node.debug("dragDrop", data);
-  
         if( data.otherNode ) {
           // Drop another Fancytree node from same frame
           // (maybe from another tree however)
           var sameTree = (data.otherNode.tree === data.tree);
-  
           data.otherNode.moveTo(node, data.hitMode);
-        } else if( data.otherNodeData ) {
-          // Drop Fancytree node from different frame or window, so we only have
-          // JSON representation available
-          node.addChild(data.otherNodeData, data.hitMode);
-        } else {
-          // Drop a non-node
-          node.addNode({
-            title: transfer.getData("text")
-          }, data.hitMode);
         }
-        // Expand target node when a child was created:
+
         node.setExpanded();
+      }
+
+      _updateSiblingOrder(objectId, parentId,  siblingOrder){
+            this.ormService.call("bms.decomposition_relationship", "update_sibling_order", [objectId, parentId, siblingOrder], {})
+            console.log("updateSiblingOrder")
       }
 }
 

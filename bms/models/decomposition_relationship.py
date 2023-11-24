@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, Command
 from odoo.exceptions import ValidationError
 
 
@@ -73,7 +73,6 @@ class DecompositionRelationship(models.Model):
         
         if not parent: # get sibling top = level 1
             level1_records = self._get_top_objects(decomposition_type_id)
-            print("level_1_records", [item.object_id.name for item in level1_records])
             for idx, sibling in enumerate(level1_records):
                 has_children = self._has_children(sibling.object_id.id, decomposition_type_id)
                 node = self._record2node(sibling.object_id, folder=has_children, lazy=has_children)
@@ -84,9 +83,19 @@ class DecompositionRelationship(models.Model):
        
         return json.dumps(lazy_tree)
 
+    @api.model
+    def update_sibling_order(self, object_id, parent_id, sibling_order,  decomposition_type_id=1):
+        domain = [("object_id", "=", object_id), ("decomposition_type_id", "=", decomposition_type_id )]
+        rec = self.env['bms.decomposition_relationship'].search(domain)
+        
+        vals = {'sibling_order': sibling_order, 'parent_object_id': parent_id }
+        result = rec.write(vals)
+        print("sibling updated", object_id, parent_id, sibling_order, result, rec)
+
     def _get_top_objects(self, decomposition_type_id):
         domain = [("parent_object_id", "=", None),("decomposition_type_id", "=", decomposition_type_id )]
-        return self.env["bms.decomposition_relationship"].search(domain)
+        order = "sibling_order"
+        return self.env["bms.decomposition_relationship"].search(domain, order=order)
 
     def _record2node(self, record, folder=False, lazy=False):
         node = {"title": record.name, "key": record.id, "folder":folder,  "lazy": lazy}
@@ -122,7 +131,8 @@ class DecompositionRelationship(models.Model):
     def _get_children(self, node, decomposition_type_id):
         parent_id = node["key"]
         domain = [("parent_object_id", "=", parent_id),("decomposition_type_id", "=", decomposition_type_id)]
-        children_records = self.env["bms.decomposition_relationship"].search(domain)
+        order = "sibling_order"
+        children_records = self.env["bms.decomposition_relationship"].search(domain, order=order)
         return children_records
 
     def _get_parent(self, child_id, decomposition_type_id):
@@ -132,9 +142,10 @@ class DecompositionRelationship(models.Model):
 
     def _get_all_children(self, node, decomposition_type_id):
         parent_id = node["key"]
-
+        
         domain = [("parent_object_id", "=", parent_id), ("decomposition_type_id", "=", decomposition_type_id)]
-        children_records = self.env["bms.decomposition_relationship"].search(domain)
+        order = "sibling_order"
+        children_records = self.env["bms.decomposition_relationship"].search(domain, order=order)
 
         children_nodes = []
         for record in children_records:

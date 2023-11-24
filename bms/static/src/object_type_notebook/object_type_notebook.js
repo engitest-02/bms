@@ -3,7 +3,8 @@
 import { registry } from "@web/core/registry";
 import { useService, useBus } from "@web/core/utils/hooks";
 import { OsloType } from "./oslo_type/oslo_type";
-const { Component, onMounted, onWillPatch, onWillUpdateProps } = owl;
+const { Component, onMounted, onWillUpdateProps } = owl;
+var core = require('web.core');
 
 
 export class ObjectTypeNotebook extends Component {
@@ -12,21 +13,31 @@ export class ObjectTypeNotebook extends Component {
         this.orm = useService("orm");
         this.actionService = useService("action");
         
+        
         this.objectId = this.props.record.data.id;
         this._setup_objectType(this.props.record.data.object_type_ids.records)
       
-        this.currentObjectId = this.objectId //keep delta in case of change of object_id
+        //this.currentObjectId = this.objectId //keep delta in case of change of object_id
+        this.currentData = this.props.record.data
+        
         this.existingOtls;
-        //console.log("object_type_notebook component - setup done", this.objectId)
+        
         onWillUpdateProps(async nextProps => {
-            // console.log("object_type_notebook: current objectId ", this.objectId, "new objectId", nextProps.record.data.id)
-            this.objectId = nextProps.record.data.id;
-            if (this.currentObjectId != this.objectId) {// rerender OTL notebook if parent object has changed
+            //this.objectId = nextProps.record.data.id;
+            if (this.objectId != nextProps.record.data.id) {// rerender OTL notebook if another object has been changed
                 this._setup_objectType(nextProps.record.data.object_type_ids.records)
                 this.render()
+                this.objectId = nextProps.record.data.id
                 this.currentObjectId = this.objectId
+                
                 //console.log("object_type_notebook component - willUpdateProps done", this.objectId,  this.objectTypeId)
             }
+            else if (this.currentData != nextProps.record.data) {
+                console.log("object type bus triggered", nextProps.record.data.id)
+                core.bus.trigger('maintainance_object_changed', nextProps.record.data.id);
+                this.currentData = nextProps.record.data
+            }
+            
         })
 
         onMounted(() => {
