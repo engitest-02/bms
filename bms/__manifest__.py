@@ -1,6 +1,6 @@
 {
     "name": "bms",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "sequence": 1,
     "category": "asset",
     "author": "frederic.vigin@engiforce.com",
