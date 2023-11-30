@@ -30,7 +30,7 @@ class AwvImportAction extends Component {
         this.state_populate_att_def_table.processed = 0;
         this.state_populate_att_def_table.total_to_process = await this.orm.searchCount("bms.oslo_class", []);
 
-        const class_ids = await this.orm.searchRead("bms.oslo_class",[],["id"]);w
+        const class_ids = await this.orm.searchRead("bms.oslo_class",[],["id"]);
         
         var rpc = require('web.rpc');
 
