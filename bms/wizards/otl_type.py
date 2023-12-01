@@ -29,11 +29,15 @@ class OtlAndType(models.TransientModel):
         new_object_type_id = vals["object_type"]
 
         rec_maintainance_object = self.env["bms.maintainance_object"].browse([maintainance_object_id])
-
+        command = []
         # unlink current object type en link new object type
         unlink_command = Command.unlink(current_object_type_id)
-        link_command = Command.link(new_object_type_id)
-        result_1 = rec_maintainance_object.write({"object_type_ids": [unlink_command, link_command]})
+        command.append(unlink_command)
+        if new_object_type_id: # link if given
+            link_command = Command.link(new_object_type_id)
+            command.append(link_command)
+
+        result_1 = rec_maintainance_object.write({"object_type_ids": command})
         # delete existing attribute_values (if any)
         result_2 = self._delete_attr_values(maintainance_object_id, current_object_type_id)
         return result_1 & result_2
@@ -47,7 +51,6 @@ class OtlAndType(models.TransientModel):
 
         for attr_value_rec in attr_value_recs:
             attr_value_rec.unlink()
-
         return True
 
     

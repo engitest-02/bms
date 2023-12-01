@@ -4,7 +4,7 @@ from odoo import models, fields, api
 
 class AttributeDefinition(models.Model):
     _name = "bms.attribute_definition"
-    _description = """ Centralize all the attributes types with a child-parent patter
+    _description = """ Centralize all the attributes of each types with a child-parent pattern
          """
 
     uri = fields.Char("uri")
@@ -21,7 +21,7 @@ class AttributeDefinition(models.Model):
 
     @api.model
     def populate_table_with_awv_otl(self, oslo_class_id):
-        """use to populte the table with the awv tables :
+        """use to populate the table with the awv tables :
         oslo_class, oslo_attributen, oslo_datatype_primitive, oslo_datatype_primitive_attributen,
         oslo_enumeration, oslo_datatype_complex, oslo_datatype_complex_attributen
         If other OTL than awv are considered, this method has to be adapted.

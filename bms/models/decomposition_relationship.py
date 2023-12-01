@@ -4,7 +4,7 @@ from odoo.exceptions import ValidationError
 
 class DecompositionRelationship(models.Model):
     _name = "bms.decomposition_relationship"
-    _description = "bms.decompostion_relationship: describes relationships of object in the different relationship types. (parent, sibling order, ...) "
+    _description = "Describes relationships between objects to create decomposition trees (parent, sibling order, ...) "
 
     tree_level = fields.Integer("tree level")
     sibling_order = fields.Integer("sibling order", default=0)

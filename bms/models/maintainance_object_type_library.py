@@ -6,7 +6,7 @@ class MaintainanceObjectTypeLibrary(models.Model):
         Maintenance object type
     '''
     _name = 'bms.object_type_library'
-    _description = 'Maintenance object type library'
+    _description = 'Maintenance object type library (ex: AWV OTL, Lantis OTL)'
 
     name = fields.Char('name', required=True)
     description = fields.Char("Description")

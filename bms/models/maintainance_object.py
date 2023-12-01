@@ -9,15 +9,18 @@ class MaintainanceObject(models.Model):
     """
 
     _name = "bms.maintainance_object"
-    _description = "Maintenance object"
+    _description = "Maintenance object definition"
 
     name = fields.Char("name", required=True)
     lantis_unique_id = fields.Char("Lantis MS Access ID")
     lantis_internal_id = fields.Integer("Lantis internal id")
     lantis_id = fields.Char(compute="_compute_lantis_id", store=True, string="lantis ID")
-    bo_temporary_type = fields.Char()
+    bo_temporary_type = fields.Char(string="Proposed new type")
 
-    awv_type_not_found = fields.Boolean(compute="_compute_awv_type_not_found", string="AWV type not found",store=True)
+    awv_type_not_found = fields.Boolean(string="AWV type not found?", store=True)
+
+    #compute
+    has_object_type_ids = fields.Boolean(compute="_compute_has_object_type_ids" ,store=False) # field for visualisation purpose. Invisibilize object_type_ids in view
 
     # relational fields
     object_type_ids = fields.Many2many(
@@ -29,16 +32,24 @@ class MaintainanceObject(models.Model):
     decomposition_ids = fields.One2many(comodel_name="bms.decomposition_relationship", inverse_name="object_id")  
     oslo_attributen_value_id = fields.One2many(comodel_name="bms.oslo_attributen_value", inverse_name="object_id")
 
-    @api.depends("object_type_ids")
-    def _compute_awv_type_not_found(self):
+    # @api.depends("object_type_ids")
+    # def _compute_awv_type_not_found(self):
+    #     for rec in self:
+    #         domain = [("object_id", "=", rec.id),("otl_id", "=", 1)]
+    #         record = self.env["bms.object_type"].search(domain)
+    #         if len(record) < 1:
+    #             rec.awv_type_not_found = True
+    #         else:
+    #             rec.awv_type_not_found = False
+    @api.depends("object_type_ids")  
+    def _compute_has_object_type_ids(self):
         for rec in self:
-            domain = [("object_id", "=", rec.id),("otl_id", "=", 1)]
-            record = self.env["bms.object_type"].search(domain)
-            if len(record) < 1:
-                rec.awv_type_not_found = True
-            else:
-                rec.awv_type_not_found = False
-       
+            if rec.object_type_ids:
+                rec.has_object_type_ids = True
+                return
+        rec.has_object_type_ids = False
+    
+
     @api.depends("lantis_internal_id")
     def _compute_lantis_id(self):
         for rec in self:

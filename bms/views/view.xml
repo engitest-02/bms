@@ -43,7 +43,16 @@
         </group>
         <notebook>
           <page string="OTL AWV">
-            <field name="object_type_ids" widget="object_type_notebook">
+            <group col="12">
+              <group colspan="3">
+                <field name="awv_type_not_found" attrs="{'invisible': [('has_object_type_ids', '=', True)]}"/>
+              </group>
+              <group colspan="6">
+                <field name="bo_temporary_type" attrs="{'invisible': [('awv_type_not_found', '=', False)]}"/>
+              </group>
+            </group>
+            <field name="has_object_type_ids" invisible="1"/>
+            <field name="object_type_ids" widget="object_type_notebook" attrs="{'invisible': [('awv_type_not_found', '=', True)]}" >
               <tree >
                 <field name="name"/>
                 <field name="definition"/>
@@ -158,7 +167,7 @@
         <group>
           <field name="object_id_id" invisible="1"/>
           <field name="object_id" invisible="1"/>
-          <field name="decomposition_type_id"  options="{'no_open': True}"/>
+          <field name="decomposition_type_id" options="{'no_open': True}"/>
           <field name="parent_object_id_id" readonly="1"/>
           <field name="parent_object_id" options="{'no_open': True}" />
           <field name="tree_level" invisible="1"/>

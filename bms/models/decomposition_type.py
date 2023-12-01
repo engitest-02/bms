@@ -3,7 +3,7 @@ from odoo import models, fields
 
 class DecompositionType(models.Model):
     _name = "bms.decomposition_type"
-    _description = "bms.decompostion_type: store the different type of decompostion"
+    _description = "Store the different types of decomposition"
     _order = "name asc"
 
     name = fields.Char("name", required=True)
