@@ -77,4 +77,4 @@ theoritically it could)
 - [ ] store json of get_att_def() instead of recalulate on the fly to increase loading speed
 - [ ] change res_id by default of `bms_decomposition_action`
 - [ ] `get_oslo_attr_def` of `object_type.py`
-- [ ] change view "decomposition type" in order to not display the decomposition_relationships
+- [x] change view "decomposition type" in order to not display the decomposition_relationships
