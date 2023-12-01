@@ -43,9 +43,9 @@ where msa_o.otl_type_id is not null and msa_o.otl_type_id <> 0
 - [x] lazy loading for the decomposition to improve loading performance
 - [X] create new object
 - [ ] refresh button of decompostion
-- [ ] automatic refresh of decomposition
+- [x] automatic refresh of decomposition
 - [ ] change parent via dropdown list
-- [ ] change parent via drag&drop on decomposition
+- [x] change parent via drag&drop on decomposition
 - [ ] look&feel attributes
 - [ ] hover defintion attibutes
 - [ ] Make the import mechanism of awv list ("keuzelijsten") better by taking into account the status change (don't  know if it happens but 
