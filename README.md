@@ -53,6 +53,7 @@ where msa_o.otl_type_id is not null and msa_o.otl_type_id <> 0
 theoritically it could)
 - [ ] fix tree_level which should be filled in (after having checked it's still useful)
 - [ ] keep common attributes when user changes of type
+- [ ]
 
 ## Migration ##
 - [ ] internal_id -> unique constraint
