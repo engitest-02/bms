@@ -53,7 +53,7 @@ where msa_o.otl_type_id is not null and msa_o.otl_type_id <> 0
 theoritically it could)
 - [ ] fix tree_level which should be filled in (after having checked it's still useful)
 - [ ] keep common attributes when user changes of type
-- [ ]
+
 
 ## Migration ##
 - [ ] internal_id -> unique constraint
@@ -77,3 +77,4 @@ theoritically it could)
 - [ ] store json of get_att_def() instead of recalulate on the fly to increase loading speed
 - [ ] change res_id by default of `bms_decomposition_action`
 - [ ] `get_oslo_attr_def` of `object_type.py`
+- [ ] change view "decomposition type" in order to not display the decomposition_relationships
