@@ -34,6 +34,7 @@ class AttributeDefinition(models.Model):
         data = JSONAttrDef(self, class_id).get_data()
         return data
 
+
 # utility classes
 
 import logging
@@ -95,7 +96,6 @@ class AttributeDefinitionRecord:
 
 class AwvDatatypePrimitive(AttributeDefinitionRecord):
     def __init__(self, model, datatype_primitive_rec, parent_id, parent_uri, oslo_datatype):
-        # breakpoint()
         super().__init__(model,
                          datatype_primitive_rec, parent_id, parent_uri,
                          oslo_datatype, 
@@ -105,7 +105,7 @@ class AwvDatatypePrimitive(AttributeDefinitionRecord):
         # create datatype_primitive record in attribute defintion table
         parent_id, parent_uri = self.create()
         
-        # create datatype_primitive_attributen records in attribute definiton table
+        # create datatype_primitive_attributen records in attribute definition table
         domain = [("class_uri", "=", self.attr_def['uri'])]
         datatype_primitive_attr_recs = self.model.env["bms.oslo_datatype_primitive_attributen"].search(domain)
         for datatype_primitive_attr_rec in datatype_primitive_attr_recs:
@@ -152,8 +152,7 @@ class AwvDatatypeIterative(AttributeDefinitionRecord):
         domain = [("class_uri", "=", self.attr_def["uri"])]
         oslo_datatype_iterative_attributen_recs = self.model.env[self.table].search(domain, [])
 
-        for oslo_datatype_iterative_attributen_rec in oslo_datatype_iterative_attributen_recs:
-            
+        for oslo_datatype_iterative_attributen_rec in oslo_datatype_iterative_attributen_recs:         
             attribute_datatype = get_datatype(self.model, oslo_datatype_iterative_attributen_rec.type)
             parent_id, parent_uri = AttributeDefinitionRecord(self.model, oslo_datatype_iterative_attributen_rec, iterative_parent_id, iterative_parent_uri, self.attribute_datatype).create()
             AWVAttributen.getDatatypePopulator(self.model,attribute_datatype, oslo_datatype_iterative_attributen_rec, parent_id, parent_uri).populate()
@@ -213,6 +212,7 @@ class AWVAttributen:
 
 
 class JSONAttrDef:
+    """Use to generate the tree structure of the attributes under JSON format"""
     def __init__(self, model, oslo_class_uri):
         """class_id is an oslo identifier of an object type"""
         self.model = model

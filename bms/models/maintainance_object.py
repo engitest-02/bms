@@ -14,9 +14,8 @@ class MaintainanceObject(models.Model):
     name = fields.Char("name", required=True)
     lantis_unique_id = fields.Char("Lantis MS Access ID")
     lantis_internal_id = fields.Integer("Lantis internal id")
-    lantis_id = fields.Char(compute="_compute_lantis_id", store=True, string="lantis ID")
+    lantis_id = fields.Char(compute="_compute_lantis_id", store=True, string="Maintainance Object ID")
     bo_temporary_type = fields.Char(string="Proposed new type")
-
     awv_type_not_found = fields.Boolean(string="AWV type not found?", store=True)
 
     #compute

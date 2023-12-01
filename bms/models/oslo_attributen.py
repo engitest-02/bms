@@ -1,10 +1,6 @@
 from odoo import models, fields
 
 class OsloAttributen(models.Model):
-    """
-    Type of an object
-    """
-
     _name = "bms.oslo_attributen"
     _description = "awv OSLOAttributen table"
 

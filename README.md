@@ -15,8 +15,11 @@ insert into bms_maintainance_object(name, lantis_unique_id, awv_type_not_found, 
 (select name, object_id as lantis_unique_id, awv_type_not_found, bo_temporary_type from bms_msa_object);
 ```
 
-3. Import oslo class from MS Access db (after having created the table in Odoo)
-via Odoo user interface
+3. Initial import AWV OTL (other procedure in case of Update!!!)
+3.1 get the SQLite db: https://wegenenverkeer.data.vlaanderen.be/doc/implementatiemodel/master/html/OTL.db
+3.2 export all the tables to *.CSV file
+3.3 import them via the ```favorite > import file``` of each corresponding form on the BMS
+
 
 4. link objects with object_type base on bms_msa_object table
 

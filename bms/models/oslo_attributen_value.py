@@ -4,13 +4,13 @@ from odoo.exceptions import ValidationError
 
 class OsloAttributenValue(models.Model):
     """
-    As the attributes are function of the object type, creatie of mechanism of
+    As the attributes are function of the object type, use the mechanism of
     attribute definition <-> attibute value to store in the database with the
     right native primary field type (string, float, date, ....)
     Cardinality chain
     object 1 <-> * type 1 <-> * attributes_def 1 <-> * attributes values 1 <-> 1 object
 
-    Only to use with OTL AWV 
+    Only to use with OTL AWV!
     """
 
     _name = "bms.oslo_attributen_value"
@@ -33,7 +33,6 @@ class OsloAttributenValue(models.Model):
 
     #related field
     otl_type_internal_id = fields.Char(related="object_type_id.otl_type_internal_id", string="otl_type_internal_id")    
-    # otl_id = fields.Many2one(comodel_name="bms.object_type_library")
     otl_name = fields.Char(related="object_type_id.otl_name", string="OTL name" )
     
     @api.constrains('value_non_negative_integer')

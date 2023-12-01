@@ -2,10 +2,6 @@ from odoo import api, models, fields
 
 
 class OsloClass(models.Model):
-    """
-    Type of an object
-    """
-
     _name = "bms.oslo_class"
     _description = "awv OSLOClass table"
 

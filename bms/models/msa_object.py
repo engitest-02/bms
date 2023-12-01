@@ -18,6 +18,7 @@ class MSAObject(models.Model):
     awv_type_not_found = fields.Boolean()
     bo_temporary_type = fields.Char()
     tree_node_order = fields.Integer()
+    bo_codering = fields.Char()
 
 
    
