@@ -200,7 +200,7 @@
     <field name="arch" type="xml">
       <group>
         <field name="name"/>
-        <field description="description"/>
+        <field name="description"/>
       </group>
     </field>
   </record>
