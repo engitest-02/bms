@@ -70,6 +70,8 @@ class MaintainanceObject(models.Model):
         print("create maintainace", vals_list)
         max_internal_id_rec = self.env["bms.maintainance_object"].read_group([], ["internal_id:max(internal_id)"], [])
         max_id = max_internal_id_rec[0].get("internal_id")
+        if max_id is None:
+            max_id = 0
         
         if type(vals_list) == dict:
             # assign internal_id
