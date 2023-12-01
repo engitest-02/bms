@@ -12,7 +12,7 @@ class DecompositionRelationship(models.Model):
     object_awv_type_not_found = fields.Boolean(related="object_id.awv_type_not_found")
     object_id_id = fields.Integer(related="object_id.id", string="object_id")
 
-    parent_object_id_id = fields.Char(related="parent_object_id.lantis_unique_id", string="parent id")
+    parent_object_id_id = fields.Char(related="parent_object_id.mo_id", string="parent id")
     
     object_id = fields.Many2one(comodel_name="bms.maintainance_object", ondelete='cascade')
     parent_object_id = fields.Many2one(comodel_name="bms.maintainance_object", ondelete="set null", string="parent name")

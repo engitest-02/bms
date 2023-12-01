@@ -54,6 +54,10 @@ theoritically it could)
 - [ ] fix tree_level which should be filled in (after having checked it's still useful)
 - [ ] keep common attributes when user changes of type
 
+## Migration ##
+- [ ] internal_id -> unique constraint
+
+
 ## Governance ##
 1. Unique ID asset format
 2. Quid awv type not found -> use OTL lantis (and potentially create a new type? ) + problem no attribute in Relatics (no meta-model)
@@ -61,7 +65,6 @@ theoritically it could)
 4. check status of values for the value lists (oslo enumeration)?
 5. logo app
 6. icons decomposition
-
 
 ## Refactoring ##
 - [x] delete modle oslo_generic_model
