@@ -9,8 +9,8 @@
       <tree>
         <field name="id"/>
         <field name="name"/>
-        <field name="lantis_id"/>
-        <field name="lantis_unique_id"/>
+        <field name="mo_id"/>
+        <field name="msa_unique_id"/>
         <field name="awv_type_not_found"/>
         <field name="bo_temporary_type"/>
       </tree>
@@ -37,9 +37,14 @@
     <field name="arch" type="xml">
       <form string="Maintainance object" js_class="bms_form_with_decompo" duplicate="0">
         <group >
-          <field name="name" />
-          <field name="lantis_id" readonly="1"/>
-          <field name="lantis_unique_id" readonly="1" />
+          <group>
+            <field name="name" />
+            <field name="mo_semantic_id"/>
+          </group>
+          <group>
+            <field name="mo_id"/>
+            <field name="msa_unique_id"/>
+          </group>
         </group>
         <notebook>
           <page string="OTL AWV">
@@ -52,7 +57,7 @@
               </group>
             </group>
             <field name="has_object_type_ids" invisible="1"/>
-            <field name="object_type_ids" widget="object_type_notebook" attrs="{'invisible': [('awv_type_not_found', '=', True)]}" >
+            <field name="object_type_ids" widget="object_type_notebook" attrs="{'invisible': [('awv_type_not_found', '=', True)]}">
               <tree >
                 <field name="name"/>
                 <field name="definition"/>
@@ -83,7 +88,7 @@
     <field name="arch" type="xml">
       <form>
         <field name="name" />
-        <field name="lantis_unique_id" />
+        <field name="msa_unique_id" />
         <field name="object_type_ids">
         </field>
       </form>
