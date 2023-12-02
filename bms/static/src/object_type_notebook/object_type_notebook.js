@@ -33,10 +33,11 @@ export class ObjectTypeNotebook extends Component {
                 //console.log("object_type_notebook component - willUpdateProps done", this.objectId,  this.objectTypeId)
             }
             else if (this.currentData.display_name != nextProps.record.data.display_name) {// rerender decomposition if props of current object have changed
-                console.log("object type bus triggered", nextProps.record.data.id, "current", this.currentData, "nextProps", nextProps.record.data)
+                
                 core.bus.trigger('maintainance_object_changed', nextProps.record.data.id);
                 this.currentData = nextProps.record.data
             }
+            console.log("object type bus triggered", nextProps.record.data.id, "current", this.currentData, "nextProps", nextProps.record.data, "env", this.env.model.root.data)
             
         })
 

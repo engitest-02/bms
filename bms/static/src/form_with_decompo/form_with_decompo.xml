@@ -11,7 +11,7 @@
             <div class="row" style="width:1600px">
                 <div class="col-4">
                     <div class="o_form_with_decompo">
-                        <Decomposition model="this.model" resId="this.props.resId"/>
+                        <Decomposition model="this.model" resId="this.props.resId" all="this"/>
                     </div>
                 </div>
                 <div class="col-8">

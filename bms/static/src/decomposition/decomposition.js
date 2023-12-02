@@ -15,8 +15,9 @@ export class Decomposition extends Component {
         this.decompositionTree;
         this.model = this.props.model;
         this.resId = this.props.resId;
-        core.bus.on('maintainance_object_changed', this, this._refreshDecomposition); //record event trigger in object_type_notebook
 
+        core.bus.on('maintainance_object_changed', this, this._refreshDecomposition); //record event trigger in object_type_notebook
+       
         onWillStart(async () => {
             loadJS("/bms/static/lib/fancytree/js/jquery.fancytree-all-deps.js")
             loadJS("/bms/static/lib/fancytree/js/jquery.fancytree.dnd5.js")
@@ -25,11 +26,14 @@ export class Decomposition extends Component {
             this.decompositionTypeRecords = await this._loadDecompositionTypes();
             this.lazyTreeString = await this._loadLazyTree(this.resId);            
             this.lazyTreeJson = JSON.parse(this.lazyTreeString);
-
         })
         
         onWillUpdateProps( (nextProps) => {
-            // this.resId = this.props.resId
+            if (nextProps.model.root.data.id && this.resId != this.model.root.data.id) {
+                core.bus.trigger('maintainance_object_changed', nextProps.model.root.data.id);
+            }
+            this.model = nextProps.model;
+            this.resId = nextProps.resId;
         })
 
         onMounted(async () => {
@@ -83,8 +87,6 @@ export class Decomposition extends Component {
             args: [node.key],
             }).then((tree) => {return JSON.parse(tree);});
         data.result = nextTree
-        console.log("_lazyload", nextTree)
-
     }
 
     async _refreshDecomposition(objectId){
