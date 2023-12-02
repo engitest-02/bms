@@ -49,7 +49,7 @@ where msa_o.otl_type_id is not null and msa_o.otl_type_id <> 0
 - [x] change parent via drag&drop on decomposition
 - [ ] look&feel attributes
 - [ ] hover defintion attibutes
-- [ ] Make the import mechanism of awv list ("keuzelijsten") better by taking into account the status change (don't  know if it happens but 
+- [ ] make the import mechanism of awv list ("keuzelijsten") better by taking into account the status change (don't  know if it happens but 
 theoritically it could)
 - [ ] fix tree_level which should be filled in (after having checked it's still useful)
 - [ ] keep common attributes when user changes of type
@@ -78,3 +78,4 @@ theoritically it could)
 - [ ] change res_id by default of `bms_decomposition_action`
 - [ ] `get_oslo_attr_def` of `object_type.py`
 - [x] change view "decomposition type" in order to not display the decomposition_relationships
+- [ ] check if get_view() in maintainance_object.py is still useful

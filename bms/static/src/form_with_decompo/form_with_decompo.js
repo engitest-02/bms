@@ -3,12 +3,16 @@ import { FormController } from "@web/views/form/form_controller";
 import { formView } from "@web/views/form/form_view";
 import { registry } from "@web/core/registry";
 import { Decomposition } from "../decomposition/decomposition";
+const { onWillUpdateProps } = owl;
 
 class FormWithDecompoController extends FormController {
 
     setup() {
         super.setup();
         
+        onWillUpdateProps(async nextProps => {
+            
+            console.log("FormWithDecompoController nextProps", this.model.data)})
     }
 
 }

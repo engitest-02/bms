@@ -85,14 +85,6 @@ class MaintainanceObject(models.Model):
                 print("create maintainace after update list", vals)
                 return super(MaintainanceObject,self).create(vals)
                 
-
-
     def get_view(self, view_id=None, view_type='form', **options):
         res = super().get_view(view_id, view_type, **options)
-        # print(res)
-        
-        from pprint import pprint
-        print("/n", view_id, view_type, options, "/n")
-        pprint(res)
-
         return res
