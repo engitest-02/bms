@@ -11,8 +11,10 @@
         <field name="name"/>
         <field name="mo_id"/>
         <field name="msa_unique_id"/>
+        <field name="mo_semantic_id"/>
         <field name="awv_type_not_found"/>
         <field name="bo_temporary_type"/>
+        <field name="mo_semantic_id"/>
       </tree>
     </field>
   </record>
@@ -81,6 +83,8 @@
       </form>
     </field>
   </record>
+
+
 
   <record id="bms_maintainance_object_view_form_2" model="ir.ui.view">
     <field name="name">bms.maintainance_object.form_2</field>
@@ -278,7 +282,7 @@
 
 
   <record id="bms_object_type_library_action" model="ir.actions.act_window">
-    <field name="name">Maintainance Object Type Library</field>
+    <field name="name">Object Type Library</field>
     <field name="res_model">bms.object_type_library</field>
     <field name="view_mode">tree,form</field>
   </record>

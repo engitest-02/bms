@@ -16,6 +16,7 @@ export class Decomposition extends Component {
         this.model = this.props.model;
         this.resId = this.props.resId;
 
+        this.is_object_under_creation = false; // useful to avoid trigerring refresh decomposition except for the newly created object
         core.bus.on('maintainance_object_changed', this, this._refreshDecomposition); //record event trigger in object_type_notebook
        
         onWillStart(async () => {
@@ -29,8 +30,13 @@ export class Decomposition extends Component {
         })
         
         onWillUpdateProps( (nextProps) => {
-            if (nextProps.model.root.data.id && this.resId != this.model.root.data.id) {
+            if (!nextProps.model.root.data.id){ // id undefined because under creation
+                console.log("object under creation")
+                this.is_object_under_creation = true;
+            }
+            else (this.is_object_under_creation && this.resId != this.model.root.data.id) {// object has just been created
                 core.bus.trigger('maintainance_object_changed', nextProps.model.root.data.id);
+                this.is_object_under_creation = false;
             }
             this.model = nextProps.model;
             this.resId = nextProps.resId;
@@ -39,7 +45,7 @@ export class Decomposition extends Component {
         onMounted(async () => {
             this.decompositionTree1 = $.ui.fancytree.createTree(
                 '#decompositionTree_1',
-                {extensions: ["dnd5"], //'edit', 'filter',
+                {extensions: ["dnd5"],
                  source: this.lazyTreeJson, 
                  click: this.loadClickedObjectId.bind(this),
                  autoScroll: true,
