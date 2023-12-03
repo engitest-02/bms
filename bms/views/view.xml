@@ -354,6 +354,6 @@
 
   <menuitem id="bms_imports" parent="bms_root" name="Imports" sequence ="40" groups="base.group_user" />
   <menuitem id="bms_ms_object" parent="bms_imports" name="MSA object table" groups="base.group_user" sequence="20" action="bms_msa_object_action"/>
-  <menuitem id="bms_awv_oslo_enumeration_values_import" parent="bms_imports" name="Oslo import and generation tools" groups="base.group_user" sequence="70" action="bms_import_value_list_action"/>
+  <menuitem id="bms_awv_oslo_enumeration_values_import" parent="bms_imports" name="Import and generation tools" groups="base.group_user" sequence="70" action="bms_import_value_list_action"/>
 
 </odoo>

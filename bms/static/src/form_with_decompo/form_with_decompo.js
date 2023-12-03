@@ -10,9 +10,9 @@ class FormWithDecompoController extends FormController {
     setup() {
         super.setup();
         
-        onWillUpdateProps(async nextProps => {
+//         onWillUpdateProps(async nextProps => {
             
-            console.log("FormWithDecompoController nextProps", this.model.data)})
+//             console.log("FormWithDecompoController nextProps", this.model.data)})
     }
 
 }

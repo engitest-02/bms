@@ -36,14 +36,14 @@ class Attributes(models.Model):
                 """
             % (self._table, self._select(), self._from(), self._order_by())
         )
-        # print(   """
-        #     CREATE view %s as
-        #         SELECT %s
-        #         FROM %s
-        #         ORDER BY %s ASC
-        #         """
-        #     % (self._table, self._select(), self._from(), self._order_by())
-        # )
+        print(   """
+            CREATE view %s as
+                SELECT %s
+                FROM %s
+                ORDER BY %s ASC
+                """
+            % (self._table, self._select(), self._from(), self._order_by())
+        )
 
     @api.model
     def _select(self):
