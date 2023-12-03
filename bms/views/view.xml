@@ -277,7 +277,7 @@
     <field name="name">Maintainance Object</field>
     <field name="res_model">bms.maintainance_object</field>
     <field name="view_mode">form</field>
-    <field name="res_id">3656</field>
+    <field name="res_id">3672</field>
   </record>
 
 
