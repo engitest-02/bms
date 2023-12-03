@@ -100,6 +100,7 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
         } 
 
     }
+    
     _format_unit(unit){
         if(unit){
             const r = RegExp(/(")(.*)(")/);

@@ -18,14 +18,17 @@ export class OsloType extends Component {
 
         this.currentObjectId = this.objectId;
         this.attrDefValueRecs;
+        console.log("oslo_type - setup", "this", this)
 
         onWillStart(async () => {
             const data = await this._loadAttrDefinition(this.classUri);
             this.attrDefs = JSON.parse(data)
+            console.log("oslo_type - onWillStart", "this", this)
         })
 
         onWillUpdateProps(async (nextProps) => {  
             this.objectId = nextProps.objectId;
+            console.log("oslo_type - onWillUpdate", "this", this, "nextProps", nextProps)
             if (this.currentObjectId != this.objectId) {// rerender OTL notebook if parent object has changed
                 this.otlId = nextProps.otlId;
                 this.objectTypeId = nextProps.objectTypeId;

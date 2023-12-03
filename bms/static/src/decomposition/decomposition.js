@@ -70,7 +70,7 @@ export class Decomposition extends Component {
     }
 
     loadClickedObjectId(ev, data){
-        //console.log("decompostion click objectId", data.node.key)
+        console.log("decompostion click objectId", data.node.key)
         this.model.load({resId: parseInt(data.node.key)});
 
      }

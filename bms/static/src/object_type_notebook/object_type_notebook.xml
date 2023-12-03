@@ -2,7 +2,7 @@
 <templates>
                
     <t t-name="bms.object_type_notebook" owl="1">
-
+    
         <t t-if="!only1AWVtype">
             <div class="alert alert-info" role="alert">
                 This object has more than one type (of 2 or more OTL's).Change the implemetnation of the BMS to treat those cases
