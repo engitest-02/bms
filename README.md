@@ -85,7 +85,9 @@ left join bms_maintainance_object mo2 on cast(mo2.msa_unique_id as integer) = ms
 ## Generate the Attribute Definition table ##
 1. go to menu ´imports´
 2. launch the import by clicking `populate attribute definition table` and wait for the action is done. 
-Tip; if for any reason you have to delete the records, use `truncate bms_attribute_definition cascade;`
+Tip: if for any reason you have to delete the records, use `truncate bms_attribute_definition cascade;` Be carefull impact on
+NOTICE:  truncate cascades to table "bms_oslo_attributen_value"
+NOTICE:  truncate cascades to table "bms_oslo_attributen_value_edit"
 
 ## import enumeration values ##
 1. go to menu ´imports´
