@@ -34,7 +34,7 @@ export class Decomposition extends Component {
                 console.log("object under creation")
                 this.is_object_under_creation = true;
             }
-            else (this.is_object_under_creation && this.resId != this.model.root.data.id) {// object has just been created
+            else if (this.is_object_under_creation && this.resId != this.model.root.data.id) {// object has just been created
                 core.bus.trigger('maintainance_object_changed', nextProps.model.root.data.id);
                 this.is_object_under_creation = false;
             }
