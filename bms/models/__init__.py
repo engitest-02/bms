@@ -5,6 +5,7 @@ from . import decomposition_type
 from . import maintainance_object
 from . import maintainance_object_type_library
 from . import object_type
+from . import agent
 
 # temporary to import data from MS data database
 from . import msa_object
