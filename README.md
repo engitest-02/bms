@@ -97,6 +97,7 @@ NOTICE:  truncate cascades to table "bms_oslo_attributen_value_edit"
 ## Import Agent from staging env ##
 1. Export .xlsx of Agent table from main_staging environment
 2. Import .xlsx into Agent table into main environment
+3. Delete the 7 B&O members from the maintainance_object table
 
 
 # TODO # 

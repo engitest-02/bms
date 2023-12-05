@@ -295,6 +295,44 @@
     </field>
   </record>
 
+   <record id="bms_organisation_tree" model="ir.ui.view">
+    <field name="name">bms.organisation.tree</field>
+    <field name="model">bms.organisation</field>
+    <field name="arch" type="xml">
+      <tree>
+          <field name="name" />
+          <field name="street" />
+          <field name="number" />
+          <field name="box_number" />
+          <field name="postcode" />
+          <field name="city" />
+          <field name="country" />
+          <field name="vat" />
+          <field name="contact_person" />
+        </tree>
+    </field>
+  </record>
+
+    <record id="bms_organisation_form" model="ir.ui.view">
+    <field name="name">bms.organisation.form</field>
+    <field name="model">bms.organisation</field>
+    <field name="arch" type="xml">
+      <form>
+        <group>
+          <field name="name" />
+          <field name="street" />
+          <field name="number" />
+          <field name="box_number" />
+          <field name="postcode" />
+          <field name="city" />
+          <field name="country" />
+          <field name="vat" />
+          <field name="contact_person" />
+        </group>
+      </form>
+    </field>
+  </record>
+
 
   <!-- actions -->
   <record id="bms_object_action" model="ir.actions.act_window">
@@ -372,6 +410,13 @@
     <field name="view_mode">tree,form</field>
   </record>
 
+  
+  <record id="bms_organisation_action" model="ir.actions.act_window">
+    <field name="name">Organisation</field>
+    <field name="res_model">bms.organisation</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
 
 
   <!-- menuitems -->
@@ -390,6 +435,7 @@
   <menuitem id="bms_maintainance_object" parent="bms_configuration" name="Maintainance object" groups="base.group_user" sequence="100" action="bms_object_action"/>
   <menuitem id="bms_attribute_definition" parent="bms_configuration" name="Attribute definition" groups="base.group_user" sequence="30" action="bms_attribute_definition_action"/>
   <menuitem id="bms_agent" parent="bms_configuration" name="Agent" groups="base.group_user" sequence="110" action="bms_agent_action"/>
+  <menuitem id="bms_organisation" parent="bms_configuration" name="Organisation" groups="base.group_user" sequence="110" action="bms_organisation_action"/>
 
   <menuitem id="bms_imports" parent="bms_root" name="Imports" sequence ="40" groups="base.group_user" />
   <menuitem id="bms_ms_object" parent="bms_imports" name="MSA object table" groups="base.group_user" sequence="20" action="bms_msa_object_action"/>
