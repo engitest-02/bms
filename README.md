@@ -27,7 +27,7 @@ insert into bms_maintainance_object(
 3. export all the tables to *.CSV file
 4. import them via the ```favorite > import file``` of each corresponding form on the BMS
 
-### create AWV Type Library ###
+## Create AWV Type Library ##
 1. Go to the shell and psql command
 2. execute query
 ```
@@ -46,7 +46,7 @@ select
 ;
 ´´´
 
-## update bms_objects_to_types ##
+## Update bms_objects_to_types ##
 1. Go to the shell and psql command
 2. link maintainance_object with object_type by executing the following SQL
 
@@ -62,7 +62,7 @@ where msa_o.otl_type_id is not null and msa_o.otl_type_id <> 0
 ;
 ```
 
-## create decompostion_type ##
+## Create decompostion_type ##
 1. go to the shell and psql command
 2. insert into bms_decomposition_type the type "Lantis"
 ```
@@ -89,7 +89,7 @@ Tip: if for any reason you have to delete the records, use `truncate bms_attribu
 NOTICE:  truncate cascades to table "bms_oslo_attributen_value"
 NOTICE:  truncate cascades to table "bms_oslo_attributen_value_edit"
 
-## import enumeration values ##
+## Import enumeration values ##
 1. go to menu ´imports´
 2. launch the import by clicking `import enumeration values` and wait for the import is done. 
 
@@ -98,7 +98,7 @@ NOTICE:  truncate cascades to table "bms_oslo_attributen_value_edit"
 
 
 # TODO # 
-## technical ##
+## Technical ##
 - [x] lazy loading for the decomposition to improve loading performance
 - [X] create new object
 - [x] automatic refresh of decomposition
