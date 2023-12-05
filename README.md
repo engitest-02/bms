@@ -94,7 +94,9 @@ NOTICE:  truncate cascades to table "bms_oslo_attributen_value_edit"
 2. launch the import by clicking `import enumeration values` and wait for the import is done. 
 
 
-
+## Import Agent from staging env ##
+1. Export .xlsx of Agent table from main_staging environment
+2. Import .xlsx into Agent table into main environment
 
 
 # TODO # 

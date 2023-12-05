@@ -265,6 +265,36 @@
     </field>
   </record>
 
+  <record id="bms_agent_tree" model="ir.ui.view">
+    <field name="name">bms.agent.tree</field>
+    <field name="model">bms.agent</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="first_name" />
+        <field name="surname" />
+        <field name="phone_number" />
+        <field name="email" />
+        <field name="organisation" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="bms_agent_form" model="ir.ui.view">
+    <field name="name">bms.agent.form</field>
+    <field name="model">bms.agent</field>
+    <field name="arch" type="xml">
+      <form>
+        <group>
+          <field name="first_name" />
+          <field name="surname" />
+          <field name="phone_number" />
+          <field name="email" />
+          <field name="organisation" />
+        </group>
+      </form>
+    </field>
+  </record>
+
 
   <!-- actions -->
   <record id="bms_object_action" model="ir.actions.act_window">
@@ -336,21 +366,30 @@
     <field name="view_mode">tree</field>
   </record>
 
+  <record id="bms_agent_action" model="ir.actions.act_window">
+    <field name="name">Agent</field>
+    <field name="res_model">bms.agent</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+
 
   <!-- menuitems -->
   <menuitem id="bms_root" name="BMS"/>
 
   <menuitem id="bms_object" parent="bms_root" name="Maintainance Object" groups="base.group_user"  sequence ="10" action="bms_object_action"/>
   <menuitem id="bms_decomposition" parent="bms_root" name="Decomposition" groups="base.group_user"  sequence ="20" action="bms_decomposition_action"/>
-  <menuitem id="bms_settings" parent="bms_root" name="Settings" sequence ="30" groups="base.group_user" />
-  <menuitem id="bms_object_type_library" parent="bms_settings" name="Object Type Library" groups="base.group_user" sequence="10" action="bms_object_type_library_action"/>
-  <menuitem id="bms_object_type" parent="bms_settings" name="Object type" groups="base.group_user" sequence="10" action="bms_object_type_action"/>
-  <menuitem id="bms_otl_and_type_assgination" parent="bms_settings" name="Assign otl and type" groups="base.group_user" sequence="40" action="bms_m_object_action_2"/>
-  <menuitem id="bms_otl_and_type_assgination_2" parent="bms_settings" name="Assign otl and type v2" groups="base.group_user" sequence="50" action="bms_m_object_action_3"/>
-  <menuitem id="bms_decomposition_type" parent="bms_settings" name="Decomposition type" groups="base.group_user" sequence="60" action="bms_decomposition_type_action"/>
-  <menuitem id="bms_decomposition_relationship" parent="bms_settings" name="Decomposition relationship" groups="base.group_user" sequence="70" action="bms_decomposition_relationship_action"/>
-  <menuitem id="bms_maintainance_object" parent="bms_settings" name="Maintainance object" groups="base.group_user" sequence="100" action="bms_object_action"/>
-  <menuitem id="bms_attribute_definition" parent="bms_settings" name="Attribute definition" groups="base.group_user" sequence="30" action="bms_attribute_definition_action"/>
+
+  <menuitem id="bms_configuration" parent="bms_root" name="Configuration" sequence ="30" groups="base.group_user" />
+  <menuitem id="bms_object_type_library" parent="bms_configuration" name="Object Type Library" groups="base.group_user" sequence="10" action="bms_object_type_library_action"/>
+  <menuitem id="bms_object_type" parent="bms_configuration" name="Object type" groups="base.group_user" sequence="10" action="bms_object_type_action"/>
+  <menuitem id="bms_otl_and_type_assgination" parent="bms_configuration" name="Assign otl and type" groups="base.group_user" sequence="40" action="bms_m_object_action_2"/>
+  <menuitem id="bms_otl_and_type_assgination_2" parent="bms_configuration" name="Assign otl and type v2" groups="base.group_user" sequence="50" action="bms_m_object_action_3"/>
+  <menuitem id="bms_decomposition_type" parent="bms_configuration" name="Decomposition type" groups="base.group_user" sequence="60" action="bms_decomposition_type_action"/>
+  <menuitem id="bms_decomposition_relationship" parent="bms_configuration" name="Decomposition relationship" groups="base.group_user" sequence="70" action="bms_decomposition_relationship_action"/>
+  <menuitem id="bms_maintainance_object" parent="bms_configuration" name="Maintainance object" groups="base.group_user" sequence="100" action="bms_object_action"/>
+  <menuitem id="bms_attribute_definition" parent="bms_configuration" name="Attribute definition" groups="base.group_user" sequence="30" action="bms_attribute_definition_action"/>
+  <menuitem id="bms_agent" parent="bms_configuration" name="Agent" groups="base.group_user" sequence="110" action="bms_agent_action"/>
 
   <menuitem id="bms_imports" parent="bms_root" name="Imports" sequence ="40" groups="base.group_user" />
   <menuitem id="bms_ms_object" parent="bms_imports" name="MSA object table" groups="base.group_user" sequence="20" action="bms_msa_object_action"/>
