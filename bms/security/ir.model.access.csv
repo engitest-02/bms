@@ -22,3 +22,4 @@ bms.access_bms_oslo_datatype_complex_attributen,access_bms_oslo_datatype_complex
 bms.access_bms_oslo_datatype_union,access_bms_oslo_datatype_union,bms.model_bms_oslo_datatype_union,base.group_user,1,1,1,1
 bms.access_bms_oslo_datatype_union_attributen,access_bms_oslo_datatype_union_attributen,bms.model_bms_oslo_datatype_union_attributen,base.group_user,1,1,1,1
 bms.access_bms_agent,access_bms_agent,bms.model_bms_agent,base.group_user,1,1,1,1
+bms.access_bms_organisation,access_bms_organisation,bms.model_bms_organisation,base.group_user,1,1,1,1
