@@ -92,19 +92,28 @@
             <group col="12" string="Management">
              <group colspan="12">
              <field name="is_managing_level"/>
-             </group>
+             
+                </group>
               <newline/>
               <group colspan="6">
-                <field name="managing_org_id" attrs="{'readonly': [('is_managing_level', '=', False)]}"/>
-                <field name="contract_mgr_lantis" attrs="{'readonly': [('is_managing_level', '=', False)]}"/>
-                <field name="maintainance_mgr_lantis" attrs="{'readonly': [('is_managing_level', '=', False)]}"/>
-                <field name="technical_mgr_lantis" attrs="{'readonly': [('is_managing_level', '=', False)]}"/>
+                <field name="managing_org_id" attrs="{'invisible': [('is_managing_level', '=', False)]}"/>
+                <field name="inherited_managing_org_id" attrs="{'invisible': [('is_managing_level', '=', True)]}"/> 
+                <field name="contract_mgr_lantis" attrs="{'invisible': [('is_managing_level', '=', False)]}"/>
+                <field name="inherited_contract_mgr_lantis" attrs="{'invisible': [('is_managing_level', '=', True)]}"/>
+                <field name="maintainance_mgr_lantis" attrs="{'invisible': [('is_managing_level', '=', False)]}"/>
+                <field name="inherited_maintainance_mgr_lantis" attrs="{'invisible': [('is_managing_level', '=', True)]}"/>
+                <field name="technical_mgr_lantis" attrs="{'invisible': [('is_managing_level', '=', False)]}"/>
+                <field name="inherited_technical_mgr_lantis" attrs="{'invisible': [('is_managing_level', '=', True)]}"/>
               </group>
               <group colspan="6">
-                <field name="managing_org_contact" attrs="{'readonly': [('is_managing_level', '=', False)]}"/>
-                <field name="contract_mgr_contractor" attrs="{'readonly': [('is_managing_level', '=', False)]}"/>
-                <field name="maintainance_mgr_contractor" attrs="{'readonly': [('is_managing_level', '=', False)]}"/>
-                <field name="technical_mgr_contractor" attrs="{'readonly': [('is_managing_level', '=', False)]}"/>
+                <field name="managing_org_contact" attrs="{'invisible': [('is_managing_level', '=', False)]}"/>
+                <field name="inherited_managing_org_contact" attrs="{'invisible': [('is_managing_level', '=', True)]}"/> -->
+                <field name="contract_mgr_contractor" attrs="{'invisible': [('is_managing_level', '=', False)]}"/>
+                <field name="inherited_contract_mgr_contractor" attrs="{'invisible': [('is_managing_level', '=', True)]}"/>
+                <field name="maintainance_mgr_contractor" attrs="{'invisible': [('is_managing_level', '=', False)]}"/>
+                <field name="inherited_maintainance_mgr_contractor" attrs="{'invisible': [('is_managing_level', '=', True)]}"/>
+                <field name="technical_mgr_contractor" attrs="{'invisible': [('is_managing_level', '=', False)]}"/>
+                <field name="inherited_technical_mgr_contractor" attrs="{'invisible': [('is_managing_level', '=', True)]}"/>
               </group>
             </group>
           </page>
