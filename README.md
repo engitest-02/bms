@@ -112,6 +112,7 @@ NOTICE:  truncate cascades to table "bms_oslo_attributen_value_edit"
 theoritically it could)
 - [ ] fix tree_level which should be filled in (after having checked it's still useful)
 - [ ] keep common attributes when user changes of type
+- [ ] qui managing_level_obj_id if there are several decompositions? 
 
 
 ## Migration ##
@@ -138,3 +139,5 @@ theoritically it could)
 - [ ] `get_oslo_attr_def` of `object_type.py`
 - [x] change view "decomposition type" in order to not display the decomposition_relationships
 - [ ] check if get_view() in maintainance_object.py is still useful
+- [ ] `bms.maintainance_object._get_children()` use hardcoded ´decomposition_type_id´ for 'OTL AWV'
+- [ ] At creation, display which managing organisation the future will inherit if it is not an 'managing level' (and probaly the same for the ownership)

@@ -35,7 +35,6 @@ class DecompositionRelationship(models.Model):
     def get_lazy_tree(self, parent_id, decomposition_type_id=1):
         "return children tree"
         tree = []
-        print("parent_id", parent_id)
         node = {"title": "", "key": int(parent_id), "lazy": False}
         records = self._get_children(node, decomposition_type_id)
         for record in records:
