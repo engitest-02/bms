@@ -14,7 +14,10 @@ class Agent(models.Model):
     organisation = fields.Many2one(comodel_name="bms.organisation", string="organisation", required=True)
 
     def _default_name(self):
-        return self.first_name + " " + self.surname
+        if self:
+            return self.first_name + " " + self.surname
+        else: 
+            return " empty {0}".format(str(self.id))
 
 class Organisation(models.Model):
     _name = "bms.organisation"

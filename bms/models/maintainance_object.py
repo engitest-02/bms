@@ -21,6 +21,20 @@ class MaintainanceObject(models.Model):
     bo_temporary_type = fields.Char(string="proposed new type")
     awv_type_not_found = fields.Boolean(string="AWV type not found?")
 
+    is_managing_level = fields.Boolean(string="Is managing level?" )
+
+    ownership_doc = fields.Char(string="link ownership doc")
+    contract_mgr_lantis = fields.Many2one(comodel_name="bms.agent", string="contract mgr Lantis")
+    contract_mgr_contractor = fields.Many2one(comodel_name="bms.agent", string="contract mgr Contractor")
+    maintainance_mgr_lantis = fields.Many2one(comodel_name="bms.agent", string="maintainance mgr Lantis")
+    maintainance_mgr_contractor = fields.Many2one(comodel_name="bms.agent", string="maintainance mgr Contractor")
+    technical_mgr_lantis = fields.Many2one(comodel_name="bms.agent", string="technical mgr Lantis")
+    technical_mgr_contractor = fields.Many2one(comodel_name="bms.agent", string="technical mgr Contractor")
+
+    # #related
+    owner_contact = fields.Many2one(related="owner_id.contact_person", string="contact person")
+    managing_org_contact = fields.Many2one(related="managing_org_id.contact_person", string="contact person")
+
     #compute
     has_object_type_ids = fields.Boolean(compute="_compute_has_object_type_ids" ,store=False) # field for visualisation purpose. Invisibilize object_type_ids in view
 
@@ -33,6 +47,11 @@ class MaintainanceObject(models.Model):
     )
     decomposition_ids = fields.One2many(comodel_name="bms.decomposition_relationship", inverse_name="object_id")  
     oslo_attributen_value_id = fields.One2many(comodel_name="bms.oslo_attributen_value", inverse_name="object_id")
+
+    owner_id = fields.Many2one(comodel_name="bms.organisation", string="owner")
+    managing_org_id = fields.Many2one(comodel_name="bms.organisation", string="managing organisation")
+
+
 
     # @api.depends("object_type_ids")
     # def _compute_awv_type_not_found(self):
