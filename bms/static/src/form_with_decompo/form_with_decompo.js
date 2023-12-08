@@ -5,17 +5,7 @@ import { registry } from "@web/core/registry";
 import { Decomposition } from "../decomposition/decomposition";
 const { onWillUpdateProps } = owl;
 
-class FormWithDecompoController extends FormController {
-
-    setup() {
-        super.setup();
-        
-//         onWillUpdateProps(async nextProps => {
-            
-//             console.log("FormWithDecompoController nextProps", this.model.data)})
-    }
-
-}
+class FormWithDecompoController extends FormController {}
 
 FormWithDecompoController.template = "bms.decompositionRenderer";
 FormWithDecompoController.components = {

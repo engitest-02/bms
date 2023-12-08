@@ -49,7 +49,7 @@ $fancy-node-border-radius: 0px;
 $fancy-node-outline-width: 1px;
 
 // bms custom values
-$o_bms_has_no_awv_type_backgroung_color: rgba(252, 216, 216, 0.685);
+// $o_bms_has_no_awv_type_backgroung_color: rgba(252, 216, 216, 0.685);
 
 
 // $fancy-icon-width: 16px;
@@ -75,9 +75,9 @@ $fancy-image-prefix: "./skin-win8/";
 		border: $fancy-node-border-width solid transparent;  // avoid jumping, when a border is added on hover
 	}
 		// bms customization
-	span.has_no_awv_type > span.fancytree-title {
-		background-color: $o_bms_has_no_awv_type_backgroung_color;	
-		}
+	// span.has_no_awv_type > span.fancytree-title {
+	// 	background-color: $o_bms_has_no_awv_type_backgroung_color;	
+	// 	}
 	&.fancytree-container.fancytree-treefocus span.fancytree-focused span.fancytree-title {
 		border-color: #3399ff;
 	}

@@ -34,6 +34,7 @@ class DecompositionRelationship(models.Model):
     @api.model
     def get_lazy_tree(self, parent_id, decomposition_type_id=1):
         "return children tree"
+
         tree = []
         node = {"title": "", "key": int(parent_id), "lazy": False}
         records = self._get_children(node, decomposition_type_id)
@@ -42,6 +43,7 @@ class DecompositionRelationship(models.Model):
             node = self._record2node(record.object_id, folder=hasChildren, lazy=hasChildren)
             tree.append(node)
         import json
+        
         return json.dumps(tree)
 
     @api.model
@@ -97,9 +99,17 @@ class DecompositionRelationship(models.Model):
         return self.env["bms.decomposition_relationship"].search(domain, order=order)
 
     def _record2node(self, record, folder=False, lazy=False):
-        node = {"title": record.name, "key": record.id, "folder":folder,  "lazy": lazy}
-        if record.awv_type_not_found:
-            node = {**node, "extraClasses": "has_no_awv_type"}
+        IS_MANAGING_LEVEL_ICON = """<i class="fa fa-handshake-o" aria-hidden="true"></i>"""
+        MISSING_OTL_TYPE_ICON = """<span class="fa-stack o_bms_fa_small">
+                                        <i class="fa fa-tag fa-stack-1x"></i>
+                                        <i class="fa fa-ban fa-stack-2x"></i>
+                                </span>"""
+        title = record.name
+        if record.is_managing_level:
+            title += " " + IS_MANAGING_LEVEL_ICON 
+        if not record.has_object_type_ids:
+            title += " " + MISSING_OTL_TYPE_ICON 
+        node = {"title": title, "key": record.id, "folder":folder,  "lazy": lazy}
         return node
 
     def _get_children_nodes(self, parent_id, decomposition_type_id):
