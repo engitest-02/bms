@@ -93,7 +93,6 @@ NOTICE:  truncate cascades to table "bms_oslo_attributen_value_edit"
 1. go to menu ´imports´
 2. launch the import by clicking `import enumeration values` and wait for the import is done. 
 
-
 ## Import Agent from staging env ##
 1. Export .xlsx of Agent table from main_staging environment
 2. Import .xlsx into Agent table into main environment
@@ -112,7 +111,7 @@ NOTICE:  truncate cascades to table "bms_oslo_attributen_value_edit"
 theoritically it could)
 - [ ] fix tree_level which should be filled in (after having checked it's still useful)
 - [ ] keep common attributes when user changes of type
-- [ ] qui managing_level_obj_id if there are several decompositions? 
+- [ ] quid managing_level_obj_id if there are several decompositions? 
 
 
 ## Migration ##

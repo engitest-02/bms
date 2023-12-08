@@ -30,14 +30,15 @@ export class ObjectTypeNotebook extends Component {
                 this.objectId = nextProps.record.data.id
                 this.currentObjectId = this.objectId
                 
-                console.log("object_type_notebook component - willUpdateProps done", this.objectId,  this.objectTypeId)
+                // console.log("object_type_notebook component - willUpdateProps done", this.objectId,  this.objectTypeId)
             }
-            else if (this.currentData.display_name != nextProps.record.data.display_name) {// rerender decomposition if props of current object have changed
+            // this part of code detect the changes on all the fields of an Maintainance_Objects
+            // else if (this.currentData.display_name != nextProps.record.data.display_name) {// rerender decomposition if props of current object have changed
                 
-                core.bus.trigger('maintainance_object_changed', nextProps.record.data.id);
-                console.log("object_type_notebook bus triggered", nextProps.record.data.id, "current", this.currentData, "nextProps", nextProps.record.data, "env", this.env.model.root.data)
-                this.currentData = nextProps.record.data
-            }
+            //     core.bus.trigger('maintainance_object_changed', nextProps.record.data.id);
+            //     console.log("object_type_notebook bus triggered", nextProps.record.data.id, "current", this.currentData, "nextProps", nextProps.record.data, "env", this.env.model.root.data)
+            //     this.currentData = nextProps.record.data
+            // }
             
             
         })
@@ -102,7 +103,6 @@ export class ObjectTypeNotebook extends Component {
             this.classUri = objectTypeIds[0].data.otl_type_internal_id
             this.className = objectTypeIds[0].data.name
         }
-        console.log("object_type_notebook setup", "this", this)
     }    
 
 }

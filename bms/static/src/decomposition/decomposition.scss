@@ -1,6 +1,7 @@
 $o_input_marging: 0.4rem;
 $o_tree_height: 800px;
 $no_awv_type_background_color: rgb(190, 50, 120);
+$o_fas_small_font_size0: .8em;
 
 .o_bms_input_radio{
     margin: $o_input_marging;
@@ -13,4 +14,9 @@ $no_awv_type_background_color: rgb(190, 50, 120);
 //  class for fancytree js lib
 .o_bms_ft_no_awv_type {
     background-color: $no_awv_type_background_color;
+}
+
+// class for the fontawesome icons
+.o_bms_fa_small{
+    font-size: $o_fas_small_font_size0;
 }

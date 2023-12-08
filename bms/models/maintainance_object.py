@@ -78,8 +78,8 @@ class MaintainanceObject(models.Model):
         for rec in self:
             if rec.object_type_ids:
                 rec.has_object_type_ids = True
-                return
-        rec.has_object_type_ids = False
+            else:
+                rec.has_object_type_ids = False
     
 
     @api.depends("internal_id")
@@ -107,8 +107,8 @@ class MaintainanceObject(models.Model):
         if vals.get('is_managing_level') is not None and self.is_managing_level != vals.get('is_managing_level'):
 
             self._update_mg_object(vals)
-
-        return super(MaintainanceObject, self).write(vals)
+        result = super(MaintainanceObject, self).write(vals)
+        return result
 
     def get_view(self, view_id=None, view_type='form', **options):
         res = super().get_view(view_id, view_type, **options)
