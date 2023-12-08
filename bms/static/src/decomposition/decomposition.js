@@ -16,10 +16,7 @@ export class Decomposition extends Component {
         this.model = this.props.model;
         this.currentData = this.model.root.data;
         this.resId = this.props.resId;
-        this.fieldIsDirty=this.props.fieldIsDirty;
         
-        
-
         this.is_object_under_creation = false; // useful to avoid trigerring refresh decomposition except for the newly created object
         core.bus.on('maintainance_object_changed', this, this._refreshDecomposition); //record event trigger in object_type_notebook
        
@@ -35,20 +32,14 @@ export class Decomposition extends Component {
         
         onWillUpdateProps( (nextProps) => {
             if (!nextProps.model.root.data.id){ // id undefined because under creation
+                console.log("object under creation")
                 this.is_object_under_creation = true;
             }
-            else if (this.is_object_under_creation && this.currentData.id != this.model.root.data.id) {// object has just been created
+            else if (this.is_object_under_creation && this.resId != this.model.root.data.id) {// object has just been created
                 core.bus.trigger('maintainance_object_changed', nextProps.model.root.data.id);
                 this.is_object_under_creation = false;
             }
-            else if (this._is_data_changed(nextProps)){
-                this._refreshDecomposition(nextProps.model.root.data.id)  
-            }
-            if (this.resId != nextProps.model.root.data.id){
-                this.model = nextProps.model;
-                this.currentData = nextProps.model.root.data;
-                this.fieldIsDirty = nextProps.fieldIsDirty;
-            }
+            this.model = nextProps.model;
             this.resId = nextProps.model.root.data.id;
         })
 
@@ -83,24 +74,29 @@ export class Decomposition extends Component {
         this.model.load({resId: parseInt(data.node.key)});
      }
 
-    _is_data_changed(nextProps){
-        // if fieldIsDirty is false but currentData <> nextPropsn, a property has changed and the object has beens saved. 
-        // The use of is_dirty avoid to call the server before the data have been saved (JSONTreeView)
-        // console.log("is_Data_changed", 
-        // "nextProps.fieldIsDirty != null && !nextProps.fieldIsDirty ", nextProps.fieldIsDirty != null && !nextProps.fieldIsDirty,
-        // "this.currentData.id == nextProps.model.root.data.id", this.currentData.id == nextProps.model.root.data.id,
-        // "this.currentData.name != nextProps.model.root.data.name", this.currentData.name != nextProps.model.root.data.name,
-        // "(this.currentData.is_managing_level != nextProps.model.root.data.is_managing_level" , this.currentData.is_managing_level != nextProps.model.root.data.is_managing_level);
+    // _is_data_changed(nextProps){
+    //     // if fieldIsDirty is false but currentData <> nextPropsn, a property has changed and the object has beens saved. 
+    //     // The use of is_dirty avoid to call the server before the data have been saved (JSONTreeView)
+    //     console.log("is_Data_changed", 
+    //     "nextProps.fieldIsDirty != null && !nextProps.fieldIsDirty ", nextProps.fieldIsDirty != null && !nextProps.fieldIsDirty,
+    //     "this.currentData.id == nextProps.model.root.data.id", this.currentData.id == nextProps.model.root.data.id,
+    //     "this.currentData.name != nextProps.model.root.data.name", this.currentData.name != nextProps.model.root.data.name,
+    //     "(this.currentData.is_managing_level != nextProps.model.root.data.is_managing_level" , this.currentData.is_managing_level != nextProps.model.root.data.is_managing_level
+    //     , "is_data_changed",  (nextProps.fieldIsDirty != null && this.fieldIdDirty != nextProps.fieldIsDirty) && 
+    //     (this.currentData.id == nextProps.model.root.data.id) && ( // we did not change of object
+    //     (this.currentData.name != nextProps.model.root.data.name) ||
+    //     (this.currentData.is_managing_level != nextProps.model.root.data.is_managing_level) )
+    //     ,"currentData",  this.currentData, "nextProps", nextProps.model.root.data);
 
-        if ( (nextProps.fieldIsDirty != null && this.fieldIdDirty != nextProps.fieldIsDirty) && 
-             (this.currentData.id == nextProps.model.root.data.id) && ( // we did not change of object
-             (this.currentData.name != nextProps.model.root.data.name) ||
-             (this.currentData.is_managing_level != nextProps.model.root.data.is_managing_level) )
-         ){
+    //     if ( (nextProps.fieldIsDirty != null && this.fieldIdDirty != nextProps.fieldIsDirty) && 
+    //          (this.currentData.id == nextProps.model.root.data.id) && ( // we did not change of object
+    //          (this.currentData.name != nextProps.model.root.data.name) ||
+    //          (this.currentData.is_managing_level != nextProps.model.root.data.is_managing_level) )
+    //      ){
             
-            return true
-        }
-    }
+    //         return true
+    //     }
+    // }
 
     _loadDecompositionTypes() {
         return this.ormService.searchRead("bms.decomposition_type", [], []);
@@ -123,6 +119,8 @@ export class Decomposition extends Component {
     }
 
     async _refreshDecomposition(objectId){
+        if (objectId == null) {objectId = this.resId}
+        console.log( "objectId", this.objectId)
         const lazyTreeString = await this._loadLazyTree(objectId)
         const lazyTreeJson = JSON.parse(lazyTreeString)
         this.decompositionTree1.reload(lazyTreeJson)
