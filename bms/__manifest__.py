@@ -5,7 +5,7 @@
     "category": "asset",
     "author": "frederic.vigin@engiforce.com",
     "summary": "Asset Beheermanagement Systeem",
-    "dascription": """POC to evaluate odoo as target tool for the BMS""",
+    "dascription": """Tool om de assets van Lantis te beheren.""",
     "demo": [],
     "depends": ["base", "web"],
     "data": [

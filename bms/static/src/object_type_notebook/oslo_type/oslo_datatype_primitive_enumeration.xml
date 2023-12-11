@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="bms.oslo_datatype_primitive_enumeration" owl="1">
+        <div class="o_bms_hover">
+            <div class="row m-0 p-0"  t-on-mouseover="(ev) => this.highlightValueField(ev)" t-on-mouseout="(ev) => this.unhighlightValueField(ev)" > 
 
-        <div class="row m-0 p-0">
+                <div class="col-3 o_form_label p-1 align-middle">
+                    <t t-out="attrName" />
+                    <t t-out="unit" />
+                </div>
+                <div class="col-8 border-start rounded-3 pl-1">
+                    
+                    <t t-out="attrValueToDisplay" />
+                    
+                </div>
 
-            <div class="col-3 o_form_label p-1 align-middle">
-                <t t-out="attrName" />
-                <t t-out="unit" />
-            </div>
-            <div class="col-8 border-start rounded-3 pl-1">
-                <t t-out="attrValueToDisplay"/>
-            </div>
-            <div class="col-1 d-flex justify-content-end p-0">
-                <button class="btn btn-primary" t-on-click="() => this.changeAttrValue()">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </button>
-            </div>
 
+                <div class="col-1 d-flex justify-content-end p-0">
+                    <button class="btn btn-primary" t-on-click="() => this.changeAttrValue()">
+                        <!-- <button class="btn btn-primary" t-on-click="() => console.log('hovered')" t-on-hover="() => console.log('hovered')"> -->
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-
     </t>
 </templates>
