@@ -63,6 +63,17 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
         );
     }
 
+
+    highlightValueField(event){
+        // use in combinaison with on-mousevover to highlight the row related to the edit button
+        $(event.target).closest('div[class="o_bms_hover"]').addClass("o_bms_hover_triggered");
+    }
+
+    unhighlightValueField(event){
+        // use in combinaison with on-mouseout to unhighlight the row related to the edit button
+        $(event.target).closest('div[class="o_bms_hover o_bms_hover_triggered"]').removeClass("o_bms_hover_triggered");
+    }
+
     _asssign_props_value(props){
         this.objectId = props.objectId
         this.objectTypeId = props.objectTypeId
