@@ -459,7 +459,7 @@
 
 
   <!-- menuitems -->
-  <menuitem id="bms_root" name="BMS" web_icon="BMS,static/description/Oosterweelverbinding_icon.png"/>
+  <menuitem id="bms_root" name="BMS" />
 
   <menuitem id="bms_object" parent="bms_root" name="Maintainance Object" groups="base.group_user"  sequence ="10" action="bms_object_action" />
   <menuitem id="bms_decomposition" parent="bms_root" name="Decomposition" groups="base.group_user"  sequence ="20" action="bms_decomposition_action"/>
