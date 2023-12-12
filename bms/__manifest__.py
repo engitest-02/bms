@@ -4,7 +4,7 @@
     "sequence": 1,
     "category": "asset",
     "author": "frederic.vigin@engiforce.com",
-    "summary": "Asset Beheermanagement Systeem",
+    "summary": "Beheermanagement Systeem",
     "dascription": """Tool om de assets van Lantis te beheren.""",
     "demo": [],
     "depends": ["base", "web"],
