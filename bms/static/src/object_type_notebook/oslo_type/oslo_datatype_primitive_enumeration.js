@@ -52,6 +52,7 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
                     'default_value_non_negative_integer': this.attrValueRec.value_non_negative_integer,
                     'default_enumeration_value_id':  this.attrValueRec.enumeration_value_id? this.attrValueRec.enumeration_value_id[0]:false}
         }
+        console.log("oslo_datatype_primitive_enumeration", context)
         this.actionService.doAction(
             {
                 "type": "ir.actions.act_window",

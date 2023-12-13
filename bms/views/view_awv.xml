@@ -39,7 +39,6 @@
     </field>
   </record>
 
-
   <record id="bms_oslo_datatype_primitive" model="ir.ui.view">
     <field name="name">bms.oslo_datatype_primitive.tree</field>
     <field name="model">bms.oslo_datatype_primitive</field>
@@ -54,7 +53,6 @@
       </tree>
     </field>
   </record>
-
 
   <record id="bms_oslo_datatype_primitive_attributen" model="ir.ui.view">
     <field name="name">bms.oslo_datatype_primitive_attributen.tree</field>
@@ -114,7 +112,6 @@
     </field>
   </record>
 
-
   <record id="bms_oslo_datatype_complex_tree" model="ir.ui.view">
     <field name="name">bms.oslo_datatype_complex.tree</field>
     <field name="model">bms.oslo_datatype_complex</field>
@@ -166,7 +163,6 @@
       </tree>
     </field>
   </record>
-
 
   <record id="bms_oslo_datatype_union_attributen_tree" model="ir.ui.view">
     <field name="name">bms.oslo_datatype_union_attributen.tree</field>
@@ -223,31 +219,6 @@
     </field>
   </record>
 
-
-    <record id="bms_oslo_enumeration_values_search_tree" model="ir.ui.view">
-    <field name="name">bms.oslo_enumeration_values_search.tree</field>
-    <field name="model">bms.oslo_enumeration_values</field>
-    <field name="arch" type="xml">
-      <tree>
-        <field name="notation"/>
-        <field name="definition"/>
-        <field name="selection_id" widget="url" text="Go to AWV site" string="AWV url"/>
-      </tree>
-    </field>
-  </record>
-
-  <record id="bms_oslo_enumeration_values_search_filter" model="ir.ui.view">
-    <field name="name">bms.oslo_enumeration_values_search.filter</field>
-    <field name="model">bms.oslo_enumeration_values</field>
-    <field name="arch" type="xml">
-      <search>
-        <field name="notation"/>
-        <field name="definition"/>
-      </search>
-    </field>
-  </record>
-
-
   <record id="bms_oslo_enumeration_values_form" model="ir.ui.view">
     <field name="name">bms.oslo_enumeration_values.form</field>
     <field name="model">bms.oslo_enumeration_values</field>
@@ -269,55 +240,6 @@
       </form>
     </field>
   </record>
-  <!-- 
-
-  <record id="bms_oslo_generic_model_tree" model="ir.ui.view">
-    <field name="name">bms.oslo_generic_model.tree</field>
-    <field name="model">bms.oslo_generic_model</field>
-    <field name="arch" type="xml">
-      <tree>
-        <field name="name"/>
-        <field name="object_id"/>
-        <field name="object_type_id" />
-        <field name="oslo_attributen_ids"/>
-        <field name="otl_name" invisible="1"/>
-        <field name="otl_type_internal_id" invisible="1"/>
-        <field name="oslo_enumeration_values_ids" domain="[('enumeration_id', '=', oslo_attributen_ids)]"/>
-        
-      </tree>
-    </field>
-  </record> -->
-
-  <!-- <record id="bms_oslo_generic_model_form" model="ir.ui.view">
-    <field name="name">bms.oslo_generic_model.form</field>
-    <field name="model">bms.oslo_generic_model</field>
-    <field name="arch" type="xml">
-      <form>
-        <group>
-           <field name="name"/> 
-          <field name="object_id"/>
-          <field name="object_type_id" domain="[('otl_name', '=', 'awv otl')]"/>
-        </group>
-      </form>
-      <tree>
-        <field name="oslo_attributen_ids" domain="attributen_ids_domain"/>
-        <field name="attributen_ids_domain"/>
-
-
-        <field name="oslo_enumeration_values_ids" domain="enumeration_values_ids_domain"/>
-        <field name="enumeration_values_ids_domain" />
-
-        <field name="otl_type_internal_id" readonly="1"/>
-        <field name="otl_name" invisible="1"/>
-        <field name="otl_type_internal_id" invisible="1"/>
-        <field name="type" invisible="1" />
-       <field name="">
-        <field name="">
-        <field name=""> 
-      </tree>
-    </field>
-  </record> -->
-
 
 
   <!-- actions -->
@@ -345,8 +267,6 @@
     <field name="view_mode">tree</field>
   </record>
 
-
-
   <record id="bms_oslo_attributen_value_action" model="ir.actions.act_window">
     <field name="name">Oslo attributen value</field>
     <field name="res_model">bms.oslo_attributen_value</field>
@@ -359,20 +279,17 @@
     <field name="view_mode">tree</field>
   </record>
 
-
   <record id="bms_oslo_datatype_complex_action" model="ir.actions.act_window">
     <field name="name">OSLO Datatype Complex</field>
     <field name="res_model">bms.oslo_datatype_complex</field>
     <field name="view_mode">tree</field>
   </record>
 
-
   <record id="bms_oslo_datatype_complex_attributen_action" model="ir.actions.act_window">
     <field name="name">OSLO Datatype Complex Attributen</field>
     <field name="res_model">bms.oslo_datatype_complex_attributen</field>
     <field name="view_mode">tree</field>
   </record>
-
 
   <record id="bms_oslo_datatype_union_action" model="ir.actions.act_window">
     <field name="name">OSLO Datatype Union</field>
@@ -399,39 +316,23 @@
   </record>
 
 
-  <!-- <record id="bms_oslo_generic_model_action" model="ir.actions.act_window">
-    <field name="name">OSLO generic model</field>
-    <field name="res_model">bms.oslo_generic_model</field>
-    <field name="view_mode">form</field>
-  </record> -->
-
-  <!-- <record id="bms_import_value_list_action" model="ir.actions.server">
-        <field name="name">Text to display as menu item</field>
-        <field name="model_id" ref="bms.oslo_enumeration_values"/> 
-        <field name="state">code</field>
-        <field name="code">action = model.import_value_list()</field>
-
-</record> -->
-
   <!-- menu -->
   <menuitem id="bms_awv" parent="bms_root" name="AWV OTL" sequence ="50" groups="base.group_user" />
-  <menuitem id="bms_awv_oslo_class" parent="bms_awv" name="OsloClass" groups="base.group_user" sequence="10" action="bms_oslo_class_action"/>
-  <menuitem id="bms_awv_oslo_attributen" parent="bms_awv" name="OsloAttributen" groups="base.group_user" sequence="20" action="bms_oslo_attributen_action"/>
-  <menuitem id="bms_awv_oslo_datatype_primitive" parent="bms_awv" name="OsloDatatypePrimitive" groups="base.group_user" sequence="30" action="bms_oslo_datatype_primitive_action"/>
-  <menuitem id="bms_awv_oslo_datatype_primitive_attributen" parent="bms_awv" name="OsloDatatypePrimitiveAttributen" groups="base.group_user" sequence="40" action="bms_oslo_datatype_primitive_attributen_action"/>
-  <menuitem id="bms_awv_oslo_enumeration" parent="bms_awv" name="OsloEnumeration" groups="base.group_user" sequence="41" action="bms_oslo_enumeration_action"/>
-  <menuitem id="bms_awv_oslo_datatype_complex" parent="bms_awv" name="OsloDatatypeComplex" groups="base.group_user" sequence="42" action="bms_oslo_datatype_complex_action"/>
-  <menuitem id="bms_awv_oslo_datatype_complex_attributen" parent="bms_awv" name="OsloDatatypeComplexAttributen" groups="base.group_user" sequence="43" action="bms_oslo_datatype_complex_attributen_action"/>
-  <menuitem id="bms_awv_oslo_datatype_union" parent="bms_awv" name="OsloDatatypeUnion" groups="base.group_user" sequence="44" action="bms_oslo_datatype_union_action"/>
-  <menuitem id="bms_awv_oslo_datatype_union_attributen" parent="bms_awv" name="OsloDatatypeUnionAttributen" groups="base.group_user" sequence="45" action="bms_oslo_datatype_union_attributen_action"/>
-  <menuitem id="bms_awv_oslo_type_link_tabel" parent="bms_awv" name="OsloTypeLinkTabel" groups="base.group_user" sequence="47" action="bms_oslo_type_link_tabel_action"/>
-  <menuitem id="bms_awv_oslo_enumeration_values" parent="bms_awv" name="Oslo enumeration values" groups="base.group_user" sequence="48" action="bms_oslo_enumeration_values_action"/>
-  <menuitem id="bms_awv_oslo_attributen_value" parent="bms_awv" name="Oslo Attributen Value" groups="base.group_user" sequence="50" action="bms_oslo_attributen_value_action"/>
-  <!-- <menuitem id="bms_awv_oslo_generic_model" parent="bms_awv" name="Oslo generic model" groups="base.group_user" sequence="60" action="bms_oslo_generic_model_action"/> -->
-
-
-
-
-
+    <menuitem id="bms_awv_original_data" parent="bms_awv" name="Original data" sequence ="10" groups="base.group_user" />
+      <menuitem id="bms_awv_oslo_attributen" parent="bms_awv_original_data" name="OsloAttributen" groups="base.group_user" sequence="110" action="bms_oslo_attributen_action"/>
+      <menuitem id="bms_awv_oslo_class" parent="bms_awv_original_data" name="OsloClass" groups="base.group_user" sequence="120" action="bms_oslo_class_action"/>
+      <menuitem id="bms_awv_oslo_datatype_complex" parent="bms_awv_original_data" name="OsloDatatypeComplex" groups="base.group_user" sequence="130" action="bms_oslo_datatype_complex_action"/>
+      <menuitem id="bms_awv_oslo_datatype_complex_attributen" parent="bms_awv_original_data" name="OsloDatatypeComplexAttributen" groups="base.group_user" sequence="140" action="bms_oslo_datatype_complex_attributen_action"/>
+      <menuitem id="bms_awv_oslo_datatype_primitive" parent="bms_awv_original_data" name="OsloDatatypePrimitive" groups="base.group_user" sequence="150" action="bms_oslo_datatype_primitive_action"/>
+      <menuitem id="bms_awv_oslo_datatype_primitive_attributen" parent="bms_awv_original_data" name="OsloDatatypePrimitiveAttributen" groups="base.group_user" sequence="160" action="bms_oslo_datatype_primitive_attributen_action"/>
+      <menuitem id="bms_awv_oslo_datatype_union" parent="bms_awv_original_data" name="OsloDatatypeUnion" groups="base.group_user" sequence="170" action="bms_oslo_datatype_union_action"/>
+      <menuitem id="bms_awv_oslo_datatype_union_attributen" parent="bms_awv_original_data" name="OsloDatatypeUnionAttributen" groups="base.group_user" sequence="180" action="bms_oslo_datatype_union_attributen_action"/>
+      <menuitem id="bms_awv_oslo_enumeration" parent="bms_awv_original_data" name="OsloEnumeration" groups="base.group_user" sequence="190" action="bms_oslo_enumeration_action"/>
+      <menuitem id="bms_awv_oslo_type_link_tabel" parent="bms_awv_original_data" name="OsloTypeLinkTabel" groups="base.group_user" sequence="200" action="bms_oslo_type_link_tabel_action"/>
+    <menuitem id="bms_awv_processed_data" parent="bms_awv" name="Processed data" sequence ="20" groups="base.group_user" />  
+      <menuitem id="bms_attribute_definition" parent="bms_awv_processed_data" name="Oslo attribute definition" groups="base.group_user" sequence="10" action="bms_attribute_definition_action"/> 
+      <menuitem id="bms_awv_oslo_attributen_value" parent="bms_awv_processed_data" name="Oslo attribute value" groups="base.group_user" sequence="20" action="bms_oslo_attributen_value_action"/>
+      <menuitem id="bms_awv_oslo_enumeration_values" parent="bms_awv_processed_data" name="Oslo enumeration value" groups="base.group_user" sequence="30" action="bms_oslo_enumeration_values_action"/>
+      
 
 </odoo>
