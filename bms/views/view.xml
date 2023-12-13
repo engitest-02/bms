@@ -224,9 +224,9 @@
         <group>
           <field name="object_id_id" invisible="1"/>
           <field name="object_id" invisible="1"/>
-          <field name="decomposition_type_id" options="{'no_open': True}"/>
+          <field name="decomposition_type_id" options="{'no_open': True, 'no_create': True}"/>
           <field name="parent_object_id_id" readonly="1"/>
-          <field name="parent_object_id" options="{'no_open': True}" />
+          <field name="parent_object_id" options="{'no_open': True, 'no_create': True}" />
           <field name="tree_level" invisible="1"/>
           <field name="sibling_order" invisible="1"/>
         </group>

@@ -223,6 +223,31 @@
     </field>
   </record>
 
+
+    <record id="bms_oslo_enumeration_values_search_tree" model="ir.ui.view">
+    <field name="name">bms.oslo_enumeration_values_search.tree</field>
+    <field name="model">bms.oslo_enumeration_values</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="notation"/>
+        <field name="definition"/>
+        <field name="selection_id" widget="url" text="Go to AWV site" string="AWV url"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="bms_oslo_enumeration_values_search_filter" model="ir.ui.view">
+    <field name="name">bms.oslo_enumeration_values_search.filter</field>
+    <field name="model">bms.oslo_enumeration_values</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="notation"/>
+        <field name="definition"/>
+      </search>
+    </field>
+  </record>
+
+
   <record id="bms_oslo_enumeration_values_form" model="ir.ui.view">
     <field name="name">bms.oslo_enumeration_values.form</field>
     <field name="model">bms.oslo_enumeration_values</field>
