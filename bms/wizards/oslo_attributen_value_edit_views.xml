@@ -8,8 +8,8 @@
             <group>
                 <field name="object_id" readonly="1"/>
                 <field name="object_type_id" readonly="1"/>
-                <field name="attr_def_id" readonly="1"/>
-                <field name="attr_def_id_id" readonly="1"/>
+                <field name="attr_def_id" invisible="1"/>
+                <field name="attr_def_id_id" invisible="1"/>
                 <field name="attr_name" readonly="1"/>
                 <field name="attr_def" readonly="1" />
                 <field name="attr_def_datatype_definition" readonly="1"/>
@@ -26,9 +26,9 @@
                 <field name="value_float" attrs="{'invisible': [('attr_def_value_type', '!=', 'float')]}"/>
                 <field name="value_non_negative_integer" attrs="{'invisible': [('attr_def_value_type', '!=', 'non_negative_integer')]}"/>
                 
-                <field name="enumeration_value_id" domain="[('uri', '=', attr_def_uri)]" context="{'enum_display_notation': True}" 
-                       attrs="{'invisible': [('attr_def_value_type', '!=', 'enumeration')]}" />
-                <field name="value_enumeration" attrs="{'invisible': 1}"/> 
+                <field name="enumeration_value_id" domain="[('uri', '=', attr_def_uri)]" context="{'enum_display_notation': True, 'tree_view_ref': 'bms.bms_oslo_enumeration_values_search_tree'}" 
+                       attrs="{'invisible': [('attr_def_value_type', '!=', 'enumeration')]}" options="{'no-open': True, 'no_create': True}"/>
+                <field name="value_enumeration" attrs="{'invisible': 1}" /> 
                 
             </group>
         </form>
