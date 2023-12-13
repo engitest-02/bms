@@ -229,7 +229,6 @@
           <field name="parent_object_id" options="{'no_open': True}" />
           <field name="tree_level" invisible="1"/>
           <field name="sibling_order" invisible="1"/>
-          <!-- options="{'no_quick_create': True, 'no_create_edit': True, 'no_open': True}" -->
         </group>
       </form>
     </field>

@@ -16,7 +16,7 @@ class DecompositionRelationship(models.Model):
     
     object_id = fields.Many2one(comodel_name="bms.maintainance_object", ondelete='cascade')
     parent_object_id = fields.Many2one(comodel_name="bms.maintainance_object", ondelete="set null", string="parent name")
-    decomposition_type_id = fields.Many2one(comodel_name="bms.decomposition_type", ondelete="set null", string="Decomposition name")
+    decomposition_type_id = fields.Many2one(comodel_name="bms.decomposition_type", ondelete="set null", string="Decomposition name", default=1)
 
 
     @api.constrains("object_id","decomposition_type_id","parent_object_id")
