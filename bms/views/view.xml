@@ -7,15 +7,23 @@
     <field name="model">bms.maintainance_object</field>
     <field name="arch" type="xml">
       <tree>
-        <field name="id"/>
+        <field name="mo_id" />
+        <field name="mo_semantic_id"/>
+        <field name="name"/>
+      </tree>
+    </field>
+  </record>
+
+
+  <record id="bms_object_view_filter" model="ir.ui.view">
+    <field name="name">bms.object.filter</field>
+    <field name="model">bms.maintainance_object</field>
+    <field name="arch" type="xml">
+      <search>
         <field name="name"/>
         <field name="mo_id"/>
-        <field name="msa_unique_id"/>
         <field name="mo_semantic_id"/>
-        <field name="awv_type_not_found"/>
-        <field name="bo_temporary_type"/>
-        <field name="mo_semantic_id"/>
-      </tree>
+      </search>
     </field>
   </record>
 
@@ -90,14 +98,14 @@
             </group>
             <newline/>
             <group col="12" string="Management">
-             <group colspan="12">
-             <field name="is_managing_level"/>
-             
-                </group>
+              <group colspan="12">
+                <field name="is_managing_level"/>
+
+              </group>
               <newline/>
               <group colspan="6">
                 <field name="managing_org_id" attrs="{'invisible': [('is_managing_level', '=', False)]}"/>
-                <field name="inherited_managing_org_id" attrs="{'invisible': [('is_managing_level', '=', True)]}"/> 
+                <field name="inherited_managing_org_id" attrs="{'invisible': [('is_managing_level', '=', True)]}"/>
                 <field name="contract_mgr_lantis" attrs="{'invisible': [('is_managing_level', '=', False)]}"/>
                 <field name="inherited_contract_mgr_lantis" attrs="{'invisible': [('is_managing_level', '=', True)]}"/>
                 <field name="maintainance_mgr_lantis" attrs="{'invisible': [('is_managing_level', '=', False)]}"/>
@@ -107,7 +115,8 @@
               </group>
               <group colspan="6">
                 <field name="managing_org_contact" attrs="{'invisible': [('is_managing_level', '=', False)]}"/>
-                <field name="inherited_managing_org_contact" attrs="{'invisible': [('is_managing_level', '=', True)]}"/> -->
+                <field name="inherited_managing_org_contact" attrs="{'invisible': [('is_managing_level', '=', True)]}"/>
+ -->
                 <field name="contract_mgr_contractor" attrs="{'invisible': [('is_managing_level', '=', False)]}"/>
                 <field name="inherited_contract_mgr_contractor" attrs="{'invisible': [('is_managing_level', '=', True)]}"/>
                 <field name="maintainance_mgr_contractor" attrs="{'invisible': [('is_managing_level', '=', False)]}"/>
