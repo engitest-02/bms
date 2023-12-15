@@ -26,19 +26,19 @@ class ObjectType(models.Model):
     )
 
 
-    @api.model
-    def get_object_type(self, ids):
-        result = self.browse(ids)
-        return result
+    # @api.model
+    # def get_object_type(self, ids):
+    #     result = self.browse(ids)
+    #     return result
 
-    @api.model
-    def get_oslo_attr_def(self, id):
-        """
-        Function not loosly coupled. Take the assumption that the OTL type is AWV OSLO. 
-        TODO:fixme
-        """
+    # @api.model
+    # def get_oslo_attr_def(self, id):
+    #     """
+    #     Function not loosly coupled. Take the assumption that the OTL type is AWV OSLO. 
+    #     TODO:fixme
+    #     """
 
-        object_type_rec = self.browse(id)
-        domain=[('oslo_class_uri', '=', object_type_rec.type_internal_id)]
-        attributen_recs = self.env["bms.awv_attributen_primitive_datatype"].search(domain)
-        return attributen_recs
+    #     object_type_rec = self.browse(id)
+    #     domain=[('oslo_class_uri', '=', object_type_rec.type_internal_id)]
+    #     attributen_recs = self.env["bms.awv_attributen_primitive_datatype"].search(domain)
+    #     return attributen_recs
