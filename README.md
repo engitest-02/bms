@@ -98,6 +98,14 @@ NOTICE:  truncate cascades to table "bms_oslo_attributen_value_edit"
 2. Import .xlsx into Agent table into main environment
 3. Delete the 7 B&O members from the maintainance_object table
 
+## Populate ``bms.attribute_visualisation`` table ##
+1. Check there is no record yet
+2. Run query: 
+``` 
+insert into bms_attribute_visualisation(label_nl, uri)
+SELECT distinct label_nl, uri
+FROM bms_oslo_attributen;
+ ```
 
 # TODO # 
 ## Technical ##
