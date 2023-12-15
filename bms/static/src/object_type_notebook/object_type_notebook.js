@@ -8,6 +8,8 @@ var core = require('web.core');
 
 
 export class ObjectTypeNotebook extends Component {
+    // widget for field object_type_ids of bms.maintainance_object
+
     // only 1 type admitted and of AWV OTL. IF more than one type nothing is displayed !!!
     setup() {
         this.orm = useService("orm");
@@ -23,24 +25,13 @@ export class ObjectTypeNotebook extends Component {
         this.existingOtls;
         
         onWillUpdateProps(async nextProps => {
-            //this.objectId = nextProps.record.data.id;
             if (this.objectId != nextProps.record.data.id) {// rerender OTL notebook if another object has been changed
                 this._setup_objectType(nextProps.record.data.object_type_ids.records)
                 this.render()
                 this.objectId = nextProps.record.data.id
                 this.currentObjectId = this.objectId
                 
-                // console.log("object_type_notebook component - willUpdateProps done", this.objectId,  this.objectTypeId)
-            }
-            // this part of code detect the changes on all the fields of an Maintainance_Objects
-            // else if (this.currentData.display_name != nextProps.record.data.display_name) {// rerender decomposition if props of current object have changed
-                
-            //     core.bus.trigger('maintainance_object_changed', nextProps.record.data.id);
-            //     console.log("object_type_notebook bus triggered", nextProps.record.data.id, "current", this.currentData, "nextProps", nextProps.record.data, "env", this.env.model.root.data)
-            //     this.currentData = nextProps.record.data
-            // }
-            
-            
+            }           
         })
 
         onMounted(() => {
@@ -52,7 +43,6 @@ export class ObjectTypeNotebook extends Component {
     }
 
     changeOtlAndType() {
-        //console.log("changeOtlAndType called");
         if (this.objectId == null) { // maintainance object is new => first must be saved
             var Dialog = require('web.Dialog')
             Dialog.alert(
@@ -77,7 +67,6 @@ export class ObjectTypeNotebook extends Component {
                 context = { 'default_otl': this.otlId,
                             ...context};
             }
-            //console.log("this", this)
             const action = {"type": "ir.actions.act_window",
                             "res_model": "bms.otl_type",
                             "views": [[false, "form"]],

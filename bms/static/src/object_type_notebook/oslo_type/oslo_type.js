@@ -6,6 +6,8 @@ import { OsloDatatypeIterative } from "./oslo_datatype_iterative";
 var rpc = require('web.rpc');
 
 export class OsloType extends Component {
+    // customized the visualisation and editing of the object_types and its attributes
+
     setup() {
         this.orm = useService("orm");
         this.actionService = useService("action");
@@ -22,6 +24,7 @@ export class OsloType extends Component {
         onWillStart(async () => {
             const data = await this._loadAttrDefinition(this.classUri);
             this.attrDefs = JSON.parse(data)
+            console.log("oslo_type attrDefs:", this.attrDefs)
         })
 
         onWillUpdateProps(async (nextProps) => {  
