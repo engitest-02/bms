@@ -1,5 +1,7 @@
 # custom-made models
 from . import attribute_definition
+from . import attribute_visualisation
+from . import attribute_widget
 from . import decomposition_relationship
 from . import decomposition_type
 from . import maintainance_object

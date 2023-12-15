@@ -30,15 +30,7 @@ class AWVPrimitiveDatypeAttributes(models.Model):
             """
             % (self._table, self._select(), self._from())
         )
-        # import pprint
-        # print("""
-        
-        #         SELECT %s
-        #         FROM %s
 
-        #         ;
-        #     """
-        #     % (self._select(), self._from()))
 
     @api.model
     def _select(self):
