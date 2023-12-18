@@ -15,7 +15,6 @@ export class ObjectTypeNotebook extends Component {
         this.orm = useService("orm");
         this.actionService = useService("action");
         
-        
         this.objectId = this.props.record.data.id;
         this._setup_objectType(this.props.record.data.object_type_ids.records)
       
@@ -27,7 +26,7 @@ export class ObjectTypeNotebook extends Component {
         onWillUpdateProps(async nextProps => {
             if (this.objectId != nextProps.record.data.id) {// rerender OTL notebook if another object has been changed
                 this._setup_objectType(nextProps.record.data.object_type_ids.records)
-                this.render()
+                //this.render()
                 this.objectId = nextProps.record.data.id
                 this.currentObjectId = this.objectId
                 

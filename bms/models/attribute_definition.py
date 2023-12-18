@@ -1,6 +1,6 @@
 from typing import Any
 from odoo import models, fields, api
-
+import datetime
 
 class AttributeDefinition(models.Model):
     _name = "bms.attribute_definition"
@@ -109,7 +109,6 @@ class AwvDatatypePrimitive(AttributeDefinitionRecord):
         domain = [("class_uri", "=", self.attr_def['uri'])]
         datatype_primitive_attr_recs = self.model.env["bms.oslo_datatype_primitive_attributen"].search(domain)
         for datatype_primitive_attr_rec in datatype_primitive_attr_recs:
-            # breakpoint()
             AttributeDefinitionRecord(
                 self.model,
                 datatype_primitive_attr_rec, parent_id, parent_uri,
@@ -236,7 +235,8 @@ class JSONAttrDef:
                 "attr_datatype": attribute_rec.oslo_datatype,
                 "attr_datatype_def":[]
             }
-            datatype_rec = self._get_children(attribute_rec.id)
+
+            datatype_rec = self._get_children(attribute_rec.id)       
             
             # for datatype_rec in datatype_recs:
             match datatype_rec.oslo_datatype:#OSLODatatype
@@ -255,7 +255,7 @@ class JSONAttrDef:
                 case default:
                     msg = """Oslo attribute_type '{0}' unknown. ('{1}')  Check TypeLinkTabel in OSLO sqlite database. Tip: 'select distinct item_tabel
                         from TypeLinkTabel' """.format(
-                        str(attribute_rec.oslo_datatype, attribute_rec.uri)
+                        str(attribute_rec.oslo_datatype), str(attribute_rec.uri)
                     )
                     raise Exception(msg)
 
@@ -383,6 +383,8 @@ class JSONAttrDef:
 
     def _get_attributes(self):
         """ Get OSLOAttributen of OSLOClass based on class_uri"""
-        domain = [("parent_uri", "=", self.oslo_class_uri)]
-        attr_def_recs = self.model.env["bms.attribute_definition"].search(domain)
-        return attr_def_recs
+
+        domain = [("class_uri", "=", self.oslo_class_uri)]
+        attr_def_recs = self.model.env["bms.attr_visibility_widget"].get_attr(self.oslo_class_uri)
+        
+        return  attr_def_recs

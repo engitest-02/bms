@@ -24,3 +24,4 @@ bms.access_bms_agent,access_bms_agent,bms.model_bms_agent,base.group_user,1,1,1,
 bms.access_bms_organisation,access_bms_organisation,bms.model_bms_organisation,base.group_user,1,1,1,1
 bms.access_bms_attribute_widget,access_bms_attribute_widget,bms.model_bms_attribute_widget,base.group_user,1,1,1,1
 bms.access_bms_attribute_visualisation,access_bms_attribute_visualisation,bms.model_bms_attribute_visualisation,base.group_user,1,1,1,1
+bms.access_bms_attr_visibility_widget,access_bms_attr_visibility_widget,bms.model_bms_attr_visibility_widget,base.group_user,1,0,0,0

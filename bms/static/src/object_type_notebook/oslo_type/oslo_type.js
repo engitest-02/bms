@@ -38,7 +38,7 @@ export class OsloType extends Component {
                 const data = await this._loadAttrDefinition(this.classUri);
                 this.attrDefs = JSON.parse(data)
 
-                this.render();
+                // this.render();
                 this.currentObjectId = this.objectId;       
             }
         })      
