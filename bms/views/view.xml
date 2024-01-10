@@ -41,6 +41,8 @@
     </field>
   </record>
 
+
+
   <record id="bms_maintainance_object_view_form" model="ir.ui.view">
     <field name="name">bms.maintainance_object.form</field>
     <field name="model">bms.maintainance_object</field>
@@ -164,7 +166,7 @@
         <field name="name"/>
         <field name="definition"/>
         <field name="otl_id"/>
-        <field name="otl_type_internal_id" />
+        <field name="otl_type_internal_id" widget="url"/>
       </tree>
     </field>
   </record>
@@ -174,7 +176,6 @@
     <field name="model">bms.object_type</field>
     <field name="arch" type="xml">
       <form string="Object type library">
-
         <group>
           <field name="name"/>
           <field name="definition"/>
@@ -184,6 +185,18 @@
     </field>
   </record>
 
+
+   <record id="bms_object_type_filer" model="ir.ui.view">
+    <field name="name">bms.object_type.filter</field>
+    <field name="model">bms.object_type</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name"/>
+        <field name="definition"/>
+        <field name="otl_type_internal_id"/>
+      </search>
+    </field>
+  </record>
 
   <record id="bms_decompostion_relationship_tree" model="ir.ui.view">
     <field name="name">bms.decomposition_relationship.tree</field>

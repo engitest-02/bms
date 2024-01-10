@@ -13,7 +13,6 @@ export class DefaultWidget extends Component {
             this._asssign_props_value(nextProps)
         })
 
-        console.log("DefaulWidegt setup", this.attr_defs)
     }
 
     _asssign_props_value(props){
@@ -23,8 +22,6 @@ export class DefaultWidget extends Component {
     }
 
 }
-
-
 
 DefaultWidget.template = "bms.default_widget"
 DefaultWidget.components = {OsloDatatypePrimitiveEnumeration, OsloDatatypeIterative }
