@@ -10,3 +10,6 @@ class AttributeWidget(models.Model):
     name = fields.Char(string="name")#for the user
     js_component_name = fields.Char(string="JS component")# name of the Javascript component which will be used by the front-end JS code
     description = fields.Char(string="description")
+
+    #relationship
+    attr_visualisation_id = fields.One2many(comodel_name="bms.attribute_visualisation", inverse_name="widget_id")

@@ -62,6 +62,18 @@
     </field>
   </record>
 
+  <record id="bms_oslo_attributen_filter" model="ir.ui.view">
+    <field name="name">bms.oslo_attributen.filter</field>
+    <field name="model">bms.oslo_attributen</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name"/>
+        <field name="uri"/>
+        <field name="definition_nl"/>
+        <field name="class_uri"/>
+      </search>
+    </field>
+  </record>
 
   <record id="bms_oslo_datatype_primitive" model="ir.ui.view">
     <field name="name">bms.oslo_datatype_primitive.tree</field>

@@ -14,5 +14,5 @@ class AttributeVisualisation(models.Model):
     invisible = fields.Boolean(string="invisible", default=False)
 
     #relationship
-    widget_id = fields.Many2one(comodel_name="bms.attribute_widget", string="widget")
+    widget_id = fields.Many2one(comodel_name="bms.attribute_widget", string="widget", ondelete="set null")
 
