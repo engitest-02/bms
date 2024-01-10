@@ -32,10 +32,13 @@ class AttributeDefinition(models.Model):
     @api.model
     def get_att_def(self, class_id):
         data = JSONAttrDef(self, class_id).get_data()
-        data_2 = JSONAttrDef(self, class_id).get_data_2()
-        from pprint import pprint
-        pprint(data_2)
         return data
+    
+    # # to merge with get_att_def
+    # @api.model
+    # def get_att_def_2(self, class_id):
+    #     data = JSONAttrDef(self, class_id).get_data_2()
+    #     return data
 
 
 # utility classes
@@ -220,61 +223,61 @@ class JSONAttrDef:
         self.model = model
         self.oslo_class_uri = oslo_class_uri  # TODO [0] only for testing
         self.attr_def = self._generate_json()
-        self.attr_def_2 = self._generate_json_2()
+        # self.attr_def_2 = self._generate_json_2()
 
     def get_data(self):
         import json
         return json.dumps(self.attr_def)
 
     
-    def get_data_2(self):
-        import json
-        return json.dumps(self.attr_def_2)
+    # def get_data_2(self):
+    #     import json
+    #     return json.dumps(self.attr_def_2)
+
+    # def _generate_json(self):
+    #     attr_defs = {"oslo_class_uri": self.oslo_class_uri,
+    #                  "attributes": []} #OSLOClass
+    #     attribute_recs = self._get_attributes()
+    #     if len(attribute_recs) == 0:
+    #         return attr_defs
+    #     for attribute_rec in attribute_recs:
+    #         attr_def = { #OSLOAttributen
+    #             "attr_name": attribute_rec.label_nl,
+    #             "attr_definition_nl": attribute_rec.definition_nl,
+    #             "attr_datatype": attribute_rec.oslo_datatype,
+    #             "attr_datatype_def":[]
+    #         }
+
+    #         datatype_rec = self._get_children(attribute_rec.id)       
+            
+    #         # for datatype_rec in datatype_recs:
+    #         match datatype_rec.oslo_datatype:#OSLODatatype
+    #             case "OSLODatatypePrimitive":
+    #                 attr_def["attr_datatype_def"] = self._format_datatype_primitive(datatype_rec)
+    #             case "OSLOEnumeration":
+    #                 attr_def["attr_datatype_def"] = self._format_datatype_enumeration(datatype_rec)
+
+    #             case "OSLODatatypeComplex":
+    #                 attr_def["attr_datatype_def"] = self._format_datatype_iterative(datatype_rec)
+
+    #             case "OSLODatatypeUnion":
+    #                 attr_def["attr_datatype_def"] = self._format_datatype_iterative(datatype_rec) 
+
+    #             case default:
+    #                 msg = """Oslo attribute_type '{0}' unknown. ('{1}')  Check TypeLinkTabel in OSLO sqlite database. Tip: 'select distinct item_tabel
+    #                     from TypeLinkTabel' """.format(
+    #                     str(attribute_rec.oslo_datatype), str(attribute_rec.uri)
+    #                 )
+    #                 raise Exception(msg)
+
+    #         attr_defs["attributes"].append(attr_def)
+
+    #     return attr_defs
+
 
     def _generate_json(self):
-        attr_defs = {"oslo_class_uri": self.oslo_class_uri,
-                     "attributes": []} #OSLOClass
-        attribute_recs = self._get_attributes()
-        if len(attribute_recs) == 0:
-            return attr_defs
-        for attribute_rec in attribute_recs:
-            attr_def = { #OSLOAttributen
-                "attr_name": attribute_rec.label_nl,
-                "attr_definition_nl": attribute_rec.definition_nl,
-                "attr_datatype": attribute_rec.oslo_datatype,
-                "attr_datatype_def":[]
-            }
-
-            datatype_rec = self._get_children(attribute_rec.id)       
-            
-            # for datatype_rec in datatype_recs:
-            match datatype_rec.oslo_datatype:#OSLODatatype
-                case "OSLODatatypePrimitive":
-                    attr_def["attr_datatype_def"] = self._format_datatype_primitive(datatype_rec)
-                case "OSLOEnumeration":
-                    attr_def["attr_datatype_def"] = self._format_datatype_enumeration(datatype_rec)
-
-                case "OSLODatatypeComplex":
-                    attr_def["attr_datatype_def"] = self._format_datatype_iterative(datatype_rec)
-
-                case "OSLODatatypeUnion":
-                    attr_def["attr_datatype_def"] = self._format_datatype_iterative(datatype_rec) 
-
-                case default:
-                    msg = """Oslo attribute_type '{0}' unknown. ('{1}')  Check TypeLinkTabel in OSLO sqlite database. Tip: 'select distinct item_tabel
-                        from TypeLinkTabel' """.format(
-                        str(attribute_rec.oslo_datatype), str(attribute_rec.uri)
-                    )
-                    raise Exception(msg)
-
-            attr_defs["attributes"].append(attr_def)
-
-        return attr_defs
-
-
-    def _generate_json_2(self):
             attr_defs = {"oslo_class_uri": self.oslo_class_uri,
-                        "attr_widget": {}} #OSLOClass
+                        "widget_attrs": []} #OSLOClass
             attribute_recs = self._get_attributes()
             
 
@@ -282,9 +285,10 @@ class JSONAttrDef:
                 return attr_defs
             
             widgets = {attr_rec.js_component_name for attr_rec in attribute_recs}
-            
+            attr_defs_tmp = {"widget_attrs":{}}
             for widget in widgets:
-                attr_defs["attr_widget"].update({ widget: []})
+                attr_defs_tmp["widget_attrs"].update({ widget: []})
+
 
             for attribute_rec in attribute_recs:
                 attr_def = { #OSLOAttributen
@@ -317,7 +321,11 @@ class JSONAttrDef:
                         )
                         raise Exception(msg)
 
-                attr_defs["attr_widget"][attribute_rec.js_component_name].append(attr_def)
+                attr_defs_tmp["widget_attrs"][attribute_rec.js_component_name].append(attr_def)
+
+            for key, val in attr_defs_tmp["widget_attrs"].items(): #reformat ouput
+                widget_attrs = {"widget_name": key, "attr_defs": val}
+                attr_defs["widget_attrs"].append(widget_attrs)
 
             return attr_defs
 
@@ -380,7 +388,7 @@ class JSONAttrDef:
         """datatype_rec: a datatype Complex or datatypeUnion (ex: DtcIdentificator of attribute Asset Id)
         
             for each ComplexAttributes (datatype_attr_rec) (ex Identificator, toegekendDoor)
-                for each datatype of any king (datatype_child_rec) (ex Datatype Primitive, DatatypePrimitive)  
+                for each datatype of any kind (datatype_child_rec) (ex Datatype Primitive, DatatypePrimitive)  
                     append attributes to complex attribute
                     create ComplexAttribute dict (datatype_child_def) and append iterative_attributes {Identificator, attributes=[DatatypePrimitive]}
                 Create Complex dict and append iteratives attributes {DtcIdentificator, iterative_attributes: [{Identificator,...}, {ToegekendDoor,...}]
@@ -433,8 +441,6 @@ class JSONAttrDef:
 
     def _get_children(self, parent_id):
         domain = [("parent_id", "=", parent_id)]
-        # print("domain", domain, "parent id = ", parent_id)
-        # breakpoint()
         return self.model.env["bms.attribute_definition"].search(domain)
 
     def _get_enumeration_values(self, enumeration_uri):
