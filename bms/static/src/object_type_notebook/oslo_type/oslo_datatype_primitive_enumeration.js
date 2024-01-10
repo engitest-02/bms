@@ -8,7 +8,6 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
     setup(){
         this.actionService = useService("action")
         this.ormService = useService("orm")
-
         this.attrValueToDisplay;       
 
         onWillStart(async () =>{
@@ -33,6 +32,7 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
     }
 
     changeAttrValue(){
+        console.log("changeAttrValue called")
         var context = {
             'default_object_id': this.objectId,
             'default_object_type_id': this.objectTypeId,
@@ -54,7 +54,7 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
                     'default_value_non_negative_integer': this.attrValueRec.value_non_negative_integer,
                     'default_enumeration_value_id':  this.attrValueRec.enumeration_value_id? this.attrValueRec.enumeration_value_id[0]:false}
         }
-        console.log("oslo_datatype_primitive_enumeration", context)
+        console.log("oslo_datatype_primitive_enumeration context", context)
         this.actionService.doAction(
             {
                 "type": "ir.actions.act_window",

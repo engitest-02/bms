@@ -19,14 +19,21 @@
             <hr></hr>
         </div>
         <div>
-            <t t-foreach="attrDefs.attributes" t-as="attribute" t-key="attribute.attr_name">
+            <t t-foreach="attrDefs.widget_attrs"  t-as="widget_attr" t-key="widget_attr.widget_name">
+                <t t-component="widget_attr.Component" attr_defs="widget_attr.attr_defs" objectId="objectId" objectTypeId="objectTypeId"/> 
+            </t>
+        </div>
+        <div>
+            <!-- <t t-foreach="attrDefs.attributes" t-as="attribute" t-key="attribute.attr_name">
                 <t t-if="attribute.attr_datatype_def.attr_datatype != 'OSLODatatypeComplex' and attribute.attr_datatype_def.attr_datatype != 'OSLODatatypeUnion' ">
                     <OsloDatatypePrimitiveEnumeration attr="attribute" objectId="objectId" objectTypeId="objectTypeId"/>
                 </t>
                 <t t-if="attribute.attr_datatype_def.attr_datatype == 'OSLODatatypeComplex' or attribute.attr_datatype_def.attr_datatype == 'OSLODatatypeUnion' ">
                     <OsloDatatypeIterative attr="attribute" objectId="objectId" objectTypeId="objectTypeId"/>
                 </t>
-            </t>
+            </t> -->
+
+
         </div>
     </t>
 </templates>

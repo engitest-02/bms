@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="bms.address" owl="1">
+        <div>
+        <span style="color:red;">Address component (address.js) is activated! It needs to be further implemented !!!</span>   
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="bms.default_widget" owl="1">
+        <t t-foreach="attr_defs" t-as="attribute" t-key="attribute.attr_name">
+            <div>
+                <t t-if="attribute.attr_datatype_def.attr_datatype != 'OSLODatatypeComplex' and attribute.attr_datatype_def.attr_datatype != 'OSLODatatypeUnion' ">
+                    <OsloDatatypePrimitiveEnumeration attr="attribute" objectId="objectId" objectTypeId="objectTypeId"/>
+                </t>
+                <t t-if="attribute.attr_datatype_def.attr_datatype == 'OSLODatatypeComplex' or attribute.attr_datatype_def.attr_datatype == 'OSLODatatypeUnion' ">
+                    <OsloDatatypeIterative attr="attribute" objectId="objectId" objectTypeId="objectTypeId"/>
+                </t>
+            </div>
+        </t>
+    </t>
+</templates>
+
