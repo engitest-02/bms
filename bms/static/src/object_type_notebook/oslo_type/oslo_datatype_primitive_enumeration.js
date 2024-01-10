@@ -14,21 +14,20 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
         onWillStart(async () =>{
             this._asssign_props_value(this.props)
             const attrValueRecs = await this._load_attribute_value()
-            console.log("primitive onWillStart", this.objectId, "attValueRecs", attrValueRecs)
+            // console.log("primitive onWillStart", this.objectId, "attValueRecs", attrValueRecs)
             this._setup_value(this.props, attrValueRecs)
             this.currentObjectId = this.objectId
             
         })
         onWillUpdateProps(async (nextProps) => {         
             this._asssign_props_value(nextProps)
-            console.log("primitive onWillUpdateProps", "current_object", this.currentObjectId, "objectID", this.objectId, this.currentObjectId != this.objectId)
+            // console.log("primitive onWillUpdateProps", "current_object", this.currentObjectId, "objectID", this.objectId, this.currentObjectId != this.objectId)
             if (this.currentObjectId != this.objectId){
                 this.currentObjectId = this.objectId
                 const attrValueRecs = await this._load_attribute_value()
                 this._setup_value(this.props, attrValueRecs)
                 // this.currentObjectId = this.objectId
                 this.render()
-                console.log("primitive onWillUpdateProps", "attValueRecs", attrValueRecs)
             }
         })
     }
@@ -90,8 +89,6 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
         this.attrDefDatatypeDef = props.attr.attr_datatype_def.attr_name
         this.attrDefValueType = props.attr.attr_datatype_def.attr_value_type
         this.attrOsloDatatype = props.attr.attr_datatype_def.attr_datatype
-
-        console.log("_assign_props_value done")
     }
 
     _setup_value(props, attrValueRecs){
@@ -115,8 +112,6 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
                     }
             })
         } 
-        console.log("_setup_value done", "value to display", this.attrValueToDisplay)
-
     }
     
     _format_unit(unit){
@@ -134,7 +129,6 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
         const domain=[["object_id", "=", this.objectId], 
                 ["object_type_id","=",this.objectTypeId],
                 ["attr_def_id", "=", this.attrDefId]];
-        console.log("primitive load attr domain", domain)
         const attValueRec = await this.ormService.searchRead("bms.oslo_attributen_value", domain) 
         return attValueRec
     }

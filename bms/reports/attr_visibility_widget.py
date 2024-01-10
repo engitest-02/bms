@@ -31,7 +31,7 @@ class AttrVisibilityWidget(models.Model):
                     , a.class_uri
                     , a.uri
                     , av.invisible
-                    , aw.js_component_name
+                    ,coalesce(aw.js_component_name, 'no_widget') as js_component_name
                     from bms_oslo_attributen a
                     inner join bms_attribute_definition ad on ad.parent_uri= a.class_uri and a.uri = ad.uri
                     inner join bms_attribute_visualisation av on a.uri = av.uri  and (av.invisible is false or av.invisible is null)
@@ -71,7 +71,10 @@ class AttrVisibilityWidget(models.Model):
                     , class_uri, uri, invisible, js_component_name, 
                  oslo_datatype, class_uri 
                  from bms_attr_visibility_widget 
-                 where class_uri = '{0}'""" .format(class_uri))
+                 where class_uri = '{0}' 
+                 order by js_component_name, label_nl 
+                 """.format(class_uri)
+                 )
         self.env.cr.execute(sql)
         
         recs = [Record(row) for row in self.env.cr.fetchall()]
