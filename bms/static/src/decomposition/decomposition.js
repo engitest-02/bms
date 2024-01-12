@@ -66,37 +66,12 @@ export class Decomposition extends Component {
                 }
             );
             this.decompositionTree1.activateKey(this.resId);
-
         })
     }
 
     loadClickedObjectId(ev, data){
         this.model.load({resId: parseInt(data.node.key)});
      }
-
-    // _is_data_changed(nextProps){
-    //     // if fieldIsDirty is false but currentData <> nextPropsn, a property has changed and the object has beens saved. 
-    //     // The use of is_dirty avoid to call the server before the data have been saved (JSONTreeView)
-    //     console.log("is_Data_changed", 
-    //     "nextProps.fieldIsDirty != null && !nextProps.fieldIsDirty ", nextProps.fieldIsDirty != null && !nextProps.fieldIsDirty,
-    //     "this.currentData.id == nextProps.model.root.data.id", this.currentData.id == nextProps.model.root.data.id,
-    //     "this.currentData.name != nextProps.model.root.data.name", this.currentData.name != nextProps.model.root.data.name,
-    //     "(this.currentData.is_managing_level != nextProps.model.root.data.is_managing_level" , this.currentData.is_managing_level != nextProps.model.root.data.is_managing_level
-    //     , "is_data_changed",  (nextProps.fieldIsDirty != null && this.fieldIdDirty != nextProps.fieldIsDirty) && 
-    //     (this.currentData.id == nextProps.model.root.data.id) && ( // we did not change of object
-    //     (this.currentData.name != nextProps.model.root.data.name) ||
-    //     (this.currentData.is_managing_level != nextProps.model.root.data.is_managing_level) )
-    //     ,"currentData",  this.currentData, "nextProps", nextProps.model.root.data);
-
-    //     if ( (nextProps.fieldIsDirty != null && this.fieldIdDirty != nextProps.fieldIsDirty) && 
-    //          (this.currentData.id == nextProps.model.root.data.id) && ( // we did not change of object
-    //          (this.currentData.name != nextProps.model.root.data.name) ||
-    //          (this.currentData.is_managing_level != nextProps.model.root.data.is_managing_level) )
-    //      ){
-            
-    //         return true
-    //     }
-    // }
 
     _loadDecompositionTypes() {
         return this.ormService.searchRead("bms.decomposition_type", [], []);

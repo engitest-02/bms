@@ -63,7 +63,7 @@ ul.fancytree-container {
   padding: 3px;
   margin: 0;
   background-color: white;
-  border: 1px dotted gray;
+  border-top: 1px dotted gray;
   min-height: 0%;
   position: relative;
 }
@@ -123,6 +123,7 @@ span.fancytree-drag-helper-img,
   background-repeat: no-repeat;
   background-image: url("../skin-win8/icons.gif");
   background-position: 0px 0px;
+
 }
 span.fancytree-icon,
 span.fancytree-checkbox,
@@ -137,6 +138,8 @@ span.fancytree-custom-icon {
   display: inline-block;
   margin-left: 3px;
   background-position: 0px 0px;
+  background-image: url("./block.svg");  /* odoo bms custom */
+  background-size: 16px 16px
 }
 /* Used by 'icon' node option: */
 img.fancytree-icon {
@@ -314,42 +317,71 @@ span.fancytree-checkbox.fancytree-radio:hover {
  *----------------------------------------------------------------------------*/
 span.fancytree-icon {
   margin-left: 3px;
-  background-position: 0px 0px;
+  /* background-position: 0px 0px; */
+  background-image: url("./block.svg");  /* odoo bms custom */
+  background-size: 12px 12px;
+  vertical-align: middle;
 }
 /* Documents */
 .fancytree-ico-c span.fancytree-icon:hover {
-  background-position: -16px 0px;
+  /* background-position: -16px 0px; */
+  background-image: url("./block.svg");  /* odoo bms custom */
+  background-size: 12px 12px;
+  vertical-align: middle;
 }
 .fancytree-has-children.fancytree-ico-c span.fancytree-icon {
-  background-position: -32px 0px;
+  /* background-position: -32px 0px; */
+    background-image: url("./block.svg");  /* odoo bms custom */
+    background-size: 12px 12px; 
+    vertical-align: middle;
 }
 .fancytree-has-children.fancytree-ico-c span.fancytree-icon:hover {
-  background-position: -48px 0px;
+  /* background-position: -48px 0px; */
+  background-image: url("./block.svg");  /* odoo bms custom */
+  background-size: 12px 12px;
 }
 .fancytree-ico-e span.fancytree-icon {
-  background-position: -64px 0px;
+  /* background-position: -64px 0px; */
+  background-image: url("./block.svg");  /* odoo bms custom */
+  background-size: 12px 12px;
+  vertical-align: middle;
 }
 .fancytree-ico-e span.fancytree-icon:hover {
-  background-position: -80px 0px;
+  /* background-position: -80px 0px; */
+  background-image: url("./block.svg");  /* odoo bms custom */
+  background-size: 16px 16px;
+  vertical-align: middle;
 }
 /* Folders */
 .fancytree-ico-cf span.fancytree-icon {
-  background-position: 0px -16px;
-}
+  /* background-position: 0px -16px; */
+  background-image: url("./blocks.svg"); /* odoo bms custom */
+  background-size: 16px 16px
+  }
 .fancytree-ico-cf span.fancytree-icon:hover {
-  background-position: -16px -16px;
+  /* background-position: -16px -16px; */
+  background-image: url("./blocks.svg");  /* odoo bms custom */
+  background-size: 16px 16px
 }
 .fancytree-has-children.fancytree-ico-cf span.fancytree-icon {
-  background-position: -32px -16px;
+  /* background-position: -32px -16px; */
+  background-image: url("./blocks.svg");  /* odoo bms custom */
+  background-size: 16px 16px
 }
 .fancytree-has-children.fancytree-ico-cf span.fancytree-icon:hover {
-  background-position: -48px -16px;
+  /* background-position: -48px -16px; */
+  background-image: url("./blocks.svg");  /* odoo bms custom */
+  background-size: 16px 16px
 }
 .fancytree-ico-ef span.fancytree-icon {
-  background-position: -64px -16px;
+  /* background-position: -64px -16px; */
+  background-image: url("./blocks.svg");  /* odoo bms custom */
+  background-size: 16px 16px
 }
 .fancytree-ico-ef span.fancytree-icon:hover {
-  background-position: -80px -16px;
+  /* background-position: -80px -16px; */
+  background-image: url("./blocks.svg");  /* odoo bms custom */
+  background-size: 16px 16px
 }
 .fancytree-loading span.fancytree-expander,
 .fancytree-loading span.fancytree-expander:hover,
@@ -742,7 +774,7 @@ table.fancytree-ext-table tbody tr:hover {
   outline: 1px solid #70C0E7;
 }
 table.fancytree-ext-table tbody tr.fancytree-focused span.fancytree-title {
-  outline: 1px dotted black;
+  /* outline: 1px dotted black; */
 }
 table.fancytree-ext-table tbody tr.fancytree-active:hover,
 table.fancytree-ext-table tbody tr.fancytree-selected:hover {
