@@ -8,10 +8,12 @@
                     Decomposition
                     </div>
                 </div>
-                <div class="col-8 d-flex justify-content-end align-items-center">
-                    <span class="o_bms_draganddrop">drag&amp;drop</span>
+                <div class="col-8 d-flex justify-content-end align-items-center" data-toggle="tooltip" title="(De)Activate drag &amp; drop">
+                        <span class="o_bms_draganddrop">
+                            <i class="fa fa-arrows fa-border" aria-hidden="true"></i>
+                        </span>
                     <label class="switch">
-                        <input id="draganddrop" type="checkbox" checked/>
+                        <input id="draganddrop" type="checkbox" checked></input>
                         <span class="slider round"></span>
                     </label>
                 </div>
