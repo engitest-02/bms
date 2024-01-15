@@ -64,15 +64,7 @@ class MaintainanceObject(models.Model):
     mg_level_obj_id = fields.Many2one(comodel_name="bms.maintainance_object", string="management level object")
 
 
-    # @api.depends("object_type_ids")
-    # def _compute_awv_type_not_found(self):
-    #     for rec in self:
-    #         domain = [("object_id", "=", rec.id),("otl_id", "=", 1)]
-    #         record = self.env["bms.object_type"].search(domain)
-    #         if len(record) < 1:
-    #             rec.awv_type_not_found = True
-    #         else:
-    #             rec.awv_type_not_found = False
+
     @api.depends("object_type_ids")  
     def _compute_has_object_type_ids(self):
         for rec in self:
@@ -81,7 +73,6 @@ class MaintainanceObject(models.Model):
             else:
                 rec.has_object_type_ids = False
     
-
     @api.depends("internal_id")
     def _compute_mo_id(self):
         for rec in self:
@@ -92,6 +83,25 @@ class MaintainanceObject(models.Model):
         for rec in self:
             if not rec.decomposition_ids:
                 raise ValidationError("You have to assign at least one decomposition")
+
+    def copy(self, default=None):
+        """ overwritte copy method to feed the bms_decomposition_relationship,
+            bms_oslo_attributen_value tables too """
+        
+        copied_rec =  super().copy(default)
+
+        tables = ["bms.decomposition_relationship", "bms.oslo_attributen_value"] 
+        domain = [("object_id", "=", self.id)]
+
+        for table in tables:
+            recs = self.env[table].search(domain)
+            for rec in recs:
+                rec.copy(default={"object_id": copied_rec.id})
+
+        # special case many2many
+                # "bms.objects_to_types"
+
+        return copied_rec
 
     @api.model
     def create(self, vals):
@@ -194,6 +204,10 @@ class MaintainanceObject(models.Model):
                 self._get_mg_level_from_parent(rec.parent_object_id.id)
         else: 
             return None
+    
+    # def _copy_attributen_value(self, mo_id):
+    #     """create a new record by copying th    e values of mo_id"""
+    #     attr_val_recs = self.env["bms.oslo_attributen_value"]
         
       
         
