@@ -23,8 +23,7 @@
         "web.assets_common":[
             "bms/static/lib/fancytree/js/jquery.fancytree-all-deps.js",
             "bms/static/lib/fancytree/js/jquery.fancytree.dnd5",
-            "bms/static/lib/fancytree/css/skin-odoo-bms/ui.fancytree.scss",
-            
+            "bms/static/lib/fancytree/css/skin-odoo-bms/ui.fancytree.scss",        
         ]
     },
     "application": True,

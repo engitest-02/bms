@@ -128,10 +128,15 @@ export class Decomposition extends Component {
         //data.useDefaultImage = false;
   
         // Return true to allow the drag operation
-        // if( node.isFolder() ) { return false; }
-        data.effectAllowed = "all";
-        // console.log("dragStart", data.dropEffectSuggested, data)
-        return true; 
+        const checkboxDragAndDrop = $("#draganddrop")
+        console.log("checkbox d&d", checkboxDragAndDrop, checkboxDragAndDrop.prop("checked"))
+        if (checkboxDragAndDrop.prop("checked")){
+            data.effectAllowed = "all";
+            return true
+        }
+        else {
+            return false
+        }
       }
 
     // --- Drop Support --------------------------------------------------------
