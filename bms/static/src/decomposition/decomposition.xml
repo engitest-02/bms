@@ -2,8 +2,19 @@
 <templates xml:space="preserve">
     <t t-name="bms.Decomposition" owl="1">
         <div class="p-2">
-            <div class="o_form_label">
-            Decomposition
+            <div class="row">
+                <div class="col-4">
+                    <div class="o_form_label">
+                    Decomposition
+                    </div>
+                </div>
+                <div class="col-8 d-flex justify-content-end align-items-center">
+                    <span class="o_bms_draganddrop">drag&amp;drop</span>
+                    <label class="switch">
+                        <input id="draganddrop" type="checkbox" checked/>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
             </div>
 
             <t t-foreach="decompositionTypeRecords" t-as="decompositionTypeRecord" t-key="decompositionTypeRecord.id">
