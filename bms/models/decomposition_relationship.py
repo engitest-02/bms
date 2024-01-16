@@ -33,7 +33,7 @@ class DecompositionRelationship(models.Model):
                 
     @api.model
     def get_lazy_tree(self, parent_id, decomposition_type_id=1):
-        "return children tree"
+        """return children tree"""
 
         tree = []
         node = {"title": "", "key": int(parent_id), "lazy": False}
@@ -49,8 +49,6 @@ class DecompositionRelationship(models.Model):
     @api.model
     def get_lazy_tree_for_object(self, object_id, decomposition_type_id=1):
         "Return the lineage tree of object_id for a decompostin type"
-        # breakpoic
-        # nt()
         object_id_rec = self._get_maintainance_object(object_id)
         has_children = self.has_children(object_id, decomposition_type_id)
 
@@ -100,7 +98,6 @@ class DecompositionRelationship(models.Model):
     def has_children(self, object_id, decomposition_type_id):
         domain=[("parent_object_id", "=", object_id), ("decomposition_type_id", "=", decomposition_type_id)]
         records = self.env["bms.decomposition_relationship"].search(domain)
-        print("has_children", records)
         if len(records) > 0:
             return True
         else: 
@@ -116,10 +113,10 @@ class DecompositionRelationship(models.Model):
     def get_nearest_object(self, object_id, decomposition_type_id):
         """return the next sibling of the object, if not, the parent, if not (root), the sibling of the parent"""
         parent_id = self.get_parent(object_id, decomposition_type_id)
-        domain = [("parent_object_id", "=" , parent_id.id), ("decomposition_type_id", "=", decomposition_type_id)]
+        domain = [("parent_object_id", "=" , parent_id.id),
+                  ("decomposition_type_id", "=", decomposition_type_id),
+                  ("object_id", "!=", object_id)]
         rec = self.env["bms.decomposition_relationship"].search(domain, limit=1, order="sibling_order ASC")
-        print("get_nearest_object", object_id, parent_id.id, rec.id)
-        # breakpoint()
         return [parent_id.id, rec.object_id.id]
 
     def _get_top_objects(self, decomposition_type_id):

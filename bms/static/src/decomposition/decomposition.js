@@ -32,7 +32,6 @@ export class Decomposition extends Component {
         
         onWillUpdateProps( (nextProps) => {
             if (!nextProps.model.root.data.id){ // id undefined because under creation
-                console.log("object under creation")
                 this.is_object_under_creation = true;
             }
             else if (this.is_object_under_creation && this.resId != this.model.root.data.id) {// object has just been created
@@ -94,14 +93,12 @@ export class Decomposition extends Component {
     }
 
     async _refreshDecomposition(objectId){
-        console.log("tree refresh called", objectId, this.resId, this.decompositionTree1)
         if (objectId == null) {objectId = this.resId}
         const lazyTreeString = await this._loadLazyTree(objectId)
         const lazyTreeJson = JSON.parse(lazyTreeString)
         this.decompositionTree1.reload(lazyTreeJson)
         this.decompositionTree1.activateKey(objectId)
         this.decompositionTree1.reactivate(objectId)
-        console.log("tree refreshed with:", objectId, lazyTreeJson)
     }
 
 
@@ -130,7 +127,7 @@ export class Decomposition extends Component {
   
         // Return true to allow the drag operation
         const checkboxDragAndDrop = $("#draganddrop")
-        console.log("checkbox d&d", checkboxDragAndDrop, checkboxDragAndDrop.prop("checked"))
+
         if (checkboxDragAndDrop.prop("checked")){
             data.effectAllowed = "all";
             return true

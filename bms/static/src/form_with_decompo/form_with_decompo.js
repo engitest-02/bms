@@ -24,11 +24,10 @@ class FormWithDecompoController extends FormController {
 
     async deleteRecord() {
         const objectIdToDelete = this.model.root.resId
-        console.log("objectIdToDelete", objectIdToDelete)
         const decomposition_type_id = 1 // FIXME- decomposition_type_id is hardcoded
         console.warn("FIXME: deleteRecord uses hardcoded decomposition type.")
         const isNotDeletable = await this._hasChildren(objectIdToDelete, decomposition_type_id) 
-        console.log("isNotDeletable", isNotDeletable)
+
         if (isNotDeletable) {
             await this.model.dialogService.add(AlertDialog,
                 {
@@ -40,9 +39,6 @@ class FormWithDecompoController extends FormController {
             const [parent_id, sibling_id] = await this._getNearestObject(objectIdToDelete, decomposition_type_id)
             const decompositionObjectToActivate = sibling_id ? sibling_id : parent_id
             await this.model.root.delete();
-            // console.log("root.resID", this.model.root.resId)
-            console.log("deleteRecord", decompositionObjectToActivate, parent_id, sibling_id)
-            //this._doActionForm(decompositionObjectToActivate)
             core.bus.trigger('maintainance_object_changed', decompositionObjectToActivate)
         }
     }
@@ -65,17 +61,6 @@ class FormWithDecompoController extends FormController {
             });
         return parentFirstSibling
     }
-
-    // _doActionForm(decompositionObjectToActivate){
-    //     const action = {"type": "ir.actions.act_window",
-    //                     "res_model": "bms.maintainance_object",
-    //                     "views": [[false, "form"]],
-    //                     "target": "current",
-    //                     "res_id": decompositionObjectToActivate
-    //                     };
-    //     console.log("action", action);
-        // actionService.doAction(action);
-    // }
 
 }
 
