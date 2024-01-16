@@ -12,7 +12,7 @@ export class Decomposition extends Component {
     setup() {
         this.ormService = useService("orm");
         this.rpcService = useService("rpc");
-        this.decompositionTree;
+        this.decompositionTree1;
         this.model = this.props.model;
         this.currentData = this.model.root.data;
         this.resId = this.props.resId;
@@ -94,13 +94,14 @@ export class Decomposition extends Component {
     }
 
     async _refreshDecomposition(objectId){
+        console.log("tree refresh called", objectId, this.resId, this.decompositionTree1)
         if (objectId == null) {objectId = this.resId}
-        console.log( "objectId", this.objectId)
         const lazyTreeString = await this._loadLazyTree(objectId)
         const lazyTreeJson = JSON.parse(lazyTreeString)
         this.decompositionTree1.reload(lazyTreeJson)
         this.decompositionTree1.activateKey(objectId)
         this.decompositionTree1.reactivate(objectId)
+        console.log("tree refreshed with:", objectId, lazyTreeJson)
     }
 
 

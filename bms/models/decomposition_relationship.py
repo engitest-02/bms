@@ -39,7 +39,7 @@ class DecompositionRelationship(models.Model):
         node = {"title": "", "key": int(parent_id), "lazy": False}
         records = self._get_children(node, decomposition_type_id)
         for record in records:
-            hasChildren = self._has_children(record.object_id.id, decomposition_type_id )
+            hasChildren = self.has_children(record.object_id.id, decomposition_type_id )
             node = self._record2node(record.object_id, folder=hasChildren, lazy=hasChildren)
             tree.append(node)
         import json
@@ -49,11 +49,14 @@ class DecompositionRelationship(models.Model):
     @api.model
     def get_lazy_tree_for_object(self, object_id, decomposition_type_id=1):
         "Return the lineage tree of object_id for a decompostin type"
+        # breakpoic
+        # nt()
         object_id_rec = self._get_maintainance_object(object_id)
-        has_children = self._has_children(object_id, decomposition_type_id)
+        has_children = self.has_children(object_id, decomposition_type_id)
+
         tree = self._record2node(object_id_rec, folder=has_children, lazy=has_children)
         
-        parent = self._get_parent(object_id, decomposition_type_id)
+        parent = self.get_parent(object_id, decomposition_type_id)
         
         previous_parent_id = object_id
         lazy_tree=[]
@@ -70,12 +73,12 @@ class DecompositionRelationship(models.Model):
             parent_node["children"] = children_nodes
             tree = parent_node
             previous_parent_id = parent.id
-            parent = self._get_parent(parent.id, decomposition_type_id)
+            parent = self.get_parent(parent.id, decomposition_type_id)
         
         if not parent: # get sibling top = level 1
             level1_records = self._get_top_objects(decomposition_type_id)
             for idx, sibling in enumerate(level1_records):
-                has_children = self._has_children(sibling.object_id.id, decomposition_type_id)
+                has_children = self.has_children(sibling.object_id.id, decomposition_type_id)
                 node = self._record2node(sibling.object_id, folder=has_children, lazy=has_children)
                 if node["key"] == previous_parent_id:
                     node = tree
@@ -93,12 +96,39 @@ class DecompositionRelationship(models.Model):
         result = rec.write(vals)
         print("sibling updated", object_id, parent_id, sibling_order, result, rec)
 
+    @api.model
+    def has_children(self, object_id, decomposition_type_id):
+        domain=[("parent_object_id", "=", object_id), ("decomposition_type_id", "=", decomposition_type_id)]
+        records = self.env["bms.decomposition_relationship"].search(domain)
+        print("has_children", records)
+        if len(records) > 0:
+            return True
+        else: 
+            return False
+
+    @api.model
+    def get_parent(self, object_id, decomposition_type_id):
+        domain = [("object_id", "=" , object_id), ("decomposition_type_id", "=", decomposition_type_id)]
+        rec = self.env["bms.decomposition_relationship"].search(domain)
+        return rec.parent_object_id
+    
+    @api.model
+    def get_nearest_object(self, object_id, decomposition_type_id):
+        """return the next sibling of the object, if not, the parent, if not (root), the sibling of the parent"""
+        parent_id = self.get_parent(object_id, decomposition_type_id)
+        domain = [("parent_object_id", "=" , parent_id.id), ("decomposition_type_id", "=", decomposition_type_id)]
+        rec = self.env["bms.decomposition_relationship"].search(domain, limit=1, order="sibling_order ASC")
+        print("get_nearest_object", object_id, parent_id.id, rec.id)
+        # breakpoint()
+        return [parent_id.id, rec.object_id.id]
+
     def _get_top_objects(self, decomposition_type_id):
         domain = [("parent_object_id", "=", None),("decomposition_type_id", "=", decomposition_type_id )]
         order = "sibling_order"
         return self.env["bms.decomposition_relationship"].search(domain, order=order)
 
     def _record2node(self, record, folder=False, lazy=False):
+        print(record, record.id, record.name)
         IS_MANAGING_LEVEL_ICON = """<i class="fa fa-handshake-o" aria-hidden="true"></i>"""
         MISSING_OTL_TYPE_ICON = """<span class="fa-stack o_bms_fa_small">
                                         <i class="fa fa-tag fa-stack-1x"></i>
@@ -116,21 +146,13 @@ class DecompositionRelationship(models.Model):
         children_nodes = []
         children = self._get_children({'key':parent_id}, decomposition_type_id)
         for child in children:
-            has_children = self._has_children(child.object_id.id, decomposition_type_id)
+            has_children = self.has_children(child.object_id.id, decomposition_type_id)
             if has_children:
                 node = self._record2node(child.object_id, folder=has_children, lazy=has_children )
             else:
                 node = self._record2node(child.object_id)
             children_nodes.append(node)
         return children_nodes
-
-    def _has_children(self, object_id, decomposition_type_id):
-        domain=[("parent_object_id", "=", object_id), ("decomposition_type_id", "=", decomposition_type_id)]
-        records = self.env["bms.decomposition_relationship"].search(domain)
-        if len(records) > 0:
-            return True
-        else: 
-            return False
 
     def _get_maintainance_object(self, object_id):
         domain=[("id", "=", object_id)]
@@ -144,10 +166,7 @@ class DecompositionRelationship(models.Model):
         children_records = self.env["bms.decomposition_relationship"].search(domain, order=order)
         return children_records
 
-    def _get_parent(self, child_id, decomposition_type_id):
-        domain = [("object_id", "=" , child_id), ("decomposition_type_id", "=", decomposition_type_id)]
-        rec = self.env["bms.decomposition_relationship"].search(domain, [])
-        return rec.parent_object_id
+    
 
     def _get_all_children(self, node, decomposition_type_id):
         parent_id = node["key"]

@@ -98,9 +98,6 @@ class MaintainanceObject(models.Model):
             for rec in recs:
                 rec.copy(default={"object_id": copied_rec.id})
 
-        # special case many2many
-                # "bms.objects_to_types"
-
         return copied_rec
 
     @api.model

@@ -1,7 +1,7 @@
 // /** @odoo-module */
 
 import { registry } from "@web/core/registry";
-import { useService, useBus } from "@web/core/utils/hooks";
+import { useService} from "@web/core/utils/hooks";
 import { OsloType } from "./oslo_type/oslo_type";
 const { Component, onMounted, onWillUpdateProps } = owl;
 var core = require('web.core');
