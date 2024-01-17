@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="bms.oslo_datatype_primitive_enumeration" owl="1">
-        <div class="o_bms_hover">
+        <div class="o_bms_hover p-0">
             <div class="row m-0 p-0"  t-on-mouseover="(ev) => this.highlightValueField(ev)" t-on-mouseout="(ev) => this.unhighlightValueField(ev)" > 
 
                 <div class="col-3 o_form_label p-1 align-middle">
