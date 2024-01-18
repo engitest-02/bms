@@ -15,26 +15,24 @@ export class OsloType extends Component {
 
         this.objectId = this.props.objectId;
         this._assign_props_value(this.props);
-        
-        // this.attrDefValueRecs;
 
         onWillStart(async () => {
             this.attrDefs = await this._getAttrDefs(this.classUri)
-            // const data = await this._loadAttrDefinition(this.classUri);
-            // this.attrDefs = JSON.parse(data)
-            // this.attrDefs = this._insertWidgetComponent(this.attrDefs)
+
+        onWillStart(async () => {
+            this.attrDefs = await this._getAttrDefs(this.classUri)
+
         })
 
         onWillUpdateProps(async (nextProps) => {  
             this.objectId = nextProps.objectId;
             if (this.currentObjectId != this.objectId) {// rerender OTL notebook if parent object has changed
                 this._assign_props_value(nextProps);
-                                
-                // const data = await this._loadAttrDefinition(this.classUri);
-                // this.attrDefs = JSON.parse(data)
-                // this.attrDefs = this._insertWidgetComponent(this.attrDefs)
+
+                this.attrDefs = await this._getAttrDefs(this.classUri)           
                 this.attrDefs = await this._getAttrDefs(this.classUri)
                 console.log("onwillUpdateProps", "oslo_type attrDefs:", this.attrDefs)                    
+
             }
         })      
 

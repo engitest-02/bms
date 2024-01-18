@@ -123,7 +123,6 @@ class MaintainanceObject(models.Model):
     
     def _update_internal_id(self, vals):
         """retun vals with the the incremented internal_id before creation"""
-        # print("create maintainace", vals_list)
         max_internal_id_rec = self.env["bms.maintainance_object"].read_group([], ["internal_id:max(internal_id)"], [])
         max_id = max_internal_id_rec[0].get("internal_id")
         if max_id is None:
@@ -138,8 +137,7 @@ class MaintainanceObject(models.Model):
             for vals_item in vals:
                 max_id +=  1
                 vals_item.update(internal_id=max_id)
-                print("create maintainace after update list", vals)
-        
+       
         return vals
 
     def _update_mg_object(self, vals):

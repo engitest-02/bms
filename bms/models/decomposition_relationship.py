@@ -92,7 +92,32 @@ class DecompositionRelationship(models.Model):
         
         vals = {'sibling_order': sibling_order, 'parent_object_id': parent_id }
         result = rec.write(vals)
-        print("sibling updated", object_id, parent_id, sibling_order, result, rec)
+
+
+    @api.model
+    def has_children(self, object_id, decomposition_type_id):
+        domain=[("parent_object_id", "=", object_id), ("decomposition_type_id", "=", decomposition_type_id)]
+        records = self.env["bms.decomposition_relationship"].search(domain)
+        if len(records) > 0:
+            return True
+        else: 
+            return False
+
+    @api.model
+    def get_parent(self, object_id, decomposition_type_id):
+        domain = [("object_id", "=" , object_id), ("decomposition_type_id", "=", decomposition_type_id)]
+        rec = self.env["bms.decomposition_relationship"].search(domain)
+        return rec.parent_object_id
+    
+    @api.model
+    def get_nearest_object(self, object_id, decomposition_type_id):
+        """return the next sibling of the object, if not, the parent, if not (root), the sibling of the parent"""
+        parent_id = self.get_parent(object_id, decomposition_type_id)
+        domain = [("parent_object_id", "=" , parent_id.id),
+                  ("decomposition_type_id", "=", decomposition_type_id),
+                  ("object_id", "!=", object_id)]
+        rec = self.env["bms.decomposition_relationship"].search(domain, limit=1, order="sibling_order ASC")
+        return [parent_id.id, rec.object_id.id]
 
     @api.model
     def has_children(self, object_id, decomposition_type_id):
@@ -125,7 +150,6 @@ class DecompositionRelationship(models.Model):
         return self.env["bms.decomposition_relationship"].search(domain, order=order)
 
     def _record2node(self, record, folder=False, lazy=False):
-        print(record, record.id, record.name)
         IS_MANAGING_LEVEL_ICON = """<i class="fa fa-handshake-o" aria-hidden="true"></i>"""
         MISSING_OTL_TYPE_ICON = """<span class="fa-stack o_bms_fa_small">
                                         <i class="fa fa-tag fa-stack-1x"></i>

@@ -32,8 +32,6 @@ class AwvImportAction extends Component {
 
         // const domain = [["id" , "=" , 1834]]
         const class_ids = await this.orm.searchRead("bms.oslo_class",[],["id"]);
-        // const class_ids = await this.orm.searchRead("bms.oslo_class",domain);
-        // console.log("populate_table", "class_id", class_ids)
         var rpc = require('web.rpc');
 
         Object.values(class_ids).forEach((class_id) => {

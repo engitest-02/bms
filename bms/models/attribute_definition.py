@@ -70,7 +70,6 @@ def _get_attr_value_type(attr_type):
         case "http://www.w3.org/2001/XMLSchema#string":
             return "char"
         case default:
-            # print(attr_type)
             return None
             
 

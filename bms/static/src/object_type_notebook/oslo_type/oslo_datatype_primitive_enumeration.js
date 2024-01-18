@@ -13,7 +13,6 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
         onWillStart(async () =>{
             this._asssign_props_value(this.props)
             const attrValueRecs = await this._load_attribute_value()
-            // console.log("primitive onWillStart", this.objectId, "attValueRecs", attrValueRecs)
             this._setup_value(this.props, attrValueRecs)
             this.currentObjectId = this.objectId
             
@@ -25,7 +24,6 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
                 this.currentObjectId = this.objectId
                 const attrValueRecs = await this._load_attribute_value()
                 this._setup_value(this.props, attrValueRecs)
-                // this.currentObjectId = this.objectId
                 this.render()
             }
         })
@@ -41,7 +39,6 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
             'default_attr_def': this.attrDefinitionNl,
             'default_attr_def_datatype_definition': this.attrDefDatatypeDef,
             'default_attr_def_value_type': this.attrDefValueType,
-            // "default_enumeration_selection_values": [],
             'form_view_initial_mode': "new",
         }
         if (this.attrValueRec) { //attribute has already a value
