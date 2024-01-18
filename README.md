@@ -107,6 +107,50 @@ insert into bms_attribute_visualisation(label_nl, uri)
 SELECT distinct label_nl, uri
 FROM bms_oslo_attributen;
  ```
+# TIPS #
+## GIT ##
+### create new branch from Prod ###
+1. In odoo.sh, drag and drop build into staging and name new staging build like 'main_staging_vxxx'
+2. In your shell: 
+```
+git fetch
+```
+```
+git checkout -b main_staging_vxxx origin/main_staging_vxxx
+```
+<br> Your local repository contains the code which is currently in prod for further development. You can check that you are on the right branch with 
+```
+git status
+``` 
+or
+```
+git branch
+```
+You can see all the branches available (even if not yet on your local repository) with:
+```
+git branch -a
+```
+
+### Commit and push ###
+1. Add all the changes to your local repository index 
+```
+git add *
+```
+2. Commit all the changes in your repository index to your local repository 
+```
+git commit -m [yyy] BMS: my notes
+```
+See Odoo doc for the [yyy]: https://odoo.com/documentation/17.0/contributing/development/git_guidelines.html#tag-and-module-name
+3. Push to the master  git repository. It will update the code on Odoo.sh
+```
+git push
+```
+Note that you can change the `settings` in Odoo.sh to activate the rebuild of the code at each new push.
+### Pass from staging to prod ###
+Just drag and drop your staging branch into prod. Choose 'rebase and merge' to keep track on the commits. 
+<br>Note:
+* If you get an error `pull request already existing`, it is because you have already merge and base the branch in staging a same name
+* Don't forget to update your module (`app>update`) or change the version in the ``manifest.py``
 
 # TODO # 
 ## Technical ##
@@ -114,33 +158,34 @@ FROM bms_oslo_attributen;
 - [X] create new object
 - [x] automatic refresh of decomposition
 - [x] change parent via drag&drop on decomposition
-- [ ] look&feel attributes
-- [ ] hover defintion attibutes
+- [x] look&feel attributes
+- [x] hover defintion attibutes
 - [ ] make the import mechanism of awv list ("keuzelijsten") better by taking into account the status change (don't  know if it happens but 
 theoritically it could)
-- [ ] fix tree_level which should be filled in (after having checked it's still useful)
+- [x] fix tree_level which should be filled in (after having checked it's still useful)
 - [ ] keep common attributes when user changes of type
 - [ ] quid managing_level_obj_id if there are several decompositions? 
 
 
 ## Migration ##
-- [ ] internal_id -> unique constraint
+- [x] internal_id -> unique constraint
 
 
 ## Governance ##
-1. Unique ID asset format
-2. Quid awv type not found -> use OTL lantis (and potentially create a new type? ) + problem no attribute in Relatics (no meta-model)
-3. quid versionning AWV type ? by object or by "sqlite" model
-4. check status of values for the value lists (oslo enumeration)?
-5. logo app
-6. icons decomposition
+- [x] Unique ID asset format -> decision: MO-xxx
+- [ ] Quid awv type not found -> use OTL lantis (and potentially create a new type? ) + problem no attribute in Relatics (no meta-model)
+- [ ] quid versionning AWV type ? by object or by "sqlite" model
+- [ ] check status of values for the value lists (oslo enumeration)?
+- [x] logo app
+- [x] icons decomposition
 
 ## Refactoring ##
 - [x] delete modle oslo_generic_model
 - [x] attribute_value.py + views + menus + security
-- [x] delte demo_agent.py
+- [x] delete demo_agent.py
+- [ ] remove bms_msa_object model, table, menu + field msa_object_id from maintainance_object.py (and table)
 - [ ] change oslo datatype in CONSTANT VALUE defined on one place
-- [ ] owl components implments props validation
+- [ ] owl components implements props validation
 - [ ] use of AWV OWL library type hardcoded in .js code
 - [ ] store json of get_att_def() instead of recalulate on the fly to increase loading speed
 - [ ] change res_id by default of `bms_decomposition_action`
