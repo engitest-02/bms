@@ -4,11 +4,9 @@ import { formView } from "@web/views/form/form_view";
 import { registry } from "@web/core/registry";
 import { Decomposition } from "../decomposition/decomposition";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
-import { useService} from "@web/core/utils/hooks";
 
 var core = require("web.core");
 var rpc = require('web.rpc');
-// var actionService = useService("action");
 
 class FormWithDecompoController extends FormController {
 
@@ -42,7 +40,6 @@ class FormWithDecompoController extends FormController {
             core.bus.trigger('maintainance_object_changed', decompositionObjectToActivate)
         }
     }
-
 
     async _hasChildren(object_id, decomposition_type_id){
         const hasChildren = rpc.query({

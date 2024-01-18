@@ -4,7 +4,7 @@
 1. Export object table from MS Access into  'msa_object.xlsx'
 ```
 SELECT object.OBJECT_ID, object.NAME, object.PARENT_ID, object.OTL_TYPE_ID, OSLOClass.uri, object.Tree_Level, object.AWV_type_not_found, object.BO_temporary_type, object.Tree_node_order
-FROM [object] INNER JOIN OSLOClass ON object.OTL_TYPE_ID = OSLOClass.ID;
+FROM [object] LEFT JOIN OSLOClass ON object.OTL_TYPE_ID = OSLOClass.ID;
 ````
 2. Import excel `msa_object.xlsx` into table `bms.msa_object` via favorites > `import file`
 
@@ -38,13 +38,13 @@ select 'OTL AWV', 'Object Type Library defined by Agentschap Wegen en Verkeer';
 ## Update bms.object_type table ##
 1. Go to the shell and psql command
 2. link objects with object_type base on bms_msa_object table. Check that internal id of otl awv is 1, otherwise adapt query accordingly. 
-´´´
+```
 insert into bms_object_type (name, definition, otl_type_internal_id, otl_id)
 select 
     oc.label_nl, oc.definition_nl, oc.uri, 1
     from bms_oslo_class oc
 ;
-´´´
+```
 
 ## Update bms_objects_to_types ##
 1. Go to the shell and psql command
@@ -85,9 +85,10 @@ left join bms_maintainance_object mo2 on cast(mo2.msa_unique_id as integer) = ms
 ## Generate the Attribute Definition table ##
 1. go to menu ´imports´
 2. launch the import by clicking `populate attribute definition table` and wait for the action is done. 
-Tip: if for any reason you have to delete the records, use `truncate bms_attribute_definition cascade;` Be carefull impact on
-NOTICE:  truncate cascades to table "bms_oslo_attributen_value"
-NOTICE:  truncate cascades to table "bms_oslo_attributen_value_edit"
+<br>Tip: if for any reason you have to delete the records, use `truncate bms_attribute_definition cascade;` 
+<br>Be carefull impact on:
+* NOTICE:  truncate cascades to table "bms_oslo_attributen_value"
+* NOTICE:  truncate cascades to table "bms_oslo_attributen_value_edit"
 
 ## Import enumeration values ##
 1. go to menu ´imports´

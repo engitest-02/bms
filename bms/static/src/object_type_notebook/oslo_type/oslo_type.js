@@ -20,22 +20,15 @@ export class OsloType extends Component {
             this.attrDefs = await this._getAttrDefs(this.classUri)
         })
 
-        onWillStart(async () => {
-            this.attrDefs = await this._getAttrDefs(this.classUri)
-
-        })
-
         onWillUpdateProps(async (nextProps) => {  
             this.objectId = nextProps.objectId;
             if (this.currentObjectId != this.objectId) {// rerender OTL notebook if parent object has changed
                 this._assign_props_value(nextProps);
-
                 this.attrDefs = await this._getAttrDefs(this.classUri)           
-                this.attrDefs = await this._getAttrDefs(this.classUri)                
             }
         })      
     }
-    
+
     changeOtlAndType() {
         if (this.objectId == null) { // maintainance object is new => first must be saved
             var Dialog = require('web.Dialog')
@@ -80,7 +73,6 @@ export class OsloType extends Component {
         let attrDefs = JSON.parse(data)
         attrDefs = this._insertWidgetComponent(attrDefs)
         return attrDefs
-
     }
 
     _loadAttrDefinition(osloclass_uri){
