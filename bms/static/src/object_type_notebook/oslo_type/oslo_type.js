@@ -18,6 +18,7 @@ export class OsloType extends Component {
 
         onWillStart(async () => {
             this.attrDefs = await this._getAttrDefs(this.classUri)
+        })
 
         onWillStart(async () => {
             this.attrDefs = await this._getAttrDefs(this.classUri)
@@ -30,14 +31,11 @@ export class OsloType extends Component {
                 this._assign_props_value(nextProps);
 
                 this.attrDefs = await this._getAttrDefs(this.classUri)           
-                this.attrDefs = await this._getAttrDefs(this.classUri)
-                console.log("onwillUpdateProps", "oslo_type attrDefs:", this.attrDefs)                    
-
+                this.attrDefs = await this._getAttrDefs(this.classUri)                
             }
         })      
-
     }
-
+    
     changeOtlAndType() {
         if (this.objectId == null) { // maintainance object is new => first must be saved
             var Dialog = require('web.Dialog')
