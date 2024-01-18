@@ -17,24 +17,19 @@ export class ObjectTypeNotebook extends Component {
         
         this.objectId = this.props.record.data.id;
         this._setup_objectType(this.props.record.data.object_type_ids.records)
-      
-        //this.currentObjectId = this.objectId //keep delta in case of change of object_id
-        this.currentData = this.props.record.data
-        
+        this.currentData = this.props.record.data     
         this.existingOtls;
         
         onWillUpdateProps(async nextProps => {
             if (this.objectId != nextProps.record.data.id) {// rerender OTL notebook if another object has been changed
                 this._setup_objectType(nextProps.record.data.object_type_ids.records)
-                //this.render()
                 this.objectId = nextProps.record.data.id
                 this.currentObjectId = this.objectId
-                
             }           
         })
 
         onMounted(() => {
-            // monkey patching to remove class="o_field_widget o_field_object_type_notebook" automatically added for the widget by odoo an disturbing the layouting
+            // monkey patching to remove class="o_field_widget o_field_object_type_notebook" automatically added for the widget by odoo and disturbing the layouting
             var element = $('[name="object_type_ids"]')
             element.removeClass()
         }

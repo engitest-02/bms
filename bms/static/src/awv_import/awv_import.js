@@ -30,14 +30,10 @@ class AwvImportAction extends Component {
         this.state_populate_att_def_table.processed = 0;
         this.state_populate_att_def_table.total_to_process = await this.orm.searchCount("bms.oslo_class", []);
 
-        // const domain = [["id" , "=" , 1834]]
         const class_ids = await this.orm.searchRead("bms.oslo_class",[],["id"]);
-        // const class_ids = await this.orm.searchRead("bms.oslo_class",domain);
-        // console.log("populate_table", "class_id", class_ids)
         var rpc = require('web.rpc');
 
         Object.values(class_ids).forEach((class_id) => {
-            // console.log("populate_table", class_id)
             const is_done = rpc.query({
                 model: 'bms.attribute_definition',
                 method: 'populate_table_with_awv_otl',
