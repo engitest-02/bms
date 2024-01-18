@@ -498,15 +498,13 @@
   <menuitem id="bms_decomposition" parent="bms_root" name="Decomposition" groups="base.group_user"  sequence ="20" action="bms_decomposition_action"/>
 
   <menuitem id="bms_configuration" parent="bms_root" name="Configuration" sequence ="30" groups="base.group_user" />
+  <menuitem id="bms_config_object" parent="bms_configuration" name="Object" sequence="10" groups="base.group_user"/>
   <menuitem id="bms_attribute_visualisation" parent="bms_config_object" name="Attribute visualisation" groups="base.group_user" sequence="5" action="bms_attribute_visualisation_action"/>
   <menuitem id="bms_attribute_widget" parent="bms_config_object" name="Attribute widget" groups="base.group_user" sequence="6" action="bms_attribute_widget_action"/>
-  <menuitem id="bms_config_object" parent="bms_configuration" name="Object" sequence="10" groups="base.group_user"/>
   <menuitem id="bms_decomposition_type" parent="bms_config_object" name="Decomposition type" groups="base.group_user" sequence="20" action="bms_decomposition_type_action"/>
   <menuitem id="bms_object_type" parent="bms_config_object" name="Object type" groups="base.group_user" sequence="30" action="bms_object_type_action"/>
   <menuitem id="bms_object_type_library" parent="bms_config_object" name="Object Type Library" groups="base.group_user" sequence="40" action="bms_object_type_library_action"/>
   
-
-
   <menuitem id="bms_stakeholder" parent="bms_configuration" name="Stakeholder" sequence="20" groups="base.group_user"/>
   <menuitem id="bms_agent" parent="bms_stakeholder" name="Agent" groups="base.group_user" sequence="10" action="bms_agent_action"/>
   <menuitem id="bms_organisation" parent="bms_stakeholder" name="Organisation" groups="base.group_user" sequence="20" action="bms_organisation_action"/>
