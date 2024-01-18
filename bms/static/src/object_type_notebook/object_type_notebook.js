@@ -23,8 +23,6 @@ export class ObjectTypeNotebook extends Component {
         onWillUpdateProps(async nextProps => {
             if (this.objectId != nextProps.record.data.id) {// rerender OTL notebook if another object has been changed
                 this._setup_objectType(nextProps.record.data.object_type_ids.records)
-                this.objectId = nextProps.record.data.id
-                this.currentObjectId = this.objectId
             }           
         })
 

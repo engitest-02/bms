@@ -137,7 +137,7 @@ class MaintainanceObject(models.Model):
             for vals_item in vals:
                 max_id +=  1
                 vals_item.update(internal_id=max_id)
-        
+       
         return vals
 
     def _update_mg_object(self, vals):
