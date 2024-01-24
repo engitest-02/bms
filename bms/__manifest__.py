@@ -11,6 +11,7 @@
     "data": [
         "views/view.xml",
         "views/view_awv.xml",
+        "security/res_groups.xml",
         "security/ir.model.access.csv",
         "wizards/otl_type_views.xml",
         "wizards/oslo_attributen_value_edit_views.xml"

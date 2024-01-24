@@ -39,7 +39,7 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
             'default_attr_def': this.attrDefinitionNl,
             'default_attr_def_datatype_definition': this.attrDefDatatypeDef,
             'default_attr_def_value_type': this.attrDefValueType,
-            'form_view_initial_mode': "new",
+            'form_view_initial_mode': "edit",
         }
         if (this.attrValueRec) { //attribute has already a value
             context = {...context,
@@ -49,7 +49,9 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
                     'default_value_datetime': this.attrValueRec.value_datetime,
                     'default_value_float': this.attrValueRec.value_float,
                     'default_value_non_negative_integer': this.attrValueRec.value_non_negative_integer,
-                    'default_enumeration_value_id':  this.attrValueRec.enumeration_value_id? this.attrValueRec.enumeration_value_id[0]:false}
+                    'default_enumeration_value_id':  this.attrValueRec.enumeration_value_id? this.attrValueRec.enumeration_value_id[0]:false,
+                    'form_view_initial_mode': "edit"
+                }
         }
         console.log("oslo_datatype_primitive_enumeration context", context)
         this.actionService.doAction(

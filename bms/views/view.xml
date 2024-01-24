@@ -6,7 +6,7 @@
     <field name="name">bms.object.tree</field>
     <field name="model">bms.maintainance_object</field>
     <field name="arch" type="xml">
-      <tree>
+      <tree create="0" edit="0" delete="0">
         <field name="mo_id" />
         <field name="mo_semantic_id"/>
         <field name="name"/>
@@ -496,24 +496,24 @@
   <!-- menuitems -->
   <menuitem id="bms_root" name="BMS" web_icon="bms,static/description/icon.svg"/>
 
-  <menuitem id="bms_object" parent="bms_root" name="Maintainance Object" groups="base.group_user"  sequence ="10" action="bms_object_action" />
-  <menuitem id="bms_decomposition" parent="bms_root" name="Decomposition" groups="base.group_user"  sequence ="20" action="bms_decomposition_action"/>
+  <menuitem id="bms_object" parent="bms_root" name="Maintainance Object" groups="bms.group_bms_reader"  sequence ="10" action="bms_object_action" />
+  <menuitem id="bms_decomposition" parent="bms_root" name="Decomposition" groups="bms.group_bms_reader"  sequence ="20" action="bms_decomposition_action"/>
 
-  <menuitem id="bms_configuration" parent="bms_root" name="Configuration" sequence ="30" groups="base.group_user" />
+  <menuitem id="bms_configuration" parent="bms_root" name="Configuration" sequence ="30" groups="bms.group_bms_reader" />
 
-  <menuitem id="bms_config_object" parent="bms_configuration" name="Object" sequence="10" groups="base.group_user"/>
-  <menuitem id="bms_attribute_visualisation" parent="bms_config_object" name="Attribute visualisation" groups="base.group_user" sequence="5" action="bms_attribute_visualisation_action"/>
-  <menuitem id="bms_attribute_widget" parent="bms_config_object" name="Attribute widget" groups="base.group_user" sequence="6" action="bms_attribute_widget_action"/>
-  <menuitem id="bms_decomposition_type" parent="bms_config_object" name="Decomposition type" groups="base.group_user" sequence="20" action="bms_decomposition_type_action"/>
-  <menuitem id="bms_object_type" parent="bms_config_object" name="Object type" groups="base.group_user" sequence="30" action="bms_object_type_action"/>
-  <menuitem id="bms_object_type_library" parent="bms_config_object" name="Object Type Library" groups="base.group_user" sequence="40" action="bms_object_type_library_action"/>
+  <menuitem id="bms_config_object" parent="bms_configuration" name="Object" sequence="10" groups="bms.group_bms_reader"/>
+  <menuitem id="bms_attribute_visualisation" parent="bms_config_object" name="Attribute visualisation" groups="bms.group_bms_reader" sequence="5" action="bms_attribute_visualisation_action"/>
+  <menuitem id="bms_attribute_widget" parent="bms_config_object" name="Attribute widget" groups="bms.group_bms_reader" sequence="6" action="bms_attribute_widget_action"/>
+  <menuitem id="bms_decomposition_type" parent="bms_config_object" name="Decomposition type" groups="bms.group_bms_reader" sequence="20" action="bms_decomposition_type_action"/>
+  <menuitem id="bms_object_type" parent="bms_config_object" name="Object type" groups="bms.group_bms_reader" sequence="30" action="bms_object_type_action"/>
+  <menuitem id="bms_object_type_library" parent="bms_config_object" name="Object Type Library" groups="bms.group_bms_reader" sequence="40" action="bms_object_type_library_action"/>
   
-  <menuitem id="bms_stakeholder" parent="bms_configuration" name="Stakeholder" sequence="20" groups="base.group_user"/>
-  <menuitem id="bms_agent" parent="bms_stakeholder" name="Agent" groups="base.group_user" sequence="10" action="bms_agent_action"/>
-  <menuitem id="bms_organisation" parent="bms_stakeholder" name="Organisation" groups="base.group_user" sequence="20" action="bms_organisation_action"/>
+  <menuitem id="bms_stakeholder" parent="bms_configuration" name="Stakeholder" sequence="20" groups="bms.group_bms_reader"/>
+  <menuitem id="bms_agent" parent="bms_stakeholder" name="Agent" groups="bms.group_bms_reader" sequence="10" action="bms_agent_action"/>
+  <menuitem id="bms_organisation" parent="bms_stakeholder" name="Organisation" groups="bms.group_bms_reader" sequence="20" action="bms_organisation_action"/>
 
-  <menuitem id="bms_imports" parent="bms_root" name="Imports" sequence ="40" groups="base.group_user" />
-  <menuitem id="bms_ms_object" parent="bms_imports" name="MSA object table" groups="base.group_user" sequence="20" action="bms_msa_object_action"/>
-  <menuitem id="bms_awv_oslo_enumeration_values_import" parent="bms_imports" name="Import and generation tools" groups="base.group_user" sequence="70" action="bms_import_value_list_action"/>
+  <menuitem id="bms_imports" parent="bms_root" name="Imports" sequence ="40" groups="bms.group_bms_administrator" />
+  <menuitem id="bms_ms_object" parent="bms_imports" name="MSA object table" groups="bms.group_bms_administrator" sequence="20" action="bms_msa_object_action"/>
+  <menuitem id="bms_awv_oslo_enumeration_values_import" parent="bms_imports" name="Import and generation tools" groups="bms.group_bms_administrator" sequence="70" action="bms_import_value_list_action"/>
 
 </odoo>

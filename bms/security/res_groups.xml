@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="bms.module_bms" model="ir.module.category">
+            <field name="name">BMS</field>
+            <field name="description">Helps you manage Lantis assets</field>
+        </record>
+
+        <record id="bms.group_bms_reader" model="res.groups">
+            <field name="name">Reader</field>
+            <field name="category_id" ref="bms.module_bms"/>
+        </record>
+
+        <record id="bms.group_bms_editor" model="res.groups">
+            <field name="name">Editor</field>
+            <field name="category_id" ref="bms.module_bms"/>
+            <field name="implied_ids" eval="[Command.link(ref('bms.group_bms_reader'))]" />
+        </record>
+        
+        <record id="bms.group_bms_administrator" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="category_id" ref="bms.module_bms"/>
+            <field name="implied_ids" eval="[Command.link(ref('bms.group_bms_editor'))]" />
+        </record>
+
+    </data>
+</odoo>
