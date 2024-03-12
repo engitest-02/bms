@@ -13,10 +13,11 @@ class MaintainanceObject(models.Model):
     _sql_constraints = [('unique_internal_id', 'unique(internal_id)', 'internal_id must be unique otherwise mo_id is not unique')]
 
     name = fields.Char("name", required=True)
-    msa_unique_id = fields.Char("Lantis MS Access id", readonly=True)
+    import_id = fields.Char("sourced data id", readonly=True)
     internal_id = fields.Integer("Lantis internal id", required=True, readonly=True)
     mo_id = fields.Char(compute="_compute_mo_id", store=True, string="maintainance object id", readonly=True)
     mo_semantic_id = fields.Char(string="object semantic id")
+    AWV_id = fields.Char(string="AWV ID")
 
     bo_temporary_type = fields.Char(string="proposed new type")
     awv_type_not_found = fields.Boolean(string="AWV type not found?")

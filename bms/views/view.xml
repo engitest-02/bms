@@ -22,6 +22,8 @@
         <field name="id" />
         <field name="mo_id" />
         <field name="mo_semantic_id"/>
+        <field name="import_id">
+        <field name="awv_id">
         <field name="name"/>
         <field name="object_type_ids"/>
         <field name="decomposition_ids"/>
@@ -70,6 +72,7 @@
           </group>
           <group>
             <field name="mo_id"/>
+            <field name="AWV ID" readonly=1>
             <field name="msa_unique_id"/>
           </group>
         </group>
