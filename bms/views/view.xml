@@ -2,8 +2,8 @@
 <odoo>
 
   <!-- views -->
-  <record id="bms_object_view_tree" model="ir.ui.view">
-    <field name="name">bms.object.tree</field>
+  <record id="bms_maintainance_object_view_tree" model="ir.ui.view">
+    <field name="name">bms.maintainance_object.tree</field>
     <field name="model">bms.maintainance_object</field>
     <field name="arch" type="xml">
       <tree create="0" edit="0" delete="0">
@@ -14,6 +14,21 @@
     </field>
   </record>
 
+ <record id="maintainance_object_technical_tree" model="ir.ui.view">
+    <field name="name">bms.maintainance_object_technical.tree</field>
+    <field name="model">bms.maintainance_object</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="id" />
+        <field name="mo_id" />
+        <field name="mo_semantic_id"/>
+        <field name="name"/>
+        <field name="object_type_ids"/>
+        <field name="decomposition_ids"/>
+
+      </tree>
+    </field>
+  </record>
 
   <record id="bms_object_view_filter" model="ir.ui.view">
     <field name="name">bms.object.filter</field>
@@ -422,6 +437,20 @@
     <field name="view_mode">tree,form</field>
   </record>
 
+     <record id="bms_object_action_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="bms_maintainance_object_view_tree"/>
+            <field name="act_window_id" ref="bms_object_action"/>
+        </record>
+           <record id="bms_object_action_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bms_maintainance_object_view_form"/>
+            <field name="act_window_id" ref="bms_object_action"/>
+        </record>
+  
+
   <record id="bms_decomposition_action" model="ir.actions.act_window">
     <field name="name">Maintainance Object</field>
     <field name="res_model">bms.maintainance_object</field>
@@ -492,6 +521,19 @@
   </record>
 
 
+  
+   <record id="bms_import_object_technical" model="ir.actions.act_window">
+    <field name="name">Maintainance Object Technical Information</field>
+    <field name="res_model">bms.maintainance_object</field>
+    <field name="view_mode">tree</field>
+  </record>
+       <record id="bms_import_object_technical_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="maintainance_object_technical_tree"/>
+            <field name="act_window_id" ref="bms_import_object_technical"/>
+        </record>
+
 
   <!-- menuitems -->
   <menuitem id="bms_root" name="BMS" web_icon="bms,static/description/icon.svg"/>
@@ -514,6 +556,8 @@
 
   <menuitem id="bms_imports" parent="bms_root" name="Imports" sequence ="40" groups="bms.group_bms_administrator" />
   <menuitem id="bms_ms_object" parent="bms_imports" name="MSA object table" groups="bms.group_bms_administrator" sequence="20" action="bms_msa_object_action"/>
-  <menuitem id="bms_awv_oslo_enumeration_values_import" parent="bms_imports" name="Import and generation tools" groups="bms.group_bms_administrator" sequence="70" action="bms_import_value_list_action"/>
+  <menuitem id="bms_awv_oslo_enumeration_values_import" parent="bms_imports" name="Import and generation tools" groups="bms.group_bms_administrator" sequence="30" action="bms_import_value_list_action"/>
+  <menuitem id="bms_object_technical" parent="bms_imports" name="Maintainance objects - Technical view" groups="bms.group_bms_administrator" sequence="40" action="bms_import_object_technical"/>
+
 
 </odoo>
