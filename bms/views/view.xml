@@ -20,14 +20,13 @@
     <field name="arch" type="xml">
       <tree>
         <field name="id"/>
+        <field name="name"/>
         <field name="mo_id"/>
         <field name="mo_semantic_id"/>
         <field name="import_id"/>
         <field name="awv_id"/>
-        <field name="name"/>
         <field name="object_type_ids"/>
         <field name="decomposition_ids"/>
-
       </tree>
     </field>
   </record>
@@ -221,12 +220,13 @@
     <field name="model">bms.decomposition_relationship</field>
     <field name="arch" type="xml">
       <tree>
+        <field name="id"/>
         <field name="object_id_id" />
         <field name="object_id" />
         <field name="parent_object_id"/>
         <field name="decomposition_type_id"/>
         <field name="tree_level" />
-        <field name="sibling_order" />
+        <field name="sibling_order"/>
       </tree>
     </field>
   </record>
@@ -525,18 +525,24 @@
 
 
   
-   <record id="bms_import_object_technical" model="ir.actions.act_window">
+   <record id="bms_maintainance_object_technical_action" model="ir.actions.act_window">
     <field name="name">Maintainance Object Technical Information</field>
     <field name="res_model">bms.maintainance_object</field>
     <field name="view_mode">tree</field>
   </record>
-       <record id="bms_import_object_technical_view1" model="ir.actions.act_window.view">
+       <record id="bms_maintainance_object_technical_view1" model="ir.actions.act_window.view">
             <field eval="1" name="sequence"/>
             <field name="view_mode">tree</field>
             <field name="view_id" ref="maintainance_object_technical_tree"/>
-            <field name="act_window_id" ref="bms_import_object_technical"/>
+            <field name="act_window_id" ref="bms_maintainance_object_technical_action"/>
         </record>
 
+  
+  <record id="bms_decomposition_relationship_technical_action" model="ir.actions.act_window">
+    <field name="name">Decompostion Relationship Technical Information</field>
+    <field name="res_model">bms.decomposition_relationship</field>
+    <field name="view_mode">tree</field>
+  </record>
 
   <!-- menuitems -->
   <menuitem id="bms_root" name="BMS" web_icon="bms,static/description/icon.svg"/>
@@ -560,7 +566,8 @@
   <menuitem id="bms_imports" parent="bms_root" name="Imports" sequence ="40" groups="bms.group_bms_administrator" />
   <menuitem id="bms_ms_object" parent="bms_imports" name="MSA object table" groups="bms.group_bms_administrator" sequence="20" action="bms_msa_object_action"/>
   <menuitem id="bms_awv_oslo_enumeration_values_import" parent="bms_imports" name="Import and generation tools" groups="bms.group_bms_administrator" sequence="30" action="bms_import_value_list_action"/>
-  <menuitem id="bms_object_technical" parent="bms_imports" name="Maintainance objects - Technical view" groups="bms.group_bms_administrator" sequence="40" action="bms_import_object_technical"/>
+  <menuitem id="bms_maintainance_object_technical" parent="bms_imports" name="Maintainance objects - Technical view" groups="bms.group_bms_administrator" sequence="40" action="bms_maintainance_object_technical_action"/>
+  <menuitem id="bms_decomposition_relationship_technical" parent="bms_imports" name="Decomposition Relationship - Technical view" groups="bms.group_bms_administrator" sequence="50" action="bms_decomposition_relationship_technical_action"/>
 
 
 </odoo>
