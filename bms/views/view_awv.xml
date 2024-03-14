@@ -126,7 +126,9 @@
         <field name="value_enumeration"/>
         <field name="value_type"/>
         <field name="object_id"/>
+        <field name="object_type_id_id"/>
         <field name="object_type_id"/>
+        <field name="attr_def_id_id"/>
         <field name="attr_def_id"/>
       </tree>
     </field>

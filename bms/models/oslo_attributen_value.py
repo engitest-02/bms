@@ -25,16 +25,21 @@ class OsloAttributenValue(models.Model):
     value_non_negative_integer = fields.Integer("value", default=None)
     value_enumeration  = fields.Char(related="enumeration_value_id.selection_id", string="choice", default=None, store=True)
 
+
+
     # relational fields
     object_id = fields.Many2one(comodel_name="bms.maintainance_object", string="Maintainance Object", required=True, ondelete="cascade")
-    object_type_id = fields.Many2one(comodel_name="bms.object_type")
-    attr_def_id = fields.Many2one(comodel_name="bms.attribute_definition")
+    object_type_id = fields.Many2one(comodel_name="bms.object_type", string="obj type name")
+    attr_def_id = fields.Many2one(comodel_name="bms.attribute_definition", string="attr def name")
     enumeration_value_id = fields.Many2one(comodel_name="bms.oslo_enumeration_values")
 
     #related field
     otl_type_internal_id = fields.Char(related="object_type_id.otl_type_internal_id", string="otl_type_internal_id")    
     otl_name = fields.Char(related="object_type_id.otl_name", string="OTL name" )
-    
+    attr_def_id_id = fields.Integer(related='attr_def_id.id', string="attr def Id")
+    object_type_id_id = fields.Integer(related='object_type_id.id', strin="obj type id")
+
+
     @api.constrains('value_non_negative_integer')
     def _check_description(self):
         for rec in self:
