@@ -13,7 +13,7 @@ class MaintainanceObject(models.Model):
     _sql_constraints = [('unique_internal_id', 'unique(internal_id)', 'internal_id must be unique otherwise mo_id is not unique')]
 
     name = fields.Char("name", required=True)
-    import_id = fields.Char("sourced data id", readonly=True)
+    import_id = fields.Char("sourced data id")
     internal_id = fields.Integer("Lantis internal id", required=True, readonly=True)
     mo_id = fields.Char(compute="_compute_mo_id", store=True, string="maintainance object id", readonly=True)
     mo_semantic_id = fields.Char(string="object semantic id")
