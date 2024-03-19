@@ -14,6 +14,7 @@ class MaintainanceObject(models.Model):
 
     name = fields.Char("name", required=True)
     import_id = fields.Char("sourced data id")
+    import_source = fields.Char("sourced from")
     internal_id = fields.Integer("Lantis internal id", required=True, readonly=True)
     mo_id = fields.Char(compute="_compute_mo_id", store=True, string="maintainance object id", readonly=True)
     mo_semantic_id = fields.Char(string="object semantic id")
@@ -31,6 +32,16 @@ class MaintainanceObject(models.Model):
     maintainance_mgr_contractor = fields.Many2one(comodel_name="bms.agent", string="maintainance mgr Contractor")
     technical_mgr_lantis = fields.Many2one(comodel_name="bms.agent", string="technical mgr Lantis")
     technical_mgr_contractor = fields.Many2one(comodel_name="bms.agent", string="technical mgr Contractor")
+
+    loc_pt_wgs84_x = fields.Float(string="x coordinate wgs84")
+    loc_pt_wgs84_y = fields.Float(string="y coordinate wgs84")
+    loc_pt_wgs84_z = fields.Float(string="z coordinate wgs84")
+    loc_pt_wgs84_source = fields.Selection(selection= [('0',"MANUEEL"),('1', "MEETTOESTEL")], string="ref point wgs84 source")
+    loc_pt_wgs84_precision = fields.Selection(selection=[('0', 'METER'), ('1', 'PLUS_METER')], string="ref point wgs84 precision")
+    loc_ident = fields.Char(string="ident")
+    loc_ref_milestone = fields.Char(string="ident ref milestone")
+    loc_ref_distance = fields.Float(string="distance ref milestone")
+    
 
     #related
     owner_contact = fields.Many2one(related="owner_id.contact_person", string="contact person")

@@ -6,14 +6,28 @@
     <field name="arch" type="xml">
       <tree>
         <field name ="msa_otl_type_id"/>
+        <field name = "id"/>
         <field name ="label_nl"/>
         <field name ="name" />
-        <field name ="uri" />
+        <field name ="uri" widget="url"/>
         <field name ="definition_nl" />
         <field name ="usagenote_nl" />
         <field name ="abstract" />
         <field name ="deprecated_version" />
       </tree>
+    </field>
+  </record>
+
+  <record id="bms_oslo_class_filter" model="ir.ui.view">
+    <field name="name">bms.oslo_class.filter</field>
+    <field name="model">bms.oslo_class</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name"/>
+        <field name="uri"/>
+        <field name="definition_nl"/>
+        <field name="uri"/>
+      </search>
     </field>
   </record>
 
@@ -26,10 +40,10 @@
         <field name ="name"/>
         <field name ="label_nl"/>
         <field name ="definition_nl" />
-        <field name ="class_uri" />
+        <field name ="class_uri" widget="url" />
         <field name ="kardinaliteit_min" />
         <field name ="kardinaliteit_max"/>
-        <field name ="uri" />
+        <field name ="uri"  widget="url" />
         <field name ="type"/>
         <field name ="overerving"/>
         <field name ="constraints"/>
@@ -81,7 +95,7 @@
     <field name="arch" type="xml">
       <tree>
         <field name ="name" />
-        <field name ="uri" />
+        <field name ="uri" widget="url" />
         <field name ="definition_nl" />
         <field name ="label_nl" />
         <field name ="usagenote_nl" />
@@ -98,10 +112,10 @@
         <field name ="name"/>
         <field name ="label_nl"/>
         <field name ="definition_nl" />
-        <field name ="class_uri" />
+        <field name ="class_uri" widget="url" />
         <field name ="kardinaliteit_min" />
         <field name ="kardinaliteit_max"/>
-        <field name ="uri" />
+        <field name ="uri" widget="url"/>
         <field name ="type"/>
         <field name ="overerving"/>
         <field name ="constraints"/>
@@ -140,7 +154,7 @@
     <field name="arch" type="xml">
       <tree>
         <field name="name"/>
-        <field name="uri"/>
+        <field name="uri" widget="url"/>
         <field name="usagenote_nl"/>
         <field name="definition_nl"/>
         <field name="label_nl"/>
@@ -156,7 +170,7 @@
     <field name="arch" type="xml">
       <tree>
         <field name="name"/>
-        <field name="uri"/>
+        <field name="uri" widget="url"/>
         <field name="usagenote_nl"/>
         <field name="definition_nl"/>
         <field name="label_nl"/>
@@ -173,10 +187,10 @@
         <field name="name"/>
         <field name="label_nl"/>
         <field name="definition_nl"/>
-        <field name="class_uri"/>
+        <field name="class_uri" widget="url"/>
         <field name="kardinaliteit_min"/>
         <field name="kardinaliteit_max"/>
-        <field name="uri"/>
+        <field name="uri" widget="url"/>
         <field name="type"/>
         <field name="overerving"/>
         <field name="constraints"/>
@@ -193,7 +207,7 @@
     <field name="arch" type="xml">
       <tree>
         <field name="name"/>
-        <field name="uri"/>
+        <field name="uri" widget="url"/>
         <field name="usagenote_nl"/>
         <field name="definition_nl"/>
         <field name="label_nl"/>
@@ -210,10 +224,10 @@
         <field name="name"/>
         <field name="label_nl"/>
         <field name="definition_nl"/>
-        <field name="class_uri"/>
+        <field name="class_uri" widget="url"/>
         <field name="kardinaliteit_min"/>
         <field name="kardinaliteit_max"/>
-        <field name="uri"/>
+        <field name="uri" widget="url"/>
         <field name="type"/>
         <field name="overerving"/>
         <field name="constraints"/>
@@ -243,7 +257,7 @@
       <tree>
         <field name="id"/>
         <field name="name"/>
-        <field name="uri"/>
+        <field name="uri" widget="url"/>
         <field name="usagenote_nl"/>
         <field name="definition_nl"/>
         <field name="label_nl"/>
@@ -264,7 +278,7 @@
       <form>
         <group>
           <field name="name"/>
-          <field name="uri"/>
+          <field name="uri" widget="url"/>
           <field name="usagenote_nl"/>
           <field name="definition_nl"/>
           <field name="label_nl"/>
