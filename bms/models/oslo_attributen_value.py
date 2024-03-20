@@ -37,7 +37,7 @@ class OsloAttributenValue(models.Model):
     otl_type_internal_id = fields.Char(related="object_type_id.otl_type_internal_id", string="otl_type_internal_id")    
     otl_name = fields.Char(related="object_type_id.otl_name", string="OTL name" )
     attr_def_id_id = fields.Integer(related='attr_def_id.id', string="attr def Id")
-    object_type_id_id = fields.Integer(related='object_type_id.id', strin="obj type id")
+    object_type_id_id = fields.Integer(related='object_type_id.id', string="obj type id")
 
 
     @api.constrains('value_non_negative_integer')

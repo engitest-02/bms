@@ -39,7 +39,7 @@ class MaintainanceObject(models.Model):
     loc_pt_wgs84_source = fields.Selection(selection= [('0',"MANUEEL"),('1', "MEETTOESTEL")], string="ref point wgs84 source")
     loc_pt_wgs84_precision = fields.Selection(selection=[('0', 'METER'), ('1', 'PLUS_METER')], string="ref point wgs84 precision")
     loc_ident = fields.Char(string="ident")
-    loc_ref_milestone = fields.Char(string="ident ref milestone")
+    loc_ref_milestone = fields.Float(string="ident ref milestone")
     loc_ref_distance = fields.Float(string="distance ref milestone")
     
 
