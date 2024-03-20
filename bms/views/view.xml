@@ -199,6 +199,7 @@
     <field name="model">bms.object_type</field>
     <field name="arch" type="xml">
       <tree>
+        <field name="id"/>
         <field name="name"/>
         <field name="definition"/>
         <field name="otl_id"/>
@@ -230,6 +231,7 @@
         <field name="name"/>
         <field name="definition"/>
         <field name="otl_type_internal_id"/>
+        <field name="id" />
       </search>
     </field>
   </record>
