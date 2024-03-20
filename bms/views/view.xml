@@ -342,9 +342,29 @@
         <field name="value_type"/>
         <field name="oslo_datatype"/>
         <field name ="constraints"/>
+        <field name="parent_id_id"/>
         <field name="parent_id"/>
         <field name="parent_uri"/>
       </tree>
+    </field>
+  </record>
+
+
+   <record id="bms.attribute_definition_filter" model="ir.ui.view">
+    <field name="name">bms.attribute_definition.filter</field>
+    <field name="model">bms.attribute_definition</field>
+    <field name="arch" type="xml">
+      <search>
+        
+        <field name="name"/>
+        <field name="uri"/>
+        <field name="definition_nl"/>
+        <field name="uri"/>
+        <field name="value_type"/>
+        <field name="id"/>
+        <field name="parent_id"/>
+        <field name="parent_id_id"/>
+      </search>
     </field>
   </record>
 

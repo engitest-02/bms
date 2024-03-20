@@ -16,8 +16,10 @@ class AttributeDefinition(models.Model):
     oslo_datatype = fields.Char("oslo data type")
     constraints = fields.Char("constraints")
     parent_id = fields.Many2one(comodel_name="bms.attribute_definition",
-                                string="parent_id")
+                                string="parent name")
     parent_uri = fields.Char("parent_uri")
+
+    parent_id_id = fields.Integer(related="parent_id.id", string="parent id")
 
     @api.model
     def populate_table_with_awv_otl(self, oslo_class_id):
