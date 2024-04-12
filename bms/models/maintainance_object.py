@@ -46,9 +46,7 @@ class MaintainanceObject(models.Model):
     #related
     owner_contact = fields.Many2one(related="owner_id.contact_person", string="contact person")
     managing_org_contact = fields.Many2one(related="managing_org_id.contact_person", string="contact person")
-
-    # inherited_ownership_doc = fields.Char(related="mg_level_obj_id.ownership_doc", string="link ownership doc")
-    
+   
     inherited_managing_org_id = fields.Many2one(related="mg_level_obj_id.managing_org_id", string="managing organisation")
     inherited_managing_org_contact = fields.Many2one(related="inherited_managing_org_id.contact_person", string="contact person")
     inherited_contract_mgr_lantis = fields.Many2one(related="mg_level_obj_id.contract_mgr_lantis", string="contract mgr Lantis")
@@ -68,6 +66,11 @@ class MaintainanceObject(models.Model):
         column1="object_id",
         column2="object_type_id",
     )
+
+    event_handover_ids = fields.Many2many(comodel_name="bms.event_handover",
+                                          relation="bms_event_handovers_to_objects",
+                                          column1="object_id", column2="event_handover_id", string=" ")
+
     decomposition_ids = fields.One2many(comodel_name="bms.decomposition_relationship", inverse_name="object_id")  
     oslo_attributen_value_id = fields.One2many(comodel_name="bms.oslo_attributen_value", inverse_name="object_id")
 
@@ -116,7 +119,7 @@ class MaintainanceObject(models.Model):
     def create(self, vals):
         # create the right value for internal_id
         vals = self._update_internal_id(vals)
-        recs = super(MaintainanceObject,self).create(vals)
+        recs = super(MaintainanceObject, self).create(vals)
         # update mgt_level_object_id accroding to is_managing_level
         for rec in recs:
             rec._update_mg_object(rec)    
@@ -182,7 +185,9 @@ class MaintainanceObject(models.Model):
         super(MaintainanceObject, self).write(vals)
                 
     def _set_mg_level_to_children(self, mg_level_obj_id):
-        """assign to the children of mg_level_obj_id, the id down to the first object which is also a """
+        """assign to the children of mg_level_obj_id, the id down to the first object which is also a 
+            manegement level.    
+        """
         children_recs = self._get_children(self.id)
         if children_recs:
             for child_rec in children_recs:
@@ -193,7 +198,7 @@ class MaintainanceObject(models.Model):
             if self.is_managing_level is False:
                 self._set_mg_level_obj_id(mg_level_obj_id)
 
-    def _get_children(self, object_id):
+    def get_children(self, object_id):
         """ Attention: decompostion_type_id is hardcoded!"""
         domain = [("parent_object_id", "=", object_id), ("decomposition_type_id", "=", 1)] 
         recs = self.env["bms.decomposition_relationship"].search(domain)
@@ -211,6 +216,7 @@ class MaintainanceObject(models.Model):
                 self._get_mg_level_from_parent(rec.parent_object_id.id)
         else: 
             return None
+
     
     # def _copy_attributen_value(self, mo_id):
     #     """create a new record by copying th    e values of mo_id"""

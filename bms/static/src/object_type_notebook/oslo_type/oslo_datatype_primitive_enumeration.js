@@ -53,7 +53,7 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
                     'form_view_initial_mode': "edit"
                 }
         }
-        console.log("oslo_datatype_primitive_enumeration context", context)
+        // console.log("oslo_datatype_primitive_enumeration context", context)
         this.actionService.doAction(
             {
                 "type": "ir.actions.act_window",

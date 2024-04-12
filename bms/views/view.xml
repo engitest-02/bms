@@ -58,7 +58,6 @@
   </record>
 
 
-
   <record id="bms_maintainance_object_view_form" model="ir.ui.view">
     <field name="name">bms.maintainance_object.form</field>
     <field name="model">bms.maintainance_object</field>
@@ -144,6 +143,23 @@
                 <field name="technical_mgr_contractor" attrs="{'invisible': [('is_managing_level', '=', False)]}"/>
                 <field name="inherited_technical_mgr_contractor" attrs="{'invisible': [('is_managing_level', '=', True)]}"/>
               </group>
+            </group>
+            <newline/>
+            <group string="Handover events">
+              <field name="event_handover_ids">
+                <tree readonly="1">
+                  <field name="handover_date"/>
+                  <field name="handover_type"/>
+                  <field name="transferring_org_id"/>
+                  <field name="receiving_org_id"/>
+                  <field name="comment"/>
+                  <field name ="object_ids" invisible="1"/>
+                    <button type="object" name="assign_to_children" string="Assign to children" 
+                            confirm="You cannot undo this action. This event will be assigned to all its (grand...)children."
+                            class="btn-primary"
+                            />
+                </tree>
+              </field>
             </group>
           </page>
           <page string="GIS">
@@ -474,6 +490,62 @@
     </field>
   </record>
 
+<record id="bms_event_handover_tree" model="ir.ui.view">
+    <field name="name">bms.event_handover.tree</field>
+    <field name="model">bms.event_handover</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="handover_date"/>
+        <field name="handover_type"/>
+        <field name="transferring_org_id"/>
+        <field name="receiving_org_id"/>
+        <field name="comment"/>
+      </tree>
+    </field>
+  </record>
+  
+   <record id="bms_event_handover_form" model="ir.ui.view">
+    <field name="name">bms.event_handover.form</field>
+    <field name="model">bms.event_handover</field>
+    <field name="arch" type="xml">
+      <form>
+      <group>
+        <group>
+        <field name="handover_type"/>
+        <field name="handover_date"/> 
+        </group>
+        <group>
+        <field name="transferring_org_id"/>
+        <field name="receiving_org_id"/>
+        </group>
+        <group>
+        <field name="comment"/>
+        </group>
+        <newline/>
+        <group>
+          <field name="object_ids"/>
+        </group>
+
+      </group>
+      </form>
+    </field>
+  </record>
+
+    <record id="bms_event_handover_filter" model="ir.ui.view">
+    <field name="name">bms.event_handover.filter</field>
+    <field name="model">bms.event_handover</field>
+    <field name="arch" type="xml">
+      <search>
+       
+        <field name="handover_date"/>
+        <field name="handover_type"/>
+        <field name="transferring_org_id"/>
+        <field name="receiving_org_id"/>
+        <field name="comment"/>
+      </search>
+    </field>
+  </record>
+
   <!-- actions -->
   <record id="bms_object_action" model="ir.actions.act_window">
     <field name="name">Maintainance Object</field>
@@ -538,7 +610,6 @@
     <field name="view_mode">tree</field>
   </record>
 
-
   <record id="bms_agent_action" model="ir.actions.act_window">
     <field name="name">Agent</field>
     <field name="res_model">bms.agent</field>
@@ -551,7 +622,6 @@
     <field name="view_mode">tree,form</field>
   </record>
 
-
   <record id="bms_attribute_visualisation_action" model="ir.actions.act_window">
     <field name="name">Attribute visualisation</field>
     <field name="res_model">bms.attribute_visualisation</field>
@@ -563,27 +633,33 @@
     <field name="res_model">bms.attribute_widget</field>
     <field name="view_mode">tree</field>
   </record>
-
-
-  
+ 
    <record id="bms_maintainance_object_technical_action" model="ir.actions.act_window">
     <field name="name">Maintainance Object Technical Information</field>
     <field name="res_model">bms.maintainance_object</field>
     <field name="view_mode">tree</field>
   </record>
-       <record id="bms_maintainance_object_technical_view1" model="ir.actions.act_window.view">
-            <field eval="1" name="sequence"/>
-            <field name="view_mode">tree</field>
-            <field name="view_id" ref="maintainance_object_technical_tree"/>
-            <field name="act_window_id" ref="bms_maintainance_object_technical_action"/>
-        </record>
 
+  <record id="bms_maintainance_object_technical_view1" model="ir.actions.act_window.view">
+      <field eval="1" name="sequence"/>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="maintainance_object_technical_tree"/>
+      <field name="act_window_id" ref="bms_maintainance_object_technical_action"/>
+  </record>
   
   <record id="bms_decomposition_relationship_technical_action" model="ir.actions.act_window">
-    <field name="name">Decompostion Relationship Technical Information</field>
+    <field name="name">Decomposition Relationship Technical Information</field>
     <field name="res_model">bms.decomposition_relationship</field>
     <field name="view_mode">tree</field>
   </record>
+
+<record id="bms_event_handover_action" model="ir.actions.act_window">
+      <field name="name">Handover event</field>
+      <field name="res_model">bms.event_handover</field>
+      <field name="view_mode">tree,form</field>
+  </record>
+
+  
 
   <!-- menuitems -->
   <menuitem id="bms_root" name="BMS" web_icon="bms,static/description/icon.svg"/>
@@ -591,8 +667,10 @@
   <menuitem id="bms_object" parent="bms_root" name="Maintainance Object" groups="bms.group_bms_reader"  sequence ="10" action="bms_object_action" />
   <menuitem id="bms_decomposition" parent="bms_root" name="Decomposition" groups="bms.group_bms_reader"  sequence ="20" action="bms_decomposition_action"/>
 
-  <menuitem id="bms_configuration" parent="bms_root" name="Configuration" sequence ="30" groups="bms.group_bms_reader" />
+  <menuitem id="bms_event" parent="bms_root" name="Events" sequence ="30" groups="bms.group_bms_reader"/>
+  <menuitem id="bms_event_handover" parent="bms_event" name="Handovers" sequence ="10" groups="bms.group_bms_reader" action="bms_event_handover_action"/>
 
+  <menuitem id="bms_configuration" parent="bms_root" name="Configuration" sequence ="40" groups="bms.group_bms_reader" />
   <menuitem id="bms_config_object" parent="bms_configuration" name="Object" sequence="10" groups="bms.group_bms_reader"/>
   <menuitem id="bms_attribute_visualisation" parent="bms_config_object" name="Attribute visualisation" groups="bms.group_bms_reader" sequence="5" action="bms_attribute_visualisation_action"/>
   <menuitem id="bms_attribute_widget" parent="bms_config_object" name="Attribute widget" groups="bms.group_bms_reader" sequence="6" action="bms_attribute_widget_action"/>
@@ -604,7 +682,7 @@
   <menuitem id="bms_agent" parent="bms_stakeholder" name="Agent" groups="bms.group_bms_reader" sequence="10" action="bms_agent_action"/>
   <menuitem id="bms_organisation" parent="bms_stakeholder" name="Organisation" groups="bms.group_bms_reader" sequence="20" action="bms_organisation_action"/>
 
-  <menuitem id="bms_imports" parent="bms_root" name="Imports" sequence ="40" groups="bms.group_bms_administrator" />
+  <menuitem id="bms_imports" parent="bms_root" name="Imports" sequence ="50" groups="bms.group_bms_administrator" />
   <menuitem id="bms_ms_object" parent="bms_imports" name="MSA object table" groups="bms.group_bms_administrator" sequence="20" action="bms_msa_object_action"/>
   <menuitem id="bms_awv_oslo_enumeration_values_import" parent="bms_imports" name="Import and generation tools" groups="bms.group_bms_administrator" sequence="30" action="bms_import_value_list_action"/>
   <menuitem id="bms_maintainance_object_technical" parent="bms_imports" name="Maintainance objects - Technical view" groups="bms.group_bms_administrator" sequence="40" action="bms_maintainance_object_technical_action"/>
