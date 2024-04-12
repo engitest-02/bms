@@ -26,6 +26,7 @@ class EventHandover(models.Model):
             return "{0} > {1} ({2}) [{3}]".format(transferring_org, receiving_org, type, handover_date)
            
     def assign_to_children(self):
+        print('assing_to_chidren', self.env.context)    
         ctx_params = self.env.context.get('params')
         object_id = ctx_params.get('id')
         self._recursive_assign(object_id)
