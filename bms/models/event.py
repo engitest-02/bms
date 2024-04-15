@@ -25,16 +25,26 @@ class EventHandover(models.Model):
             handover_date = str(self.handover_date) if self.handover_date else ' '
             return "{0} > {1} ({2}) [{3}]".format(transferring_org, receiving_org, type, handover_date)
            
-    def assign_to_children(self):
-        print('assing_to_chidren', self.env.context)    
-        ctx_params = self.env.context.get('params')
-        object_id = ctx_params.get('id')
-        self._recursive_assign(object_id)
+    def assign_to_children(self):    
+        ctx_params = self.env.context.get('params', False)
+        if ctx_params is None or ctx_params is False: 
+            # ask user to refresh page to get the params dict in context to be able to identify current object id
+            return{
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'type': 'warning',
+                    'message': 'The changes have not been applied. Refresh your webpage (F5) an re-click on the button.',
+                    'next': {'type': 'ir.actions.act_window_close'},
+                }
+        }
+        else:
+            object_id = ctx_params.get('id')
+            self._recursive_assign(object_id)
 
     def _recursive_assign(self, object_id):
         for child in self._get_children(object_id):
             self._recursive_assign(child)
-        
         self.write({'object_ids': [Command.link(object_id)]})
 
     def _get_children(self, object_id):

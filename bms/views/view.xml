@@ -146,6 +146,7 @@
             </group>
             <newline/>
             <group string="Handover events">
+              
               <field name="event_handover_ids">
                 <tree readonly="1">
                   <field name="handover_date"/>
@@ -546,7 +547,7 @@
     </field>
   </record>
 
-  <!-- actions -->
+  <!-- actions-->
   <record id="bms_object_action" model="ir.actions.act_window">
     <field name="name">Maintainance Object</field>
     <field name="res_model">bms.maintainance_object</field>
@@ -564,9 +565,8 @@
             <field name="view_mode">form</field>
             <field name="view_id" ref="bms_maintainance_object_view_form"/>
             <field name="act_window_id" ref="bms_object_action"/>
-        </record>
+        </record> 
   
-
   <record id="bms_decomposition_action" model="ir.actions.act_window">
     <field name="name">Maintainance Object</field>
     <field name="res_model">bms.maintainance_object</field>
