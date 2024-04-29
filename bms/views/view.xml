@@ -660,6 +660,10 @@
   </record>
 
   
+  <record id="bms_document_page_action" model="ir.actions.client" >
+    <field name="name">User Manual</field>
+    <field name="tag">bms.DocumentationPageAction</field>
+  </record>
 
   <!-- menuitems -->
   <menuitem id="bms_root" name="BMS" web_icon="bms,static/description/icon.svg"/>
@@ -688,5 +692,6 @@
   <menuitem id="bms_maintainance_object_technical" parent="bms_imports" name="Maintainance objects - Technical view" groups="bms.group_bms_administrator" sequence="40" action="bms_maintainance_object_technical_action"/>
   <menuitem id="bms_decomposition_relationship_technical" parent="bms_imports" name="Decomposition Relationship - Technical view" groups="bms.group_bms_administrator" sequence="50" action="bms_decomposition_relationship_technical_action"/>
 
+  <menuitem id="bms_help" parent="bms_root" name="Help" groups="bms.group_bms_reader" sequence="60" action="bms_document_page_action"/>
 
 </odoo>
