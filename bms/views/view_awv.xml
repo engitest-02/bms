@@ -255,18 +255,22 @@
     <field name="model">bms.oslo_enumeration_values</field>
     <field name="arch" type="xml">
       <tree>
-        <field name="id"/>
-        <field name="name"/>
-        <field name="uri" widget="url"/>
-        <field name="usagenote_nl"/>
-        <field name="definition_nl"/>
-        <field name="label_nl"/>
-        <field name="codelist"/>
-        <field name="deprecated_version"/>
-        <field name="selection_id"/>
-        <field name="status"/>
-        <field name="definition"/>
         <field name="notation"/>
+        <field name="definition"/>
+        <!-- <field name="id"/> -->
+        <!-- <field name="name"/> -->
+        <field name="selection_id" widget="url"/>
+        <!-- <field name="uri" widget="url"/> -->
+        
+        <!-- <field name="usagenote_nl"/> -->
+        <!-- <field name="definition_nl"/> -->
+        <!-- <field name="label_nl"/> -->
+        <!-- <field name="codelist"/> -->
+        <!-- <field name="deprecated_version"/> -->
+        
+        <!-- <field name="status"/> -->
+        
+        
       </tree>
     </field>
   </record>
