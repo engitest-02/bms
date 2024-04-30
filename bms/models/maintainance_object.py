@@ -17,7 +17,7 @@ class MaintainanceObject(models.Model):
     import_source = fields.Char("sourced from")
     internal_id = fields.Integer("Lantis internal id", required=True, readonly=True)
     mo_id = fields.Char(compute="_compute_mo_id", store=True, string="maintainance object id", readonly=True)
-    mo_semantic_id = fields.Char(string="object semantic id")
+    mo_semantic_id = fields.Char(string="object code project")
     awv_id = fields.Char(string="AWV id")
 
     bo_temporary_type = fields.Char(string="proposed new type")
