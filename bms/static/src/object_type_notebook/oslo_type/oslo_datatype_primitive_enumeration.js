@@ -3,6 +3,8 @@
 import { useService } from "@web/core/utils/hooks"
 const { Component, onWillStart,onWillUpdateProps } = owl
 
+var rpc = require('web.rpc');
+var Dialog = require('web.Dialog');
 
 export class OsloDatatypePrimitiveEnumeration extends Component {
     setup(){
@@ -65,6 +67,62 @@ export class OsloDatatypePrimitiveEnumeration extends Component {
         );
     }
 
+    copyAttrValueToSiblings(){
+        
+      
+        console.log("copy to attribute to siblings", this.objectId)
+        //   [object_id, object_type_id, attr_def_id, 
+        // value_char, value_boolean, value_date, value_datetime, value_float, value_non_negative_integer, enumeration_value_id ]    
+        // if attr is empty => value = false
+        console.log("this", this)
+        if (this.attrValueRec == null){
+            var value_char = null;
+            var value_boolean = null;
+            var value_date = null;
+            var value_datetime = null;
+            var value_float = null;
+            var value_non_negative_integer = null;
+            var value_enumeration = null;
+            var enumeration_value_id = null;
+        }
+        else{
+            var value_char = this.attrValueRec.value_char
+            var value_boolean = this.attrValueRec.value_boolean
+            var value_date = this.attrValueRec.value_date
+            var value_datetime = this.attrValueRec.value_datetime
+            var value_float =  this.attrValueRec.value_float
+            var value_non_negative_integer =  this.attrValueRec.value_non_negative_integer
+            var value_enumeration = this.attrValueRec.value_enumeration
+            var enumeration_value_id = this.attrValueRec.enumeration_value_id == false?  this.attrValueRec.enumeration_value_id : this.attrValueRec.enumeration_value_id[0]               
+        }
+        const args = [this.objectId, this.objectTypeId ,this.attrDefId,
+                      value_char, value_boolean, value_date, value_datetime, value_float,
+                      value_non_negative_integer, value_enumeration, enumeration_value_id , this.attrDefValueType];
+        console.log("arg", this, args)
+        
+
+        Dialog.confirm(this,
+            "Do you confim you want to copy this attribute value to all the siblings maintainance objec of the same type. You cannot undo this operation. ",
+             {
+           title: "Copy attribute value to siblings",
+           async confirm_callback() {
+               const attrDefs = rpc.query({
+                model: 'bms.oslo_attributen_value',
+                method: 'copy_attr_value_to_siblings',
+                args: [args],
+                }
+            )
+           },
+           async cancel_callback(){
+            // do nothing
+           },
+           async onForceClose(){
+            //  do nothing
+           }
+       });
+
+       
+    }
 
     highlightValueField(event){
         // use in combinaison with on-mousevover to highlight the row related to the edit button

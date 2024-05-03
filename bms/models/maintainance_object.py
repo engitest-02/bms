@@ -136,6 +136,21 @@ class MaintainanceObject(models.Model):
         res = super().get_view(view_id, view_type, **options)
         return res
     
+    # @api.model
+    # def get_siblings(self, object_id, object_type_id=None):
+    #     """ 
+    #         get siblings of object_id. iven, if object_type is given only the object of same type of the same type are returned. 
+    #         !!! Decomposition is hardcoded to 1 (Lantis decomposition) !!!
+    #     """
+    #     # getparent
+    #     parent_obj_rec = self.env["bms.decomposition_relationship"].get_parent(object_id, decomposition_type_id = 1)
+    #     domain = 
+    #     # sibling_object_recs = self.env["bms.maintainance_object"].get_siblings(object_id, object_type_id)
+    #     print("get_siblings parent", parent_obj_rec)
+    #     sibling_object_recs = "to do"
+    #     return sibling_object_recs
+        
+
     def _update_internal_id(self, vals):
         """retun vals with the the incremented internal_id before creation"""
         max_internal_id_rec = self.env["bms.maintainance_object"].read_group([], ["internal_id:max(internal_id)"], [])
@@ -188,7 +203,7 @@ class MaintainanceObject(models.Model):
         """assign to the children of mg_level_obj_id, the id down to the first object which is also a 
             manegement level.    
         """
-        children_recs = self._get_children(self.id)
+        children_recs = self.get_children(self.id)
         if children_recs:
             for child_rec in children_recs:
                 if child_rec.is_managing_level is False:
@@ -218,6 +233,7 @@ class MaintainanceObject(models.Model):
             return None
 
     
+
     # def _copy_attributen_value(self, mo_id):
     #     """create a new record by copying th    e values of mo_id"""
     #     attr_val_recs = self.env["bms.oslo_attributen_value"]

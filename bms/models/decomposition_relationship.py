@@ -110,6 +110,22 @@ class DecompositionRelationship(models.Model):
         return rec.parent_object_id
     
     @api.model
+    def get_siblings(self, object_id):
+        """ Returns: list maintainance object of siblings for object_id (without object_id). 
+            Params: internal id of a maintainance object
+            !!! decomposition type id = 1 !!!
+        """
+        parent_obj_rec = self.get_parent(object_id, decomposition_type_id=1)
+              
+        domain = [("parent_object_id", "=", parent_obj_rec.id), ("object_id", "!=", object_id)]
+        siblings_obj_rel_recs = self.env["bms.decomposition_relationship"].search(domain)
+        sibling_obj_recs = [rec.object_id for rec in siblings_obj_rel_recs]
+        print("get_parent:obj; parent_obj", object_id, parent_obj_rec)
+        print("children", sibling_obj_recs)
+        return sibling_obj_recs
+    
+
+    @api.model
     def get_nearest_object(self, object_id, decomposition_type_id):
         """return the next sibling of the object, if not, the parent, if not (root), the sibling of the parent"""
         parent_id = self.get_parent(object_id, decomposition_type_id)
@@ -186,9 +202,7 @@ class DecompositionRelationship(models.Model):
         order = "sibling_order"
         children_records = self.env["bms.decomposition_relationship"].search(domain, order=order)
         return children_records
-
-    
-
+  
     def _get_all_children(self, node, decomposition_type_id):
         parent_id = node["key"]
         

@@ -60,6 +60,7 @@ export class OsloType extends Component {
         }
     }
 
+
     _assign_props_value(props){
         this.otlId = props.otlId;
         this.objectTypeId = props.objectTypeId; 

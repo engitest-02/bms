@@ -537,7 +537,6 @@
     <field name="model">bms.event_handover</field>
     <field name="arch" type="xml">
       <search>
-       
         <field name="handover_date"/>
         <field name="handover_type"/>
         <field name="transferring_org_id"/>
