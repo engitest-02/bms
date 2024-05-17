@@ -163,6 +163,11 @@
               </field>
             </group>
           </page>
+          <page string="Maintainance">
+          <group>
+            <field name="maintainance_regime_id"/>
+          </group>
+          </page>
           <page string="GIS">
             <group string="Coordinaten">
               <group>

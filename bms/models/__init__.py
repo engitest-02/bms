@@ -9,7 +9,8 @@ from . import maintainance_object_type_library
 from . import object_type
 from . import agent
 from . import event
-
+from . import maintainance_regime
+# from . import preventive_maintainance_task
 
 # temporary to import data from MS data database
 from . import msa_object

@@ -13,6 +13,7 @@
         "security/ir.model.access.csv",
         "views/view.xml",
         "views/view_awv.xml",
+        "views/view_configuration_menu.xml",
         "wizards/otl_type_views.xml",
         "wizards/oslo_attributen_value_edit_views.xml"
     ],

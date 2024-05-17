@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- views -->
+  <record id="bms_maintainance_regime_tree" model="ir.ui.view">
+    <field name="name">bms.maintainance_regime.tree</field>
+    <field name="model">bms.maintainance_regime</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="bms_maintainance_regime_form" model="ir.ui.view">
+    <field name="name">bms.maintainance_regime.form</field>
+    <field name="model">bms.maintainance_regime</field>
+    <field name="arch" type="xml">
+      <form>
+          <group colspan="2">
+            <field name="name"/>
+          </group>
+          <separator string="Preventive Maintainance"/>
+          <field name="prev_maintainance_task_ids" >
+            <tree>  
+              <field name="name" nolabel="1"/>
+              <field name="frequency" nolabel="1"/>
+            </tree>
+          </field>
+          <separator string="Services"/>
+             <group col="12">  
+              <group colspan="2">
+              </group>
+              <group colspan="1">
+                <span class="o_form_view o_form_label o_group o_wrap_label">frequency</span>
+              </group>
+              <group colspan="9">
+                <span class="o_form_view o_form_label o_group o_wrap_label">comments</span>
+              </group>
+            </group>
+            <group col="12">  
+            <group colspan="2">
+                <field name="service_oriented_control_required" />
+              </group>
+              <group colspan="1">
+                <field name="service_oriented_control_frequecy" string=""  attrs="{'invisible': [('service_oriented_control_required', '!=', True)]}"  />
+              </group>
+              <group colspan="9">
+                <field name="service_oriented_control_comments" string="" />
+              </group>
+            </group>
+          
+          <group col="12">
+            <group colspan="2">
+              <field name="service_functional_test_required" />
+            </group>
+            <group colspan="1">
+              <field name="service_functional_test_frequency" string=""  attrs="{'invisible': [('service_functional_test_required', '!=', True)]}"/> 
+            </group>
+            <group colspan="9">
+                <field name="service_functional_test_comments" string="" />
+            </group>
+          </group>
+          <group col="12">
+            <group colspan="2">
+              <field name="service_inspection_required" />
+            </group>
+            <group colspan="1"> 
+              <field name="service_inspection_frequency" string=""  attrs="{'invisible': [('service_inspection_required', '!=', True)]}" />
+            </group>
+            <group colspan="9">
+                <field name="service_inspection_comments" string="" />
+            </group>
+          </group>
+          
+          <separator string="Billable works"/>
+          <field name="billable_maintainance_work_ids">
+            <tree>
+              <field name="name" nolabel="1"/>
+            </tree>
+          </field>
+          
+          <separator string="Attachments"/>      
+      </form>
+    </field>
+  </record>
+
+  <record id="bms_preventive_maintainance_task_tree" model="ir.ui.view">
+    <field name="name">bms.preventive_maintainance_task.tree</field>
+    <field name="model">bms.preventive_maintainance_task</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name"/>
+        <field name="frequency"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="bms_preventive_maintainance_task_form" model="ir.ui.view">
+    <field name="name">bms.preventive_maintainance_task.form</field>
+    <field name="model">bms.preventive_maintainance_task</field>
+    <field name="arch" type="xml">
+      <form>
+        <group>
+            <field name="name"/>
+            <field name="frequency"/>
+        </group>
+      </form>
+    </field>
+  </record>
+
+  <record id="bms_billable_maintainance_work_tree" model="ir.ui.view">
+    <field name="name">bms.billable_maintainance_work.tree</field>
+    <field name="model">bms.billable_maintainance_work</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="bms_pbillable_maintainance_work_form" model="ir.ui.view">
+    <field name="name">bms.billable_maintainance_work.form</field>
+    <field name="model">bms.billable_maintainance_work</field>
+    <field name="arch" type="xml">
+      <form>
+        <group>
+            <field name="name"/>
+        </group>
+      </form>
+    </field>
+  </record>
+
+<!-- actions -->
+<record id="bms_maintainance_regime_action" model="ir.actions.act_window">
+      <field name="name">Maintainance_regime</field>
+      <field name="res_model">bms.maintainance_regime</field>
+      <field name="view_mode">tree,form</field>
+</record>
+
+<record id="bms_preventive_maintainance_task_action" model="ir.actions.act_window">
+      <field name="name">Maintainance_task</field>
+      <field name="res_model">bms.preventive_maintainance_task</field>
+      <field name="view_mode">tree,form</field>
+</record>
+
+<record id="bms_preventive_maintainance_task_action" model="ir.actions.act_window">
+      <field name="name">Maintainance_task</field>
+      <field name="res_model">bms.preventive_maintainance_task</field>
+      <field name="view_mode">tree,form</field>
+</record>
+
+
+<!-- menuitems -->
+<menuitem id="bms_config_maintainance_plan" parent="bms_configuration" name="Maintainance plan" sequence="10" groups="bms.group_bms_reader"/>
+<menuitem id="bms_config_maintainance_regime" parent="bms_config_maintainance_plan" name="Maintainance Regime" sequence="10" groups="bms.group_bms_editor" action="bms_maintainance_regime_action"/>
+
+
+</odoo>

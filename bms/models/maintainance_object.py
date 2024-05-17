@@ -78,7 +78,7 @@ class MaintainanceObject(models.Model):
     managing_org_id = fields.Many2one(comodel_name="bms.organisation", string="managing organisation")
     mg_level_obj_id = fields.Many2one(comodel_name="bms.maintainance_object", string="management level object")
 
-
+    maintainance_regime_id = fields.Many2one(comodel_name="bms.maintainance_regime", string="Maintainance regime")
 
     @api.depends("object_type_ids")  
     def _compute_has_object_type_ids(self):
@@ -212,6 +212,7 @@ class MaintainanceObject(models.Model):
         else:
             if self.is_managing_level is False:
                 self._set_mg_level_obj_id(mg_level_obj_id)
+
 
     def get_children(self, object_id):
         """ Attention: decompostion_type_id is hardcoded!"""
