@@ -33,6 +33,8 @@ class MaintainanceObject(models.Model):
     technical_mgr_lantis = fields.Many2one(comodel_name="bms.agent", string="technical mgr Lantis")
     technical_mgr_contractor = fields.Many2one(comodel_name="bms.agent", string="technical mgr Contractor")
 
+    gis_elt_id = fields.Char(string="GIS element id")
+
     loc_pt_wgs84_x = fields.Float(string="x coordinate wgs84")
     loc_pt_wgs84_y = fields.Float(string="y coordinate wgs84")
     loc_pt_wgs84_z = fields.Float(string="z coordinate wgs84")

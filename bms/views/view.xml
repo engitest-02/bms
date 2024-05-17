@@ -169,6 +169,9 @@
           </group>
           </page>
           <page string="GIS">
+            <group string="Lantis GIS environment">
+              <field name="gis_elt_id"/>
+            </group>
             <group string="Coordinaten">
               <group>
                 <field name="loc_pt_wgs84_x" readonly="1" />
